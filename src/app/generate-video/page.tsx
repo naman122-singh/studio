@@ -1,5 +1,5 @@
 import { GenerateVideoForm } from "./generate-video-form";
-import { SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarTrigger } from "@/components/app-sidebar";
 
 export default function GenerateVideoPage() {
   return (

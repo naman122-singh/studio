@@ -1,72 +1,68 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { DollarSign, Package, TrendingUp, Users } from "lucide-react";
-import { DashboardCharts } from "@/components/dashboard-charts";
-import { SidebarTrigger } from "@/components/ui/sidebar";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { LayoutDashboard } from "lucide-react";
 
-export default function DashboardPage() {
+export default function LandingPage() {
   return (
-    <div className="flex flex-col gap-8">
-      <header className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-           <SidebarTrigger className="md:hidden"/>
-          <h1 className="text-3xl font-bold tracking-tight font-headline">
-            Dashboard
-          </h1>
+    <div className="flex flex-col min-h-[calc(100vh-4rem)]">
+      <section className="relative flex-1 flex items-center justify-center text-center bg-background/70">
+        <div className="absolute inset-0 w-full h-full">
+          <Image
+            src="https://picsum.photos/seed/artisan-bg/1920/1080"
+            alt="Background of an artisan working"
+            fill
+            className="object-cover opacity-20"
+            data-ai-hint="artisan background"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent"></div>
         </div>
-      </header>
-
-      <main className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
-            <DollarSign className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">$45,231.89</div>
-            <p className="text-xs text-muted-foreground">
-              +20.1% from last month
-            </p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Subscriptions</CardTitle>
-            <Users className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">+2350</div>
-            <p className="text-xs text-muted-foreground">
-              +180.1% from last month
-            </p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Sales</CardTitle>
-            <Package className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">+12,234</div>
-            <p className="text-xs text-muted-foreground">
-              +19% from last month
-            </p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Growth Rate</CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">+57.3%</div>
-            <p className="text-xs text-muted-foreground">
-              +2.1% from last month
-            </p>
-          </CardContent>
-        </Card>
-      </main>
-      
-      <DashboardCharts />
+        <div className="relative z-10 container px-4 mx-auto">
+          <h1 className="text-5xl md:text-7xl font-bold font-headline mb-4">
+            <span className="bg-gradient-to-r from-orange-400 via-yellow-500 to-teal-400 text-transparent bg-clip-text">
+              Kala Saathi
+            </span>
+          </h1>
+          <h2 className="text-4xl md:text-6xl font-bold font-headline mb-6">
+            Your AI Craft Companion
+          </h2>
+          <p className="max-w-3xl mx-auto text-lg md:text-xl text-muted-foreground mb-8">
+            Empowering Indian traditional artists and craftsmen with AI-driven
+            guidance, market insights, and personalized assistance to preserve and
+            promote our rich cultural heritage.
+          </p>
+          <div className="flex justify-center gap-4">
+            <Button asChild size="lg" className="text-lg px-8 py-6 bg-gradient-to-r from-orange-400 to-yellow-500 text-primary-foreground hover:from-orange-500 hover:to-yellow-600">
+              <Link href="/dashboard">
+                Start Your Craft Journey
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
+            <Button asChild variant="outline" size="lg" className="text-lg px-8 py-6">
+              <Link href="#">Explore Crafts</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+      <section className="bg-background relative z-10 py-12">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div className="p-4">
+              <h3 className="text-4xl font-bold text-primary mb-2">500+</h3>
+              <p className="text-muted-foreground">Traditional Crafts</p>
+            </div>
+            <div className="p-4">
+              <h3 className="text-4xl font-bold text-primary mb-2">1000+</h3>
+              <p className="text-muted-foreground">Active Artisans</p>
+            </div>
+            <div className="p-4">
+              <h3 className="text-4xl font-bold text-primary mb-2">24/7</h3>
+              <p className="text-muted-foreground">AI Assistance</p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

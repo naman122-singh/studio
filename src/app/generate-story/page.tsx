@@ -1,5 +1,5 @@
 import { GenerateStoryForm } from "./generate-story-form";
-import { SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarTrigger } from "@/components/app-sidebar";
 
 export default function GenerateStoryPage() {
   return (
