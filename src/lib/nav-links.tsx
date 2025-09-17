@@ -8,7 +8,8 @@ import {
   TrendingUp,
   Users,
   Video,
-  HeartHandshake
+  HeartHandshake,
+  User
 } from "lucide-react";
 import { AiAssistantIcon } from "@/components/ai-assistant-icon";
 
@@ -31,6 +32,12 @@ export const navLinks: NavLink[] = [
     label: "Dashboard",
     icon: <LayoutDashboard />,
     tooltip: "Dashboard",
+  },
+  {
+    href: "/profile",
+    label: "Profile",
+    icon: <User />,
+    tooltip: "Your Profile",
   },
   {
     href: "/ai-assistant",
