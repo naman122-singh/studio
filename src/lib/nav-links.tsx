@@ -4,12 +4,10 @@ import {
   Home,
   Image,
   LayoutDashboard,
-  Library,
   TrendingUp,
   Users,
   Video,
   HeartHandshake,
-  User
 } from "lucide-react";
 import { AiAssistantIcon } from "@/components/ai-assistant-icon";
 
