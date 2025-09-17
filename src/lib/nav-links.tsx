@@ -1,7 +1,6 @@
 import {
   Award,
   BookText,
-  Bot,
   Home,
   Image,
   LayoutDashboard,
@@ -11,6 +10,7 @@ import {
   Video,
   HeartHandshake
 } from "lucide-react";
+import { AiAssistantIcon } from "@/components/ai-assistant-icon";
 
 export type NavLink = {
   href: string;
@@ -35,7 +35,7 @@ export const navLinks: NavLink[] = [
   {
     href: "/ai-assistant",
     label: "AI Assistant",
-    icon: <Bot />,
+    icon: <AiAssistantIcon className="w-5 h-5"/>,
     tooltip: "AI Assistant",
   },
   {

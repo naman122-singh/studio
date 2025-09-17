@@ -1,11 +1,13 @@
 import { ChatAssistant } from "@/components/chat-assistant";
 import { SidebarTrigger } from "@/components/app-sidebar";
+import { AiAssistantIcon } from "@/components/ai-assistant-icon";
 
 export default function AiAssistantPage() {
   return (
     <div className="flex flex-col h-[calc(100vh-6rem)]">
       <header className="flex items-center gap-4 mb-6">
         <SidebarTrigger className="md:hidden"/>
+        <AiAssistantIcon className="w-12 h-12 text-primary" />
         <div>
             <h1 className="text-3xl font-bold tracking-tight font-headline">
             AI Assistant

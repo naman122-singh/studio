@@ -1,12 +1,13 @@
 "use client";
 
 import { useState, useRef, useEffect, use } from "react";
-import { Send, Bot, User } from "lucide-react";
+import { Send, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
+import { AiAssistantIcon } from "./ai-assistant-icon";
 
 interface Message {
   id: string;
@@ -75,10 +76,8 @@ export function ChatAssistant() {
               )}
             >
               {message.sender === "bot" && (
-                <Avatar className="w-8 h-8 border-2 border-primary">
-                  <AvatarFallback>
-                    <Bot className="w-5 h-5" />
-                  </AvatarFallback>
+                <Avatar className="w-8 h-8 border-2 border-primary p-1">
+                  <AiAssistantIcon />
                 </Avatar>
               )}
               <div
