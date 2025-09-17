@@ -8,6 +8,8 @@ import {
   SheetContent,
   SheetTrigger,
   SheetClose,
+  SheetHeader,
+  SheetTitle,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import {
@@ -31,6 +33,9 @@ export function AppSidebar() {
           </Button>
         </SheetTrigger>
         <SheetContent side="left" className="w-60 p-0">
+         <SheetHeader className="sr-only">
+            <SheetTitle>Navigation Menu</SheetTitle>
+          </SheetHeader>
           <div className="flex flex-col h-full">
             <div className="p-4 border-b h-16 flex items-center">
               <Logo />
@@ -62,6 +67,9 @@ export function SidebarTrigger({ className }: { className?: string }) {
                 </Button>
             </SheetTrigger>
             <SheetContent side="left" className="w-60 p-0">
+                 <SheetHeader className="sr-only">
+                    <SheetTitle>Navigation Menu</SheetTitle>
+                 </SheetHeader>
                 <div className="flex flex-col h-full">
                     <div className="p-4 border-b h-16 flex items-center">
                         <Logo />
