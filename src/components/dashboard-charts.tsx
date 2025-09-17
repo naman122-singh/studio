@@ -55,48 +55,6 @@ const productChartConfig = {
 export function DashboardCharts() {
   return (
     <div className="grid gap-6 md:grid-cols-2">
-       <Card className="md:col-span-2">
-        <CardHeader>
-          <CardTitle className="font-headline">Monthly wise Progress</CardTitle>
-          <CardDescription>Your progress towards annual targets.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <YearlyProgressChart />
-        </CardContent>
-      </Card>
-      
-      <Card>
-        <CardHeader>
-          <CardTitle className="font-headline">Weekly Sales</CardTitle>
-          <CardDescription>Your sales performance over the past four weeks.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <ChartContainer config={weeklySalesChartConfig} className="h-[250px] w-full">
-            <LineChart data={weeklySalesData} accessibilityLayer>
-              <CartesianGrid vertical={false} />
-              <XAxis
-                dataKey="week"
-                tickLine={false}
-                axisLine={false}
-                tickMargin={8}
-              />
-              <YAxis />
-              <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-              <Line
-                dataKey="sales"
-                type="monotone"
-                stroke="var(--color-sales)"
-                strokeWidth={2}
-                dot={true}
-              />
-            </LineChart>
-          </ChartContainer>
-        </CardContent>
-        <CardFooter>
-            <p className="text-sm text-muted-foreground">This line chart shows weekly sales trends. The solid line represents sales per week, indicating a general upward trend with a slight dip in the final week.</p>
-        </CardFooter>
-      </Card>
-      
       <Card>
           <CardHeader>
             <CardTitle className="font-headline">Day-wise Sales</CardTitle>
@@ -125,7 +83,7 @@ export function DashboardCharts() {
             <p className="text-sm text-muted-foreground">This chart shows your daily sales performance. Sales build throughout the week, peaking on Friday, followed by a slight dip on Saturday.</p>
           </CardFooter>
         </Card>
-
+        
         <Card>
             <CardHeader>
                 <CardTitle className="font-headline">Product-wise Sales</CardTitle>
@@ -165,6 +123,47 @@ export function DashboardCharts() {
             </CardFooter>
         </Card>
 
+        <Card>
+            <CardHeader>
+            <CardTitle className="font-headline">Weekly Sales</CardTitle>
+            <CardDescription>Your sales performance over the past four weeks.</CardDescription>
+            </CardHeader>
+            <CardContent>
+            <ChartContainer config={weeklySalesChartConfig} className="h-[250px] w-full">
+                <LineChart data={weeklySalesData} accessibilityLayer>
+                <CartesianGrid vertical={false} />
+                <XAxis
+                    dataKey="week"
+                    tickLine={false}
+                    axisLine={false}
+                    tickMargin={8}
+                />
+                <YAxis />
+                <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+                <Line
+                    dataKey="sales"
+                    type="monotone"
+                    stroke="var(--color-sales)"
+                    strokeWidth={2}
+                    dot={true}
+                />
+                </LineChart>
+            </ChartContainer>
+            </CardContent>
+            <CardFooter>
+                <p className="text-sm text-muted-foreground">This line chart shows weekly sales trends. The solid line represents sales per week, indicating a general upward trend with a slight dip in the final week.</p>
+            </CardFooter>
+        </Card>
+
+        <Card>
+            <CardHeader>
+                <CardTitle className="font-headline">Monthly wise Progress</CardTitle>
+                <CardDescription>Your progress towards annual targets.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <YearlyProgressChart />
+            </CardContent>
+        </Card>
     </div>
   )
 }
