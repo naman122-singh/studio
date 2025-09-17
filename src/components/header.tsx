@@ -10,7 +10,7 @@ import { Logo } from "./logo";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
-  { href: "/", label: "Home" },
+  { href: "/landing", label: "Home" },
   { href: "/about", label: "About" },
 ];
 
@@ -21,6 +21,9 @@ export function Header() {
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur-sm">
       <div className="container flex h-16 items-center mx-auto px-4">
         <Logo className="mr-6" />
+         <Button asChild className="bg-gradient-to-r from-orange-400 to-yellow-500 text-primary-foreground hover:from-orange-500 hover:to-yellow-600 mr-4">
+            <Link href="/signup">Get Started</Link>
+        </Button>
         <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
           {navLinks.map((link) => (
             <Link
@@ -39,9 +42,6 @@ export function Header() {
           <div className="hidden md:flex items-center space-x-2">
             <Button variant="ghost" asChild>
               <Link href="#">Sign In</Link>
-            </Button>
-            <Button asChild className="bg-gradient-to-r from-orange-400 to-yellow-500 text-primary-foreground hover:from-orange-500 hover:to-yellow-600">
-              <Link href="/signup">Get Started</Link>
             </Button>
           </div>
           <Sheet>
