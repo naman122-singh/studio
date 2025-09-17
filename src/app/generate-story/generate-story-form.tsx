@@ -238,7 +238,7 @@ export function GenerateStoryForm() {
                             />
                             <Button variant="outline" size="sm" className="w-full">
                                 <QrCode className="w-4 h-4 mr-2"/>
-                                Save
+                                Generate QR Story Code
                             </Button>
                         </div>
                       </div>
