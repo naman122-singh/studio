@@ -62,12 +62,11 @@ export function SalesStrategyForm() {
   }
 
   return (
-    <div className="grid lg:grid-cols-2 gap-8 items-start">
       <Card>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <CardHeader>
-              <CardTitle className="font-headline">Business Snapshot</CardTitle>
+              <CardTitle className="font-headline flex items-center gap-2"><Rocket className="w-6 h-6 text-primary" /> AI Sales Strategist</CardTitle>
               <CardDescription>
                 Fill in your business details to receive a custom sales strategy.
               </CardDescription>
@@ -125,6 +124,32 @@ export function SalesStrategyForm() {
                   </FormItem>
                 )}
               />
+               {isLoading && (
+                <div className="space-y-4 pt-4">
+                  <Skeleton className="h-8 w-1/3" />
+                  <Skeleton className="h-16 w-full" />
+                  <Skeleton className="h-8 w-1/3" />
+                  <Skeleton className="h-16 w-full" />
+                </div>
+                )}
+                {!isLoading && !strategy && (
+                <div className="text-center text-muted-foreground p-8 border rounded-lg mt-4 h-64 flex flex-col items-center justify-center">
+                    <Lightbulb className="mx-auto h-16 w-16 mb-2 opacity-50" />
+                    <p>Your custom strategy will appear here.</p>
+                </div>
+                )}
+                {strategy && (
+                <div className="space-y-4 border rounded-lg p-4 mt-4">
+                    <div>
+                    <h3 className="font-semibold mb-2 flex items-center gap-2"><Lightbulb className="w-5 h-5 text-primary"/> Suggested Strategy</h3>
+                    <p className="text-sm text-muted-foreground whitespace-pre-wrap">{strategy.suggestedStrategy}</p>
+                    </div>
+                    <div>
+                    <h3 className="font-semibold mb-2 flex items-center gap-2"><BarChart className="w-5 h-5 text-primary"/> Reasoning</h3>
+                    <p className="text-sm text-muted-foreground whitespace-pre-wrap">{strategy.reasoning}</p>
+                    </div>
+                </div>
+                )}
             </CardContent>
             <CardFooter>
               <Button type="submit" disabled={isLoading}>
@@ -139,43 +164,5 @@ export function SalesStrategyForm() {
           </form>
         </Form>
       </Card>
-      
-      <Card className="sticky top-4">
-        <CardHeader>
-          <CardTitle className="font-headline">Your AI-Powered Strategy</CardTitle>
-          <CardDescription>
-            Recommendations based on the data you provided.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-6">
-          {isLoading && (
-            <div className="space-y-4">
-              <Skeleton className="h-8 w-1/3" />
-              <Skeleton className="h-16 w-full" />
-              <Skeleton className="h-8 w-1/3" />
-              <Skeleton className="h-16 w-full" />
-            </div>
-          )}
-          {!isLoading && !strategy && (
-             <div className="text-center text-muted-foreground p-8 h-64 flex flex-col items-center justify-center">
-                <Lightbulb className="mx-auto h-16 w-16 mb-2 opacity-50" />
-                <p>Your custom strategy will appear here.</p>
-              </div>
-          )}
-          {strategy && (
-            <div className="space-y-4">
-              <div>
-                <h3 className="font-semibold mb-2 flex items-center gap-2"><Lightbulb className="w-5 h-5 text-primary"/> Suggested Strategy</h3>
-                <p className="text-sm text-muted-foreground whitespace-pre-wrap">{strategy.suggestedStrategy}</p>
-              </div>
-              <div>
-                <h3 className="font-semibold mb-2 flex items-center gap-2"><BarChart className="w-5 h-5 text-primary"/> Reasoning</h3>
-                <p className="text-sm text-muted-foreground whitespace-pre-wrap">{strategy.reasoning}</p>
-              </div>
-            </div>
-          )}
-        </CardContent>
-      </Card>
-    </div>
   );
 }

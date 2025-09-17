@@ -1,5 +1,6 @@
 import { SalesStrategyForm } from "./sales-strategy-form";
 import { SidebarTrigger } from "@/components/app-sidebar";
+import { PricePredictorForm } from "./price-predictor-form";
 
 export default function SalesStrategyPage() {
   return (
@@ -8,15 +9,17 @@ export default function SalesStrategyPage() {
         <SidebarTrigger className="md:hidden"/>
         <div>
           <h1 className="text-3xl font-bold tracking-tight font-headline">
-            AI Sales Strategy
+            AI Sales & Pricing
           </h1>
           <p className="text-muted-foreground">
-            Get a tailored sales strategy based on your business data.
+            Get a tailored sales strategy and fair price suggestions for your craft.
           </p>
         </div>
       </header>
-
-      <SalesStrategyForm />
+      <div className="grid lg:grid-cols-2 gap-8 items-start">
+        <SalesStrategyForm />
+        <PricePredictorForm />
+      </div>
     </div>
   );
 }
