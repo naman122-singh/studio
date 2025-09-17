@@ -1,5 +1,10 @@
-import { GenerateStoryForm } from "./generate-story-form";
+import dynamic from 'next/dynamic';
 import { SidebarTrigger } from "@/components/app-sidebar";
+
+const GenerateStoryForm = dynamic(
+  () => import('./generate-story-form').then(mod => mod.GenerateStoryForm),
+  { ssr: false }
+);
 
 export default function GenerateStoryPage() {
   return (
