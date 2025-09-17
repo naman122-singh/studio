@@ -14,6 +14,7 @@ import {
 import { navLinks } from "@/lib/nav-links";
 import { Logo } from "@/components/logo";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { ThemeToggle } from "./theme-toggle";
 
 export function SidebarNav() {
   const pathname = usePathname();
@@ -52,6 +53,7 @@ export function SidebarNav() {
             <span className="font-semibold text-sm truncate">Artisan User</span>
             <span className="text-xs text-muted-foreground truncate">artisan.user@example.com</span>
           </div>
+          <ThemeToggle />
         </div>
       </SidebarFooter>
     </>

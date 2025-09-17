@@ -74,7 +74,14 @@ export default function CommunityPage() {
             </CardHeader>
             <CardContent>
               <div className="h-64 bg-muted rounded-lg flex items-center justify-center">
-                <p className="text-muted-foreground">Map Placeholder</p>
+                <Image
+                  src="https://picsum.photos/seed/map/800/400"
+                  alt="Map of artisans"
+                  width={800}
+                  height={400}
+                  className="rounded-lg object-cover w-full h-full"
+                  data-ai-hint="world map"
+                />
               </div>
             </CardContent>
           </Card>
