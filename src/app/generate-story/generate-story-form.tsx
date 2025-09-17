@@ -14,7 +14,6 @@ import { useToast } from "@/hooks/use-toast";
 import { Loader2, Mic, Rocket, Square, Languages, QrCode, Check, ChevronsUpDown } from "lucide-react";
 import Image from "next/image";
 import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command";
 import { cn } from "@/lib/utils";
@@ -311,5 +310,3 @@ export function GenerateStoryForm() {
     </div>
   );
 }
-
-    
