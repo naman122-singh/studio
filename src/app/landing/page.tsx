@@ -44,24 +44,6 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
-      <section className="bg-background relative z-10 py-12">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            <div className="p-4">
-              <h3 className="text-4xl font-bold text-primary mb-2">500+</h3>
-              <p className="text-muted-foreground">Traditional Crafts</p>
-            </div>
-            <div className="p-4">
-              <h3 className="text-4xl font-bold text-primary mb-2">1000+</h3>
-              <p className="text-muted-foreground">Active Artisans</p>
-            </div>
-            <div className="p-4">
-              <h3 className="text-4xl font-bold text-primary mb-2">24/7</h3>
-              <p className="text-muted-foreground">AI Assistance</p>
-            </div>
-          </div>
-        </div>
-      </section>
       <section className="py-20 bg-background/50 relative z-10">
         <div className="container mx-auto px-4 text-center">
             <h2 className="text-4xl font-bold font-headline mb-4">AI-Authenticity Badge</h2>
@@ -96,6 +78,24 @@ export default function LandingPage() {
                     </Link>
                 </Button>
             </div>
+        </div>
+      </section>
+      <section className="bg-background relative z-10 py-12">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div className="p-4">
+              <h3 className="text-4xl font-bold text-primary mb-2">500+</h3>
+              <p className="text-muted-foreground">Traditional Crafts</p>
+            </div>
+            <div className="p-4">
+              <h3 className="text-4xl font-bold text-primary mb-2">1000+</h3>
+              <p className="text-muted-foreground">Active Artisans</p>
+            </div>
+            <div className="p-4">
+              <h3 className="text-4xl font-bold text-primary mb-2">24/7</h3>
+              <p className="text-muted-foreground">AI Assistance</p>
+            </div>
+          </div>
         </div>
       </section>
     </div>
