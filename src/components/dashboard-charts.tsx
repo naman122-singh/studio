@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartConfig } from "@/components/ui/chart";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Line, LineChart } from "recharts";
 
@@ -68,6 +68,9 @@ export function DashboardCharts() {
               </BarChart>
             </ChartContainer>
           </CardContent>
+          <CardFooter>
+            <p className="text-sm text-muted-foreground">The chart shows a strong performance in February, followed by a stabilization in sales in the subsequent months.</p>
+          </CardFooter>
         </Card>
         <Card>
           <CardHeader>
@@ -104,6 +107,9 @@ export function DashboardCharts() {
               </LineChart>
             </ChartContainer>
           </CardContent>
+           <CardFooter>
+            <p className="text-sm text-muted-foreground">This chart illustrates a consistent upward trend, exceeding the growth targets from March onwards.</p>
+          </CardFooter>
         </Card>
       </div>
   )
