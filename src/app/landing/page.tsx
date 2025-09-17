@@ -30,6 +30,12 @@ const features = [
     href: "/generate-story",
   },
   {
+    icon: <HeartHandshake className="w-8 h-8 text-primary" />,
+    title: "Resources",
+    description: "Discover NGOs and government schemes that can help you and your craft thrive.",
+    href: "/resources",
+  },
+  {
     icon: <Award className="w-8 h-8 text-primary" />,
     title: "AI Authenticity Badge",
     description: "Verify the cultural authenticity of your designs and earn a digital heritage certificate.",
@@ -40,12 +46,6 @@ const features = [
     title: "AI Community",
     description: "Connect with fellow artisans, find collaborators, and grow together.",
     href: "/community",
-  },
-  {
-    icon: <HeartHandshake className="w-8 h-8 text-primary" />,
-    title: "Resources",
-    description: "Discover NGOs and government schemes that can help you and your craft thrive.",
-    href: "/resources",
   },
 ];
 
