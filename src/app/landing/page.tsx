@@ -1,7 +1,48 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Eye, Goal } from "lucide-react";
+import { ArrowRight, Eye, Goal, Wand2, TrendingUp, BookText, Award, Users, HeartHandshake } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+
+const features = [
+  {
+    icon: <TrendingUp className="w-8 h-8 text-primary" />,
+    title: "AI Sales Strategist",
+    description: "Get tailored sales strategies based on your business data to boost performance.",
+    href: "/sales-strategy",
+  },
+  {
+    icon: <Wand2 className="w-8 h-8 text-primary" />,
+    title: "AI Image Generation",
+    description: "Create stunning, photorealistic 3D product visuals from a simple text description.",
+    href: "/generate-image",
+  },
+  {
+    icon: <BookText className="w-8 h-8 text-primary" />,
+    title: "AI Storyteller",
+    description: "Record your product's story and get it transcribed and translated instantly.",
+    href: "/generate-story",
+  },
+  {
+    icon: <Award className="w-8 h-8 text-primary" />,
+    title: "AI Authenticity Badge",
+    description: "Verify the cultural authenticity of your designs and earn a digital heritage certificate.",
+    href: "/authenticity-badge",
+  },
+  {
+    icon: <Users className="w-8 h-8 text-primary" />,
+    title: "AI Community",
+    description: "Connect with fellow artisans, find collaborators, and grow together.",
+    href: "/community",
+  },
+  {
+    icon: <HeartHandshake className="w-8 h-8 text-primary" />,
+    title: "Resources",
+    description: "Discover NGOs and government schemes that can help you and your craft thrive.",
+    href: "/resources",
+  },
+];
+
 
 export default function LandingPage() {
   return (
@@ -63,8 +104,32 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+
+      <section className="bg-muted relative z-10 py-16 md:py-24">
+        <div className="container mx-auto px-4 text-center">
+            <h2 className="text-4xl font-bold font-headline mb-4">Features to Empower Your Craft</h2>
+            <p className="max-w-3xl mx-auto text-lg text-muted-foreground mb-12">
+                Explore a suite of AI-powered tools designed to help you create, market, and sell your art more effectively.
+            </p>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {features.map((feature) => (
+                    <Link href={feature.href} key={feature.title}>
+                        <Card className="h-full text-left transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
+                            <CardHeader className="flex flex-row items-start gap-4">
+                                {feature.icon}
+                                <div className="space-y-1">
+                                <CardTitle>{feature.title}</CardTitle>
+                                <CardDescription>{feature.description}</CardDescription>
+                                </div>
+                            </CardHeader>
+                        </Card>
+                    </Link>
+                ))}
+            </div>
+        </div>
+      </section>
       
-      <section className="bg-muted relative z-10 py-12">
+      <section className="bg-background relative z-10 py-12">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div className="p-4">
