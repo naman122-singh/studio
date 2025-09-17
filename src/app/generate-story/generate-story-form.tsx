@@ -11,35 +11,39 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Mic, Rocket, Square, Languages, QrCode } from "lucide-react";
+import { Loader2, Mic, Rocket, Square, Languages, QrCode, Check, ChevronsUpDown } from "lucide-react";
 import Image from "next/image";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command";
+import { cn } from "@/lib/utils";
 
 const languages = [
-  { name: 'Assamese', code: 'as' },
-  { name: 'Bengali', code: 'bn' },
-  { name: 'Bodo', code: 'brx' },
-  { name: 'Dogri', code: 'doi' },
-  { name: 'Gujarati', code: 'gu' },
-  { name: 'Hindi', code: 'hi' },
-  { name: 'Kannada', code: 'kn' },
-  { name: 'Kashmiri', code: 'ks' },
-  { name: 'Konkani', code: 'gom' },
-  { name: 'Maithili', code: 'mai' },
-  { name: 'Malayalam', code: 'ml' },
-  { name: 'Manipuri', code: 'mni' },
-  { name: 'Marathi', code: 'mr' },
-  { name: 'Nepali', code: 'ne' },
-  { name: 'Odia', code: 'or' },
-  { name: 'Punjabi', code: 'pa' },
-  { name: 'Sanskrit', code: 'sa' },
-  { name: 'Santali', code: 'sat' },
-  { name: 'Sindhi', code: 'sd' },
-  { name: 'Tamil', code: 'ta' },
-  { name: 'Telugu', code: 'te' },
-  { name: 'Urdu', code: 'ur' }
-];
+    { name: 'Assamese', code: 'as' },
+    { name: 'Bengali', code: 'bn' },
+    { name: 'Bodo', code: 'brx' },
+    { name: 'Dogri', code: 'doi' },
+    { name: 'English', code: 'en' },
+    { name: 'Gujarati', code: 'gu' },
+    { name: 'Hindi', code: 'hi' },
+    { name: 'Kannada', code: 'kn' },
+    { name: 'Kashmiri', code: 'ks' },
+    { name: 'Konkani', code: 'gom' },
+    { name: 'Maithili', code: 'mai' },
+    { name: 'Malayalam', code: 'ml' },
+    { name: 'Manipuri', code: 'mni' },
+    { name: 'Marathi', code: 'mr' },
+    { name: 'Nepali', code: 'ne' },
+    { name: 'Odia', code: 'or' },
+    { name: 'Punjabi', code: 'pa' },
+    { name: 'Sanskrit', code: 'sa' },
+    { name: 'Santali', code: 'sat' },
+    { name: 'Sindhi', code: 'sd' },
+    { name: 'Tamil', code: 'ta' },
+    { name: 'Telugu', code: 'te' },
+    { name: 'Urdu', code: 'ur' }
+  ];
 
 const formSchema = z.object({
   productDetails: z.string().min(5, "Please enter product details."),
@@ -188,39 +192,58 @@ export function GenerateStoryForm() {
               <FormField
                 control={form.control}
                 name="targetLanguages"
-                render={() => (
-                  <FormItem>
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
                     <FormLabel>3. Select Languages</FormLabel>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
-                        {languages.map((lang) => (
-                            <FormField
-                            key={lang.code}
-                            control={form.control}
-                            name="targetLanguages"
-                            render={({ field }) => {
-                                return (
-                                <FormItem key={lang.code} className="flex flex-row items-start space-x-3 space-y-0">
-                                    <FormControl>
-                                    <Checkbox
-                                        checked={field.value?.includes(lang.code)}
-                                        onCheckedChange={(checked) => {
-                                        return checked
-                                            ? field.onChange([...field.value, lang.code])
-                                            : field.onChange(
-                                                field.value?.filter(
-                                                (value) => value !== lang.code
-                                                )
-                                            )
-                                        }}
-                                    />
-                                    </FormControl>
-                                    <FormLabel className="font-normal">{lang.name}</FormLabel>
-                                </FormItem>
-                                )
-                            }}
-                            />
-                        ))}
-                    </div>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant="outline"
+                            role="combobox"
+                            className={cn(
+                              "w-full justify-between",
+                              !field.value.length && "text-muted-foreground"
+                            )}
+                          >
+                            {field.value.length > 0
+                              ? `${field.value.length} language${field.value.length > 1 ? 's' : ''} selected`
+                              : "Select languages"}
+                            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-[--radix-popover-trigger-width] p-0">
+                        <Command>
+                          <CommandInput placeholder="Search language..." />
+                          <CommandEmpty>No language found.</CommandEmpty>
+                          <CommandGroup className="max-h-60 overflow-y-auto">
+                            {languages.map((lang) => (
+                              <CommandItem
+                                value={lang.name}
+                                key={lang.code}
+                                onSelect={() => {
+                                    const selected = field.value.includes(lang.code);
+                                    if (selected) {
+                                        field.onChange(field.value.filter((c) => c !== lang.code));
+                                    } else {
+                                        field.onChange([...field.value, lang.code]);
+                                    }
+                                }}
+                              >
+                                <Check
+                                  className={cn(
+                                    "mr-2 h-4 w-4",
+                                    field.value.includes(lang.code) ? "opacity-100" : "opacity-0"
+                                  )}
+                                />
+                                {lang.name}
+                              </CommandItem>
+                            ))}
+                          </CommandGroup>
+                        </Command>
+                      </PopoverContent>
+                    </Popover>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -293,5 +316,3 @@ export function GenerateStoryForm() {
     </div>
   );
 }
-
-    
