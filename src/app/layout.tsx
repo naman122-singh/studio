@@ -12,23 +12,56 @@ import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { DashboardHeader } from "@/components/dashboard-header";
 import { usePathname } from "next/navigation";
 import { DevicePreviewProvider, useDevicePreview } from "@/contexts/device-preview-context";
 import { DevicePreviewControls } from "@/components/device-preview-controls";
 import { cn } from "@/lib/utils";
+import { useEffect, useState } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 // This component can't be in the same file as the provider
 function LayoutContent({ children }: { children: ReactNode }) {
     const pathname = usePathname();
     const { width } = useDevicePreview();
-    const isLandingPage = pathname === "/landing";
+    const isMobile = useIsMobile();
+    const [isLandingPage, setIsLandingPage] = useState(false);
+    const [showContent, setShowContent] = useState(false);
+
+    useEffect(() => {
+        const hasVisited = localStorage.getItem('hasVisitedKalaSaathi');
+        const isLanding = !hasVisited && pathname === '/';
+        setIsLandingPage(isLanding);
+
+        if (isLanding) {
+            setShowContent(true);
+        } else if (pathname === '/landing') {
+            // If the user navigates back to /landing, we respect that
+            setIsLandingPage(true);
+            setShowContent(true);
+        }
+        else {
+             // For any other page, go straight to dashboard view
+            setIsLandingPage(false);
+            setShowContent(true);
+        }
+
+    }, [pathname]);
+
+    const handleExitLanding = () => {
+        localStorage.setItem('hasVisitedKalaSaathi', 'true');
+        setIsLandingPage(false);
+    };
+
+    if (!showContent) {
+        return null; // Or a loading spinner
+    }
+
 
     if (isLandingPage) {
         return (
             <div className="flex flex-col min-h-screen">
-                <Header />
+                <Header onExit={handleExitLanding}/>
                 <main className="flex-1">
                     {children}
                 </main>
@@ -47,7 +80,7 @@ function LayoutContent({ children }: { children: ReactNode }) {
                             "mx-auto transition-all duration-500 ease-in-out",
                             width !== '100%' && "shadow-2xl ring-1 ring-black/10 rounded-lg overflow-hidden"
                         )}
-                        style={{ maxWidth: width }}
+                        style={{ maxWidth: isMobile ? '100%' : width }}
                     >
                         <div className={cn(width !== '100%' && "bg-background")}>
                              <div className="p-6 lg:p-8 fade-in">
@@ -100,29 +133,6 @@ export default function RootLayout({
                   </SheetHeader>
                   <div className="h-[calc(100svh-4.5rem)]">
                     <ChatAssistant />
-                  </div>
-                </SheetContent>
-              </Sheet>
-              <Sheet>
-                <SheetTrigger asChild>
-                  <Button size="icon" variant="outline" className="rounded-full w-14 h-14 shadow-lg transition-transform duration-300 hover:scale-110">
-                    <Settings className="w-6 h-6" />
-                    <span className="sr-only">Open Settings</span>
-                  </Button>
-                </SheetTrigger>
-                <SheetContent side="right" className="w-full sm:max-w-xs p-4">
-                  <SheetHeader className="mb-4">
-                    <SheetTitle>Settings</SheetTitle>
-                  </SheetHeader>
-                  <div className="space-y-6">
-                    <div className="space-y-2">
-                        <p className="text-sm font-medium">Theme</p>
-                        <div className="flex items-center justify-between p-2 rounded-lg border">
-                            <p className="text-sm">Appearance</p>
-                            <ThemeToggle />
-                        </div>
-                    </div>
-                    <DevicePreviewControls />
                   </div>
                 </SheetContent>
               </Sheet>

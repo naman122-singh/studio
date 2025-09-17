@@ -12,8 +12,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "./ui/button";
-import { LogOut, User } from "lucide-react";
+import { LogOut, User, Settings, Bell } from "lucide-react";
 import { AppSidebar } from "./app-sidebar";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { DevicePreviewControls } from "./device-preview-controls";
+import { ThemeToggle } from "./theme-toggle";
 
 export function DashboardHeader() {
   return (
@@ -21,7 +24,48 @@ export function DashboardHeader() {
         <div className="flex items-center gap-4">
             <AppSidebar />
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="rounded-full">
+                  <Bell className="w-5 h-5" />
+                  <span className="sr-only">Toggle notifications</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-full sm:max-w-md">
+                <SheetHeader>
+                  <SheetTitle>Notifications</SheetTitle>
+                </SheetHeader>
+                <div className="flex h-full items-center justify-center">
+                  <p className="text-muted-foreground">No new notifications.</p>
+                </div>
+              </SheetContent>
+            </Sheet>
+
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="rounded-full">
+                  <Settings className="w-5 h-5" />
+                  <span className="sr-only">Open Settings</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-full sm:max-w-xs">
+                <SheetHeader className="mb-4">
+                  <SheetTitle>Settings</SheetTitle>
+                </SheetHeader>
+                <div className="space-y-6 p-4">
+                  <div className="space-y-2">
+                      <p className="text-sm font-medium">Theme</p>
+                      <div className="flex items-center justify-between p-2 rounded-lg border">
+                          <p className="text-sm">Appearance</p>
+                          <ThemeToggle />
+                      </div>
+                  </div>
+                  <DevicePreviewControls />
+                </div>
+              </SheetContent>
+            </Sheet>
+
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="relative h-10 w-10 rounded-full">
