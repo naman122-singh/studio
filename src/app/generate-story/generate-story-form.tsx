@@ -1,6 +1,7 @@
+
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -41,6 +42,7 @@ export function GenerateStoryForm() {
   const [audioDataUri, setAudioDataUri] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [storyOutput, setStoryOutput] = useState<StoryOutput | null>(null);
+  const [qrCodes, setQrCodes] = useState<Record<string, string>>({});
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   const { toast } = useToast();
@@ -52,6 +54,16 @@ export function GenerateStoryForm() {
       targetLanguages: ["en", "es", "hi"],
     },
   });
+
+  useEffect(() => {
+    if (storyOutput) {
+      const newQrCodes: Record<string, string> = {};
+      for (const [lang, story] of Object.entries(storyOutput.translatedStories)) {
+        newQrCodes[lang] = `https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent(story)}`;
+      }
+      setQrCodes(newQrCodes);
+    }
+  }, [storyOutput]);
 
   const handleStartRecording = async () => {
     try {
@@ -100,6 +112,7 @@ export function GenerateStoryForm() {
     }
     setIsLoading(true);
     setStoryOutput(null);
+    setQrCodes({});
 
     try {
       const result = await generateProductStories({
@@ -229,13 +242,15 @@ export function GenerateStoryForm() {
                       <div className="flex gap-4">
                         <Textarea readOnly value={story} className="flex-1" rows={4}/>
                         <div className="flex flex-col items-center gap-2">
-                             <Image 
-                                src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent(story)}`}
-                                alt={`QR code for ${lang} story`}
-                                width={100}
-                                height={100}
-                                className="rounded-md"
-                            />
+                             {qrCodes[lang] && (
+                                <Image 
+                                    src={qrCodes[lang]}
+                                    alt={`QR code for ${lang} story`}
+                                    width={100}
+                                    height={100}
+                                    className="rounded-md"
+                                />
+                             )}
                             <Button variant="outline" size="sm" className="w-full">
                                 <QrCode className="w-4 h-4 mr-2"/>
                                 Generate QR Story Code
