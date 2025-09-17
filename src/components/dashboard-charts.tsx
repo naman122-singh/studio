@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -69,7 +70,7 @@ export function DashboardCharts() {
             </ChartContainer>
           </CardContent>
           <CardFooter>
-            <p className="text-sm text-muted-foreground">The chart shows a strong performance in February, followed by a stabilization in sales in the subsequent months.</p>
+            <p className="text-sm text-muted-foreground">This bar chart displays monthly sales figures. Sales peaked in February at 305 units, demonstrating the strongest performance in the first half of the year. Following the peak, sales have stabilized, consistently remaining above 200 units per month.</p>
           </CardFooter>
         </Card>
         <Card>
@@ -108,7 +109,7 @@ export function DashboardCharts() {
             </ChartContainer>
           </CardContent>
            <CardFooter>
-            <p className="text-sm text-muted-foreground">This chart illustrates a consistent upward trend, exceeding the growth targets from March onwards.</p>
+            <p className="text-sm text-muted-foreground">The solid line represents actual growth, while the dashed line indicates the target. The data shows a consistent upward trajectory, with performance surpassing the target from March through June, indicating a strong and accelerating growth trend.</p>
           </CardFooter>
         </Card>
       </div>
