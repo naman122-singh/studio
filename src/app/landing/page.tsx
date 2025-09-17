@@ -119,7 +119,11 @@ export default function LandingPage() {
 
       <section className="bg-muted relative z-10 py-16 md:py-24">
         <div className="container mx-auto px-4 text-center">
-            <h2 className="text-4xl font-bold font-headline mb-4">Features to Empower Your Craft</h2>
+            <h2 className="text-4xl font-bold font-headline mb-4">
+                <span className="bg-gradient-to-r from-[hsl(22_85%_45%)] via-[hsl(22_90%_35%)] to-[hsl(22_95%_25%)] text-transparent bg-clip-text">
+                    Features to Empower Your Craft
+                </span>
+            </h2>
             <p className="max-w-3xl mx-auto text-lg text-muted-foreground mb-12">
                 Explore a suite of AI-powered tools designed to help you create, market, and sell your art more effectively.
             </p>
