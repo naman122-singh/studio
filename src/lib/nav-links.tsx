@@ -1,4 +1,5 @@
 import {
+  Award,
   BookText,
   Bot,
   Home,
@@ -29,6 +30,12 @@ export const navLinks: NavLink[] = [
     label: "Home",
     icon: <Home />,
     tooltip: "Home Page",
+  },
+  {
+    href: "/authenticity-badge",
+    label: "Authenticity Badge",
+    icon: <Award />,
+    tooltip: "AI-Authenticity Badge",
   },
   {
     href: "/ai-assistant",
