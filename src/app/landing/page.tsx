@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Eye, Goal, Wand2, TrendingUp, BookText, Award, Users, HeartHandshake, Video } from "lucide-react";
+import { ArrowRight, Eye, Goal, Wand2, TrendingUp, BookText, Award, Users, HeartHandshake, Video, DollarSign } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -9,6 +9,12 @@ const features = [
     icon: <TrendingUp className="w-8 h-8 text-primary" />,
     title: "AI Sales Strategist",
     description: "Get tailored sales strategies based on your business data to boost performance.",
+    href: "/sales-strategy",
+  },
+  {
+    icon: <DollarSign className="w-8 h-8 text-primary" />,
+    title: "AI Price Predictor",
+    description: "Get a fair price suggestion for your craft based on AI analysis.",
     href: "/sales-strategy",
   },
   {
@@ -24,16 +30,16 @@ const features = [
     href: "/generate-video",
   },
   {
-    icon: <BookText className="w-8 h-8 text-primary" />,
-    title: "AI Storyteller",
-    description: "Record your product's story and get it transcribed and translated instantly.",
-    href: "/generate-story",
-  },
-  {
     icon: <HeartHandshake className="w-8 h-8 text-primary" />,
     title: "Resources",
     description: "Discover NGOs and government schemes that can help you and your craft thrive.",
     href: "/resources",
+  },
+  {
+    icon: <BookText className="w-8 h-8 text-primary" />,
+    title: "AI Storyteller",
+    description: "Record your product's story and get it transcribed and translated instantly.",
+    href: "/generate-story",
   },
   {
     icon: <Award className="w-8 h-8 text-primary" />,
