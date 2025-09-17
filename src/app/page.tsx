@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { LayoutDashboard } from "lucide-react";
 
 export default function LandingPage() {
   return (
@@ -40,7 +39,7 @@ export default function LandingPage() {
               </Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="text-lg px-8 py-6">
-              <Link href="#">watch demo video</Link>
+              <Link href="#">Watch Demo</Link>
             </Button>
           </div>
         </div>
