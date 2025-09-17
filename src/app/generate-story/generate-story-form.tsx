@@ -74,19 +74,10 @@ export function GenerateStoryForm() {
     },
   });
 
-  const generateQrCodes = (output: StoryOutput) => {
-    const newQrCodes: Record<string, string> = {};
-    for (const [lang, story] of Object.entries(output.translatedStories)) {
-      newQrCodes[lang] = `https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent(story)}`;
-    }
-    setQrCodes(newQrCodes);
+  const generateQrCode = (lang: string, story: string) => {
+    const newQrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent(story)}`;
+    setQrCodes(prev => ({...prev, [lang]: newQrCodeUrl}));
   }
-
-  useEffect(() => {
-    if (storyOutput) {
-      generateQrCodes(storyOutput);
-    }
-  }, [storyOutput]);
 
   const handleStartRecording = async () => {
     try {
@@ -283,8 +274,8 @@ export function GenerateStoryForm() {
                       <h4 className="font-medium text-sm capitalize">{languages.find(l=>l.code === lang)?.name || lang}</h4>
                       <div className="flex gap-4">
                         <Textarea readOnly value={story} className="flex-1" rows={4}/>
-                        <div className="flex flex-col items-center gap-2">
-                             {qrCodes[lang] && (
+                        <div className="flex flex-col items-center gap-2 w-28">
+                             {qrCodes[lang] ? (
                                 <Image 
                                     src={qrCodes[lang]}
                                     alt={`QR code for ${lang} story`}
@@ -292,10 +283,14 @@ export function GenerateStoryForm() {
                                     height={100}
                                     className="rounded-md"
                                 />
+                             ) : (
+                                <div className="w-[100px] h-[100px] bg-muted rounded-md flex items-center justify-center">
+                                    <QrCode className="w-8 h-8 text-muted-foreground"/>
+                                </div>
                              )}
-                            <Button variant="outline" size="sm" className="w-full">
+                            <Button variant="outline" size="sm" className="w-full" onClick={() => generateQrCode(lang, story)}>
                                 <QrCode className="w-4 h-4 mr-2"/>
-                                Generate QR Story Code
+                                Generate QR
                             </Button>
                         </div>
                       </div>
@@ -316,3 +311,5 @@ export function GenerateStoryForm() {
     </div>
   );
 }
+
+    
