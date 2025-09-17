@@ -21,10 +21,8 @@ import { ThemeToggle } from "./theme-toggle";
 export function DashboardHeader() {
   return (
     <header className="flex h-16 items-center justify-between border-b bg-background px-4 md:px-6">
-        <div className="flex items-center gap-4">
-            <AppSidebar />
-        </div>
         <div className="flex items-center gap-2">
+            <AppSidebar />
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="rounded-full">
@@ -41,7 +39,6 @@ export function DashboardHeader() {
                 </div>
               </SheetContent>
             </Sheet>
-
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="rounded-full">
@@ -65,7 +62,8 @@ export function DashboardHeader() {
                 </div>
               </SheetContent>
             </Sheet>
-
+        </div>
+        <div className="flex items-center gap-2">
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="relative h-10 w-10 rounded-full">
