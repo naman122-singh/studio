@@ -1,133 +1,127 @@
+import { SidebarTrigger } from "@/components/app-sidebar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Textarea } from "@/components/ui/textarea";
-import { MoreHorizontal, PlusCircle, Star } from "lucide-react";
-import { SidebarTrigger } from "@/components/app-sidebar";
+import { ExternalLink } from "lucide-react";
 
-const resources = [
+const ngos = [
   {
-    name: "Jaipur Clay Emporium",
-    type: "Raw Material",
-    contact: "contact@jcem.com",
-    location: "Jaipur, RJ",
-    tags: ["AI Recommended", "Bulk Orders"],
-    rating: 4.9,
+    name: "Crafts Council of India",
+    focus: "Preservation and promotion of Indian crafts",
+    link: "https://www.craftscouncilofindia.org/",
+    logo: "https://picsum.photos/seed/ngo1/40/40",
+    tags: ["Advocacy", "Exhibitions"],
   },
   {
-    name: "WeaveIndia Logistics",
-    type: "Logistics",
-    contact: "support@weaveindia.com",
-    location: "Delhi, DL",
-    tags: ["Community Favorite"],
-    rating: 4.7,
+    name: "Dastkar",
+    focus: "Support for traditional Indian craftspeople",
+    link: "https://www.dastkar.org/",
+    logo: "https://picsum.photos/seed/ngo2/40/40",
+    tags: ["Livelihood", "Bazars"],
   },
   {
-    name: "Mumbai Maker Space",
-    type: "Workshop",
-    contact: "mms@workshop.io",
-    location: "Mumbai, MH",
-    tags: [],
-    rating: 4.5,
-  },
-  {
-    name: "Southern Woods Co.",
-    type: "Raw Material",
-    contact: "sales@swc.in",
-    location: "Chennai, TN",
-    tags: ["Best Price"],
-    rating: 4.8,
-  },
-  {
-    name: "CraftPack Secure",
-    type: "Packaging",
-    contact: "info@craftpack.com",
-    location: "Bengaluru, KA",
-    tags: ["AI Recommended"],
-    rating: 4.9,
+    name: "Self-Employed Women's Association (SEWA)",
+    focus: "Empowering women in the informal sector",
+    link: "https://www.sewa.org/",
+    logo: "https://picsum.photos/seed/ngo3/40/40",
+    tags: ["Women Empowerment", "Union"],
   },
 ];
+
+const schemes = [
+    {
+        name: "Pradhan Mantri Mudra Yojana (PMMY)",
+        description: "Provides loans up to ₹10 lakh to non-corporate, non-farm small/micro enterprises.",
+        link: "https://www.mudra.org.in/",
+        tags: ["Finance", "Loan"]
+    },
+    {
+        name: "Stand-Up India Scheme",
+        description: "Facilitates bank loans between ₹10 lakh and ₹1 Crore to at least one Scheduled Caste (SC) or Scheduled Tribe (ST) borrower and at least one woman borrower per bank branch for setting up a greenfield enterprise.",
+        link: "https://www.standupmitra.in/",
+        tags: ["SC/ST", "Women", "Loan"]
+    },
+     {
+        name: "Scheme of Fund for Regeneration of Traditional Industries (SFURTI)",
+        description: "Organizes traditional industries and artisans into clusters to make them competitive and provide support for their long-term sustainability.",
+        link: "https://sfurti.msme.gov.in/",
+        tags: ["Cluster Development", "Sustainability"]
+    }
+]
 
 export default function ResourcesPage() {
   return (
     <div className="flex flex-col gap-8">
-      <header className="flex items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
-            <SidebarTrigger className="md:hidden"/>
-            <div>
-                <h1 className="text-3xl font-bold tracking-tight font-headline">Resources Hub</h1>
-                <p className="text-muted-foreground">Share and discover suppliers, logistics, and workshops.</p>
-            </div>
+      <header className="flex items-center gap-4">
+        <SidebarTrigger className="md/hidden" />
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight font-headline">NGOs and Schemes</h1>
+          <p className="text-muted-foreground">
+            Discover organizations and government schemes that can help you grow.
+          </p>
         </div>
-        {/* Placeholder for a "Add Resource" button which could open a dialog */}
-        <Button>
-          <PlusCircle className="mr-2 h-4 w-4" />
-          Add Resource
-        </Button>
       </header>
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="font-headline">Shared Resources</CardTitle>
-          <CardDescription>A community-curated list of vendors and services.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead>Type</TableHead>
-                <TableHead className="hidden md:table-cell">Contact</TableHead>
-                <TableHead className="hidden sm:table-cell">Location</TableHead>
-                <TableHead>Rating</TableHead>
-                <TableHead><span className="sr-only">Actions</span></TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {resources.map((resource) => (
-                <TableRow key={resource.name}>
-                  <TableCell className="font-medium">
-                    {resource.name}
-                    <div className="flex flex-wrap gap-1 mt-1">
-                      {resource.tags.map((tag) => (
-                        <Badge key={tag} variant={tag.includes("AI") ? "default" : "secondary"} className="text-xs">{tag}</Badge>
+      
+      <div className="grid lg:grid-cols-2 gap-8 items-start">
+        <Card>
+          <CardHeader>
+            <CardTitle className="font-headline">Supportive NGOs</CardTitle>
+            <CardDescription>
+              Connect with non-governmental organizations dedicated to supporting artisans.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {ngos.map((ngo) => (
+              <div key={ngo.name} className="flex items-start gap-4 p-4 border rounded-lg">
+                <img src={ngo.logo} alt={`${ngo.name} logo`} className="w-10 h-10 rounded-full" />
+                <div className="flex-1">
+                  <h3 className="font-semibold">{ngo.name}</h3>
+                  <p className="text-sm text-muted-foreground">{ngo.focus}</p>
+                   <div className="flex flex-wrap gap-1 mt-2">
+                      {ngo.tags.map((tag) => (
+                        <Badge key={tag} variant="secondary" className="text-xs">{tag}</Badge>
                       ))}
                     </div>
-                  </TableCell>
-                  <TableCell>{resource.type}</TableCell>
-                  <TableCell className="hidden md:table-cell">{resource.contact}</TableCell>
-                  <TableCell className="hidden sm:table-cell">{resource.location}</TableCell>
-                  <TableCell>
-                    <div className="flex items-center">
-                      <Star className="h-4 w-4 text-primary mr-1" fill="currentColor"/>
-                      {resource.rating.toFixed(1)}
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button aria-haspopup="true" size="icon" variant="ghost">
-                          <MoreHorizontal className="h-4 w-4" />
-                          <span className="sr-only">Toggle menu</span>
+                </div>
+                <Button variant="outline" size="sm" asChild>
+                  <a href={ngo.link} target="_blank" rel="noopener noreferrer">
+                    Visit <ExternalLink className="ml-2 h-3 w-3" />
+                  </a>
+                </Button>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="font-headline">Government Schemes</CardTitle>
+            <CardDescription>
+              Explore government initiatives designed to benefit artisans and small businesses.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {schemes.map((scheme) => (
+                <div key={scheme.name} className="p-4 border rounded-lg">
+                    <h3 className="font-semibold">{scheme.name}</h3>
+                    <p className="text-sm text-muted-foreground mt-1 mb-3">{scheme.description}</p>
+                    <div className="flex justify-between items-center">
+                        <div className="flex flex-wrap gap-1">
+                            {scheme.tags.map((tag) => (
+                                <Badge key={tag} variant="outline" className="text-xs">{tag}</Badge>
+                            ))}
+                        </div>
+                        <Button variant="outline" size="sm" asChild>
+                          <a href={scheme.link} target="_blank" rel="noopener noreferrer">
+                            Learn More <ExternalLink className="ml-2 h-3 w-3" />
+                          </a>
                         </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
-                        <DropdownMenuItem>View Details</DropdownMenuItem>
-                        <DropdownMenuItem>Contact</DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </CardContent>
-      </Card>
+                    </div>
+                </div>
+            ))}
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }

@@ -9,6 +9,7 @@ import {
   TrendingUp,
   Users,
   Video,
+  HeartHandshake
 } from "lucide-react";
 
 export type NavLink = {
@@ -20,28 +21,28 @@ export type NavLink = {
 
 export const navLinks: NavLink[] = [
   {
-    href: "/",
-    label: "Dashboard",
-    icon: <LayoutDashboard />,
-    tooltip: "Dashboard",
-  },
-  {
     href: "/landing",
     label: "Home",
     icon: <Home />,
     tooltip: "Home Page",
   },
   {
-    href: "/authenticity-badge",
-    label: "Authenticity Badge",
-    icon: <Award />,
-    tooltip: "AI-Authenticity Badge",
+    href: "/",
+    label: "Dashboard",
+    icon: <LayoutDashboard />,
+    tooltip: "Dashboard",
   },
   {
     href: "/ai-assistant",
     label: "AI Assistant",
     icon: <Bot />,
     tooltip: "AI Assistant",
+  },
+  {
+    href: "/sales-strategy",
+    label: "AI Sales Strategist",
+    icon: <TrendingUp />,
+    tooltip: "AI Sales Strategist",
   },
   {
     href: "/generate-image",
@@ -62,10 +63,10 @@ export const navLinks: NavLink[] = [
     tooltip: "AI Storyteller",
   },
   {
-    href: "/sales-strategy",
-    label: "Sales Strategy",
-    icon: <TrendingUp />,
-    tooltip: "Sales Strategy",
+    href: "/authenticity-badge",
+    label: "AI Authenticity Badge",
+    icon: <Award />,
+    tooltip: "AI-Authenticity Badge",
   },
   {
     href: "/community",
@@ -75,8 +76,8 @@ export const navLinks: NavLink[] = [
   },
   {
     href: "/resources",
-    label: "Resources Hub",
-    icon: <Library />,
-    tooltip: "Resources Hub",
+    label: "NGOs and Schemes",
+    icon: <HeartHandshake />,
+    tooltip: "NGOs and Schemes",
   },
 ];
