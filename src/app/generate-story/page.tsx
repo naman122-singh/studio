@@ -1,3 +1,5 @@
+"use client";
+
 import dynamic from 'next/dynamic';
 import { SidebarTrigger } from "@/components/app-sidebar";
 
