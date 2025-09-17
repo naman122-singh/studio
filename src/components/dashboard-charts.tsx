@@ -8,22 +8,6 @@ import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Line, LineChart, Pie, PieCh
 import { TrendingUp, FileText } from 'lucide-react';
 import { YearlyProgressChart } from "./yearly-progress-chart";
 
-const salesData = [
-  { month: "January", sales: 186 },
-  { month: "February", sales: 305 },
-  { month: "March", sales: 237 },
-  { month: "April", sales: 273 },
-  { month: "May", sales: 209 },
-  { month: "June", sales: 214 },
-];
-
-const salesChartConfig = {
-  sales: {
-    label: "Sales",
-    color: "hsl(var(--chart-1))",
-  },
-} satisfies ChartConfig;
-
 const weeklySalesData = [
   { week: "Week 1", sales: 150 },
   { week: "Week 2", sales: 180 },
@@ -80,36 +64,7 @@ export function DashboardCharts() {
           <YearlyProgressChart />
         </CardContent>
       </Card>
-      <Card>
-        <CardHeader>
-          <CardTitle className="font-headline">6-Month Sales Overview</CardTitle>
-          <CardDescription>A summary of your sales over the last 6 months.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <ChartContainer config={salesChartConfig} className="h-[250px] w-full">
-            <BarChart data={salesData} accessibilityLayer>
-              <CartesianGrid vertical={false} />
-              <XAxis
-                dataKey="month"
-                tickLine={false}
-                tickMargin={10}
-                axisLine={false}
-                tickFormatter={(value) => value.slice(0, 3)}
-              />
-              <YAxis />
-              <ChartTooltip
-                cursor={false}
-                content={<ChartTooltipContent hideLabel />}
-              />
-              <Bar dataKey="sales" fill="var(--color-sales)" radius={8} />
-            </BarChart>
-          </ChartContainer>
-        </CardContent>
-        <CardFooter>
-          <p className="text-sm text-muted-foreground">This bar chart displays monthly sales figures. Sales peaked in February at 305 units, demonstrating the strongest performance in the first half of the year. Following the peak, sales have stabilized, consistently remaining above 200 units per month.</p>
-        </CardFooter>
-      </Card>
-
+      
       <Card>
         <CardHeader>
           <CardTitle className="font-headline">Weekly Sales</CardTitle>
