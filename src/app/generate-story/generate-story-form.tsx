@@ -17,13 +17,28 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 
 const languages = [
-  { code: "en", name: "English" },
-  { code: "es", name: "Spanish" },
-  { code: "fr", name: "French" },
-  { code: "de", name: "German" },
-  { code: "hi", name: "Hindi" },
-  { code: "bn", name: "Bengali" },
-  { code: "ta", name: "Tamil" },
+  { name: 'Assamese', code: 'as' },
+  { name: 'Bengali', code: 'bn' },
+  { name: 'Bodo', code: 'brx' },
+  { name: 'Dogri', code: 'doi' },
+  { name: 'Gujarati', code: 'gu' },
+  { name: 'Hindi', code: 'hi' },
+  { name: 'Kannada', code: 'kn' },
+  { name: 'Kashmiri', code: 'ks' },
+  { name: 'Konkani', code: 'gom' },
+  { name: 'Maithili', code: 'mai' },
+  { name: 'Malayalam', code: 'ml' },
+  { name: 'Manipuri', code: 'mni' },
+  { name: 'Marathi', code: 'mr' },
+  { name: 'Nepali', code: 'ne' },
+  { name: 'Odia', code: 'or' },
+  { name: 'Punjabi', code: 'pa' },
+  { name: 'Sanskrit', code: 'sa' },
+  { name: 'Santali', code: 'sat' },
+  { name: 'Sindhi', code: 'sd' },
+  { name: 'Tamil', code: 'ta' },
+  { name: 'Telugu', code: 'te' },
+  { name: 'Urdu', code: 'ur' }
 ];
 
 const formSchema = z.object({
@@ -51,17 +66,21 @@ export function GenerateStoryForm() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       productDetails: "",
-      targetLanguages: ["en", "es", "hi"],
+      targetLanguages: ["hi", "bn", "ta"],
     },
   });
 
+  const generateQrCodes = (output: StoryOutput) => {
+    const newQrCodes: Record<string, string> = {};
+    for (const [lang, story] of Object.entries(output.translatedStories)) {
+      newQrCodes[lang] = `https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent(story)}`;
+    }
+    setQrCodes(newQrCodes);
+  }
+
   useEffect(() => {
     if (storyOutput) {
-      const newQrCodes: Record<string, string> = {};
-      for (const [lang, story] of Object.entries(storyOutput.translatedStories)) {
-        newQrCodes[lang] = `https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent(story)}`;
-      }
-      setQrCodes(newQrCodes);
+      generateQrCodes(storyOutput);
     }
   }, [storyOutput]);
 
@@ -172,7 +191,7 @@ export function GenerateStoryForm() {
                 render={() => (
                   <FormItem>
                     <FormLabel>3. Select Languages</FormLabel>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
                         {languages.map((lang) => (
                             <FormField
                             key={lang.code}
@@ -274,3 +293,5 @@ export function GenerateStoryForm() {
     </div>
   );
 }
+
+    
