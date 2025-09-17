@@ -10,7 +10,7 @@
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
-export const PredictPriceInputSchema = z.object({
+const PredictPriceInputSchema = z.object({
   productImageUri: z
     .string()
     .describe(
@@ -23,7 +23,7 @@ export const PredictPriceInputSchema = z.object({
 });
 export type PredictPriceInput = z.infer<typeof PredictPriceInputSchema>;
 
-export const PredictPriceOutputSchema = z.object({
+const PredictPriceOutputSchema = z.object({
   priceRange: z.object({
     min: z.number().describe('The minimum suggested price.'),
     max: z.number().describe('The maximum suggested price.'),

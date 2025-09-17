@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
-import { predictPrice, PredictPriceInputSchema, PredictPriceOutput } from "@/ai/flows/predict-price";
+import { predictPrice, type PredictPriceOutput } from "@/ai/flows/predict-price";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -33,7 +33,14 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Loader2, Calculator, Upload, DollarSign, Wand2 } from "lucide-react";
 
 
-type FormValues = z.infer<typeof PredictPriceInputSchema>;
+const PredictPriceFormSchema = z.object({
+  productDescription: z.string().min(1, "Please enter a description."),
+  craftingTime: z.coerce.number().min(0, "Please enter a valid time."),
+  materialCost: z.coerce.number().min(0, "Please enter a valid cost."),
+  skillLevel: z.enum(['Beginner', 'Intermediate', 'Advanced', 'Expert']),
+});
+
+type FormValues = z.infer<typeof PredictPriceFormSchema>;
 
 export function PricePredictorForm() {
   const [prediction, setPrediction] = useState<PredictPriceOutput | null>(null);
@@ -42,7 +49,7 @@ export function PricePredictorForm() {
   const { toast } = useToast();
 
   const form = useForm<FormValues>({
-    resolver: zodResolver(PredictPriceInputSchema.omit({ productImageUri: true })),
+    resolver: zodResolver(PredictPriceFormSchema),
      defaultValues: {
       productDescription: "",
       craftingTime: 0,
@@ -70,7 +77,7 @@ export function PricePredictorForm() {
     }
   };
 
-  async function onSubmit(values: Omit<FormValues, 'productImageUri'>) {
+  async function onSubmit(values: FormValues) {
     if (!imagePreview) {
       toast({ title: "No Image", description: "Please upload a photo of your product.", variant: "destructive" });
       return;
