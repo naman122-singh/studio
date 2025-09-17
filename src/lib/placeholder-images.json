@@ -1,3 +1,40 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "artisan1",
+      "description": "Portrait of a smiling female artisan.",
+      "imageUrl": "https://picsum.photos/seed/artisan1/100/100",
+      "imageHint": "artisan portrait"
+    },
+    {
+      "id": "artisan2",
+      "description": "Portrait of a male artisan working in his shop.",
+      "imageUrl": "https://picsum.photos/seed/artisan2/100/100",
+      "imageHint": "craftsman workshop"
+    },
+    {
+      "id": "artisan3",
+      "description": "Portrait of an artisan focused on her craft.",
+      "imageUrl": "https://picsum.photos/seed/artisan3/100/100",
+      "imageHint": "woman crafting"
+    },
+    {
+      "id": "artisan4",
+      "description": "Artisan hands working on a piece of pottery.",
+      "imageUrl": "https://picsum.photos/seed/artisan4/100/100",
+      "imageHint": "pottery hands"
+    },
+    {
+      "id": "artisan5",
+      "description": "Portrait of a young artisan with a modern style.",
+      "imageUrl": "https://picsum.photos/seed/artisan5/100/100",
+      "imageHint": "young designer"
+    },
+    {
+      "id": "artisan6",
+      "description": "Elderly artisan with a joyful expression.",
+      "imageUrl": "https://picsum.photos/seed/artisan6/100/100",
+      "imageHint": "elderly craftsman"
+    }
+  ]
 }
