@@ -33,7 +33,7 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Rocket, Loader2, Wand2, GalleryVertical } from "lucide-react";
+import { Rocket, Loader2, Wand2, GalleryVertical, Download } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const formSchema = z.object({
@@ -80,6 +80,16 @@ export function GenerateImageForm() {
       setIsLoading(false);
     }
   }
+
+  const handleDownload = () => {
+    if (!imageUrl) return;
+    const link = document.createElement("a");
+    link.href = imageUrl;
+    link.download = "generated-product-image.png";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   return (
     <div className="grid lg:grid-cols-2 gap-8">
@@ -207,6 +217,14 @@ export function GenerateImageForm() {
             )}
           </div>
         </CardContent>
+         {imageUrl && !isLoading && (
+          <CardFooter>
+            <Button onClick={handleDownload} variant="outline">
+              <Download className="mr-2 h-4 w-4" />
+              Download Image
+            </Button>
+          </CardFooter>
+        )}
       </Card>
     </div>
   );
