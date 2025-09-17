@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useRef, useEffect, use } from "react";
+import { useState, useRef, useEffect, useId } from "react";
 import { Send, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 import { AiAssistantIcon } from "./ai-assistant-icon";
 
@@ -18,13 +18,14 @@ interface Message {
 export function ChatAssistant() {
   const [messages, setMessages] = useState<Message[]>([
     {
-      id: "1",
+      id: "initial-message",
       text: "Hello! I am your AI assistant. How can I help you with your business, marketing, or content creation today?",
       sender: "bot",
     },
   ]);
   const [input, setInput] = useState("");
   const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const reactId = useId();
 
   const scrollToBottom = () => {
     if (scrollAreaRef.current) {
@@ -44,7 +45,7 @@ export function ChatAssistant() {
     if (!input.trim()) return;
 
     const userMessage: Message = {
-      id: Date.now().toString(),
+      id: `${reactId}-${messages.length}-user`,
       text: input,
       sender: "user",
     };
@@ -55,7 +56,7 @@ export function ChatAssistant() {
     // Mock bot response
     setTimeout(() => {
       const botResponse: Message = {
-        id: (Date.now() + 1).toString(),
+        id: `${reactId}-${messages.length + 1}-bot`,
         text: `You asked: "${input}". As a mock assistant, I'm just echoing your query. In a real scenario, I'd provide a helpful answer here.`,
         sender: "bot",
       };
