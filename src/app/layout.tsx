@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import type { ReactNode } from "react";
@@ -11,7 +12,6 @@ import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { DashboardHeader } from "@/components/dashboard-header";
 import { usePathname } from "next/navigation";
@@ -39,7 +39,6 @@ function LayoutContent({ children }: { children: ReactNode }) {
 
     return (
         <div className="flex h-screen w-full">
-            <AppSidebar />
             <div className="flex flex-col flex-1 overflow-hidden">
                 <DashboardHeader />
                 <main className="flex-1 overflow-y-auto bg-muted/40 p-4 lg:p-6 transition-all duration-300 ease-in-out">

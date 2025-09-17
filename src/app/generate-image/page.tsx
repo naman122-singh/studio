@@ -5,7 +5,7 @@ export default function GenerateImagePage() {
   return (
     <div className="flex flex-col gap-8">
       <header className="flex items-center gap-4">
-        <SidebarTrigger className="md:hidden"/>
+        
         <div>
           <h1 className="text-3xl font-bold tracking-tight font-headline">
             AI Image Generation

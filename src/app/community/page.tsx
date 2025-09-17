@@ -58,7 +58,7 @@ export default function CommunityPage() {
   return (
     <div className="flex flex-col gap-8">
       <header className="flex items-center gap-4">
-        <SidebarTrigger className="md:hidden"/>
+        
         <div>
           <h1 className="text-3xl font-bold tracking-tight font-headline">Artisan AI Community</h1>
           <p className="text-muted-foreground">Connect, collaborate, and grow with fellow creators.</p>

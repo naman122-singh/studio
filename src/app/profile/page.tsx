@@ -16,7 +16,7 @@ export default function ProfilePage() {
   return (
     <div className="flex flex-col gap-8">
       <header className="flex items-center gap-4">
-        <SidebarTrigger className="md:hidden" />
+        
         <div className="text-center w-full">
           <h1 className="text-3xl md:text-4xl font-bold tracking-tight font-headline">
             Your Craft Identity
