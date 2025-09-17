@@ -57,9 +57,9 @@ export const navLinks: NavLink[] = [
   },
   {
     href: "/generate-story",
-    label: "Storytelling",
+    label: "AI Storyteller",
     icon: <BookText />,
-    tooltip: "AI Storytelling",
+    tooltip: "AI Storyteller",
   },
   {
     href: "/sales-strategy",

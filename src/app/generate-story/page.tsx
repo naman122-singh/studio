@@ -8,7 +8,7 @@ export default function GenerateStoryPage() {
         <SidebarTrigger className="md:hidden"/>
         <div>
           <h1 className="text-3xl font-bold tracking-tight font-headline">
-            AI Storytelling
+            AI Storyteller
           </h1>
           <p className="text-muted-foreground">
             Record your product's story and get it translated instantly.
