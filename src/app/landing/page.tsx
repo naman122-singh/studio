@@ -15,7 +15,7 @@ const features = [
     icon: <DollarSign className="w-8 h-8 text-primary" />,
     title: "AI Price Predictor",
     description: "Get a fair price suggestion for your craft based on AI analysis.",
-    href: "/sales-strategy",
+    href: "/sales-strategy?tab=predictor",
   },
   {
     icon: <Wand2 className="w-8 h-8 text-primary" />,

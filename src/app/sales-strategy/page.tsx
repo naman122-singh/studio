@@ -1,11 +1,17 @@
+"use client";
+
 import { SalesStrategyForm } from "./sales-strategy-form";
 import { SidebarTrigger } from "@/components/app-sidebar";
 import { PricePredictorForm } from "./price-predictor-form";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent } from "@/components/ui/card";
 import { Rocket, Wand2 } from "lucide-react";
+import { useSearchParams } from 'next/navigation';
 
 export default function SalesStrategyPage() {
+  const searchParams = useSearchParams();
+  const tab = searchParams.get('tab');
+  const defaultTab = tab === 'predictor' ? 'predictor' : 'strategist';
+
   return (
     <div className="flex flex-col gap-8">
       <header className="flex items-center gap-4">
@@ -19,7 +25,7 @@ export default function SalesStrategyPage() {
           </p>
         </div>
       </header>
-      <Tabs defaultValue="strategist" className="w-full">
+      <Tabs defaultValue={defaultTab} className="w-full">
         <TabsList className="grid w-full grid-cols-2 max-w-md mx-auto">
           <TabsTrigger value="strategist">
             <Rocket className="mr-2"/>
