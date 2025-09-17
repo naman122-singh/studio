@@ -34,12 +34,6 @@ export const navLinks: NavLink[] = [
     tooltip: "Dashboard",
   },
   {
-    href: "/profile",
-    label: "Profile",
-    icon: <User />,
-    tooltip: "Your Profile",
-  },
-  {
     href: "/ai-assistant",
     label: "AI Assistant",
     icon: <AiAssistantIcon className="w-5 h-5"/>,

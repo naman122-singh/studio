@@ -10,6 +10,7 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { DashboardHeader } from "@/components/dashboard-header";
 
 export const metadata: Metadata = {
   title: "Kala Saathi",
@@ -42,6 +43,7 @@ export default function RootLayout({
             <div className="flex h-screen w-full">
               <AppSidebar />
               <div className="flex flex-col flex-1 overflow-hidden">
+                <DashboardHeader />
                 <main className="flex-1 overflow-y-auto p-6 lg:p-8">
                   {children}
                 </main>
