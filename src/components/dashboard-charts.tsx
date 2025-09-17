@@ -80,7 +80,9 @@ export function DashboardCharts() {
             </ChartContainer>
           </CardContent>
           <CardFooter>
-            <p className="text-sm text-muted-foreground">This chart shows your daily sales performance. Sales build throughout the week, peaking on Friday, followed by a slight dip on Saturday.</p>
+            <p className="text-sm text-muted-foreground">
+              <span className="font-bold text-foreground">AI Analysis:</span> Your sales show a strong midweek performance, peaking on Friday. Consider running promotions on Sundays and Mondays to boost sales on slower days.
+            </p>
           </CardFooter>
         </Card>
         
@@ -114,12 +116,9 @@ export function DashboardCharts() {
                 </ChartContainer>
             </CardContent>
              <CardFooter className="flex-col gap-2 text-sm">
-                <div className="flex items-center gap-2 font-medium leading-none">
-                    Top categories by sales
-                </div>
-                <div className="leading-none text-muted-foreground">
-                    Showing sales distribution for top 4 product categories.
-                </div>
+                <p className="text-sm text-muted-foreground">
+                    <span className="font-bold text-foreground">AI Analysis:</span> Pottery is your star performer, driving 50% of your sales. Textiles also contribute significantly. There is an opportunity to grow your Woodwork and Jewelry categories through targeted marketing.
+                </p>
             </CardFooter>
         </Card>
 
@@ -151,7 +150,9 @@ export function DashboardCharts() {
             </ChartContainer>
             </CardContent>
             <CardFooter>
-                <p className="text-sm text-muted-foreground">This line chart shows weekly sales trends. The solid line represents sales per week, indicating a general upward trend with a slight dip in the final week.</p>
+                <p className="text-sm text-muted-foreground">
+                    <span className="font-bold text-foreground">AI Analysis:</span> You have a consistent upward trend in weekly sales, indicating healthy business growth. The slight dip in the most recent week is minor, but monitor next week's performance to ensure the growth trajectory continues.
+                </p>
             </CardFooter>
         </Card>
 
@@ -163,6 +164,11 @@ export function DashboardCharts() {
             <CardContent>
                 <YearlyProgressChart />
             </CardContent>
+            <CardFooter>
+                 <p className="text-sm text-muted-foreground">
+                    <span className="font-bold text-foreground">AI Analysis:</span> You started the year strong, exceeding your target in January. While March and April were slower, your performance is picking back up. Focus on maintaining this momentum to reach your year-end goals.
+                </p>
+            </CardFooter>
         </Card>
     </div>
   )
