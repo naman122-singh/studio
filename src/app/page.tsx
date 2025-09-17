@@ -35,7 +35,7 @@ export default function LandingPage() {
           <div className="flex justify-center gap-4">
             <Button asChild size="lg" className="text-lg px-8 py-6 bg-gradient-to-r from-orange-400 to-yellow-500 text-primary-foreground hover:from-orange-500 hover:to-yellow-600">
               <Link href="/dashboard">
-                Start Your Craft Journey
+                Go to Dashboard
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
