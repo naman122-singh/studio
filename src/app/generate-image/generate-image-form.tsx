@@ -83,6 +83,9 @@ export function GenerateImageForm() {
 
   const handleDownload = () => {
     if (!imageUrl) return;
+    // Since the image URL is a data URI, we can create a link and trigger a download.
+    // For remote URLs, this approach might not work directly due to cross-origin policies.
+    // However, the `generateProductImages` flow returns a data URI, so this is fine.
     const link = document.createElement("a");
     link.href = imageUrl;
     link.download = "generated-product-image.png";
