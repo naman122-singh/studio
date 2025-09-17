@@ -69,9 +69,9 @@ export const navLinks: NavLink[] = [
   },
   {
     href: "/community",
-    label: "Community",
+    label: "AI Community",
     icon: <Users />,
-    tooltip: "Artisan Community",
+    tooltip: "Artisan AI Community",
   },
   {
     href: "/resources",
