@@ -50,7 +50,7 @@ function LayoutContent({ children }: { children: ReactNode }) {
                         style={{ maxWidth: width }}
                     >
                         <div className={cn(width !== '100%' && "bg-background")}>
-                             <div className="p-6 lg:p-8">
+                             <div className="p-6 lg:p-8 fade-in">
                                 {children}
                              </div>
                         </div>
@@ -89,7 +89,7 @@ export default function RootLayout({
             <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-4">
               <Sheet>
                 <SheetTrigger asChild>
-                  <Button size="icon" className="rounded-full w-14 h-14 shadow-lg">
+                  <Button size="icon" className="rounded-full w-14 h-14 shadow-lg transition-transform duration-300 hover:scale-110">
                     <MessageCircle className="w-6 h-6" />
                     <span className="sr-only">Open AI Assistant</span>
                   </Button>
@@ -105,7 +105,7 @@ export default function RootLayout({
               </Sheet>
               <Sheet>
                 <SheetTrigger asChild>
-                  <Button size="icon" variant="outline" className="rounded-full w-14 h-14 shadow-lg">
+                  <Button size="icon" variant="outline" className="rounded-full w-14 h-14 shadow-lg transition-transform duration-300 hover:scale-110">
                     <Settings className="w-6 h-6" />
                     <span className="sr-only">Open Settings</span>
                   </Button>

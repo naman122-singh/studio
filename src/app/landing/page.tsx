@@ -59,7 +59,7 @@ const features = [
 export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-[calc(100vh-4rem)]">
-      <section className="relative flex-1 flex items-center justify-center text-center bg-background/70">
+      <section className="relative flex-1 flex items-center justify-center text-center bg-background/70 fade-in">
         <div className="absolute inset-0 w-full h-full">
           <Image
             src="https://picsum.photos/seed/artisan-bg/1920/1080"
@@ -70,7 +70,7 @@ export default function LandingPage() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent"></div>
         </div>
-        <div className="relative z-10 container px-4 mx-auto">
+        <div className="relative z-10 container px-4 mx-auto slide-in-up">
           <h1 className="text-5xl md:text-7xl font-bold font-headline mb-4">
             <span className="bg-gradient-to-r from-orange-400 via-yellow-500 to-teal-400 text-transparent bg-clip-text">
               Kala Saathi
@@ -85,20 +85,20 @@ export default function LandingPage() {
             promote our rich cultural heritage.
           </p>
           <div className="flex justify-center gap-4">
-            <Button asChild size="lg" className="text-lg px-8 py-6 bg-gradient-to-r from-orange-400 to-yellow-500 text-primary-foreground hover:from-orange-500 hover:to-yellow-600">
+            <Button asChild size="lg" className="text-lg px-8 py-6 bg-gradient-to-r from-orange-400 to-yellow-500 text-primary-foreground hover:from-orange-500 hover:to-yellow-600 transition-transform duration-300 hover:scale-105">
               <Link href="/dashboard">
                 Start your journey
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="text-lg px-8 py-6">
+            <Button asChild variant="outline" size="lg" className="text-lg px-8 py-6 transition-transform duration-300 hover:scale-105">
               <Link href="#">Watch Demo</Link>
             </Button>
           </div>
         </div>
       </section>
 
-      <section className="bg-background relative z-10 py-16 md:py-24">
+      <section className="bg-background relative z-10 py-16 md:py-24 slide-in-up">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-4 text-center">
@@ -117,7 +117,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section className="bg-muted relative z-10 py-16 md:py-24">
+      <section className="bg-muted relative z-10 py-16 md:py-24 slide-in-up">
         <div className="container mx-auto px-4 text-center">
             <h2 className="text-4xl font-bold font-headline mb-4">
                 <span className="bg-gradient-to-r from-[hsl(22_85%_45%)] via-[hsl(22_90%_35%)] to-[hsl(22_95%_25%)] text-transparent bg-clip-text">
@@ -128,9 +128,9 @@ export default function LandingPage() {
                 Explore a suite of AI-powered tools designed to help you create, market, and sell your art more effectively.
             </p>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {features.map((feature) => (
+                {features.map((feature, i) => (
                     <Link href={feature.href} key={feature.title}>
-                        <Card className="h-full text-left transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
+                        <Card className="h-full text-left transform transition-all duration-300 hover:scale-105 hover:shadow-xl slide-in-up" style={{ animationDelay: `${i * 100}ms` }}>
                             <CardHeader className="flex flex-row items-start gap-4">
                                 {feature.icon}
                                 <div className="space-y-1">
@@ -145,7 +145,7 @@ export default function LandingPage() {
         </div>
       </section>
       
-      <section className="bg-background relative z-10 py-12">
+      <section className="bg-background relative z-10 py-12 slide-in-up">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div className="p-4">
