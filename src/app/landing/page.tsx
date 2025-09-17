@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Eye, Goal, Wand2, TrendingUp, BookText, Award, Users, HeartHandshake } from "lucide-react";
+import { ArrowRight, Eye, Goal, Wand2, TrendingUp, BookText, Award, Users, HeartHandshake, Video } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -16,6 +16,12 @@ const features = [
     title: "AI Image Generation",
     description: "Create stunning, photorealistic 3D product visuals from a simple text description.",
     href: "/generate-image",
+  },
+  {
+    icon: <Video className="w-8 h-8 text-primary" />,
+    title: "AI Video Generation",
+    description: "Turn your ideas into short, engaging videos for social media.",
+    href: "/generate-video",
   },
   {
     icon: <BookText className="w-8 h-8 text-primary" />,
