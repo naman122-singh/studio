@@ -1,10 +1,12 @@
 
+
 "use client";
 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartConfig } from "@/components/ui/chart";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Line, LineChart, Pie, PieChart, Label, PolarRadiusAxis, RadialBar, RadialBarChart } from "recharts";
 import { TrendingUp, FileText } from 'lucide-react';
+import { YearlyProgressChart } from "./yearly-progress-chart";
 
 const salesData = [
   { month: "January", sales: 186 },
@@ -69,6 +71,15 @@ const productChartConfig = {
 export function DashboardCharts() {
   return (
     <div className="grid gap-6 md:grid-cols-2">
+       <Card className="md:col-span-2">
+        <CardHeader>
+          <CardTitle className="font-headline">Year-wise Progress</CardTitle>
+          <CardDescription>Your progress towards annual targets.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <YearlyProgressChart />
+        </CardContent>
+      </Card>
       <Card>
         <CardHeader>
           <CardTitle className="font-headline">6-Month Sales Overview</CardTitle>
