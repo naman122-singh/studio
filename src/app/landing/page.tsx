@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Award, ScanText, ShieldCheck } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -44,42 +44,7 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
-      <section className="py-20 bg-background/50 relative z-10">
-        <div className="container mx-auto px-4 text-center">
-            <h2 className="text-4xl font-bold font-headline mb-4">AI-Authenticity Badge</h2>
-            <p className="max-w-3xl mx-auto text-lg text-muted-foreground mb-12">
-                Preserve your craft's legacy and build trust with a digital certificate of authenticity, powered by AI.
-            </p>
-            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto text-left">
-                <div className="flex items-start gap-4 p-6 border rounded-lg bg-card">
-                    <div className="p-3 bg-primary/10 rounded-full">
-                        <ScanText className="h-8 w-8 text-primary" />
-                    </div>
-                    <div>
-                        <h3 className="text-xl font-bold mb-2 font-headline">Cultural Authentication</h3>
-                        <p className="text-muted-foreground">AI scans designs, patterns, and weaving styles to authenticate cultural roots.</p>
-                    </div>
-                </div>
-                <div className="flex items-start gap-4 p-6 border rounded-lg bg-card">
-                    <div className="p-3 bg-primary/10 rounded-full">
-                        <Award className="h-8 w-8 text-primary" />
-                    </div>
-                    <div>
-                        <h3 className="text-xl font-bold mb-2 font-headline">Digital Heritage Certificate</h3>
-                        <p className="text-muted-foreground">Provides artisans with a digital heritage certificate that boosts trust and combats cheap imitations.</p>
-                    </div>
-                </div>
-            </div>
-            <div className="mt-12">
-                <Button asChild size="lg">
-                    <Link href="/authenticity-badge">
-                        Get Your Badge
-                        <ShieldCheck className="ml-2 h-5 w-5" />
-                    </Link>
-                </Button>
-            </div>
-        </div>
-      </section>
+      
       <section className="bg-background relative z-10 py-12">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
