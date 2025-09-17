@@ -5,10 +5,10 @@ import { usePathname } from "next/navigation";
 import {
   Sheet,
   SheetContent,
-  SheetTrigger as SheetTriggerPrimitive,
+  SheetTrigger,
   SheetClose,
 } from "@/components/ui/sheet";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
