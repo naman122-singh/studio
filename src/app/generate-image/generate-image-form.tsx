@@ -33,7 +33,7 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Rocket, Loader2, Wand2 } from "lucide-react";
+import { Rocket, Loader2, Wand2, GalleryVertical } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const formSchema = z.object({
@@ -201,7 +201,7 @@ export function GenerateImageForm() {
             )}
             {!isLoading && !imageUrl && (
               <div className="text-center text-muted-foreground p-4">
-                <Image className="mx-auto h-16 w-16 mb-2 opacity-50" />
+                <GalleryVertical className="mx-auto h-16 w-16 mb-2 opacity-50" />
                 <p>Your image is just a click away.</p>
               </div>
             )}

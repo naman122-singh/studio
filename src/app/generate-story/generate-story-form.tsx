@@ -13,6 +13,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Loader2, Mic, Rocket, Square, Languages, QrCode } from "lucide-react";
 import Image from "next/image";
 import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const languages = [
   { code: "en", name: "English" },
@@ -168,14 +169,16 @@ export function GenerateStoryForm() {
                                 return (
                                 <FormItem key={lang.code} className="flex flex-row items-start space-x-3 space-y-0">
                                     <FormControl>
-                                    <Input 
-                                        type="checkbox"
-                                        className="h-4 w-4 accent-primary"
+                                    <Checkbox
                                         checked={field.value?.includes(lang.code)}
-                                        onChange={(e) => {
-                                            const set = new Set(field.value);
-                                            e.target.checked ? set.add(lang.code) : set.delete(lang.code);
-                                            field.onChange(Array.from(set));
+                                        onCheckedChange={(checked) => {
+                                        return checked
+                                            ? field.onChange([...field.value, lang.code])
+                                            : field.onChange(
+                                                field.value?.filter(
+                                                (value) => value !== lang.code
+                                                )
+                                            )
                                         }}
                                     />
                                     </FormControl>
