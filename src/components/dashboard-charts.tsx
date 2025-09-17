@@ -57,7 +57,7 @@ export function DashboardCharts() {
     <div className="grid gap-6 md:grid-cols-2">
        <Card className="md:col-span-2">
         <CardHeader>
-          <CardTitle className="font-headline">Year-wise Progress</CardTitle>
+          <CardTitle className="font-headline">Monthly wise Progress</CardTitle>
           <CardDescription>Your progress towards annual targets.</CardDescription>
         </CardHeader>
         <CardContent>
