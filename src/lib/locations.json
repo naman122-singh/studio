@@ -1,0 +1,44 @@
+
+{
+    "states": [
+        {
+            "name": "Andhra Pradesh",
+            "districts": [
+                {
+                    "name": "Anantapur",
+                    "cities": ["Anantapur", "Guntakal", "Hindupur", "Kadiri", "Tadpatri"]
+                },
+                {
+                    "name": "Chittoor",
+                    "cities": ["Chittoor", "Tirupati", "Madanapalle", "Srikalahasti", "Punganur"]
+                }
+            ]
+        },
+        {
+            "name": "Maharashtra",
+            "districts": [
+                {
+                    "name": "Mumbai City",
+                    "cities": ["Mumbai"]
+                },
+                {
+                    "name": "Pune",
+                    "cities": ["Pune", "Pimpri-Chinchwad", "Baramati", "Lonavala"]
+                }
+            ]
+        },
+        {
+            "name": "Rajasthan",
+            "districts": [
+                {
+                    "name": "Jaipur",
+                    "cities": ["Jaipur", "Shahpura", "Chomu", "Sambhar"]
+                },
+                {
+                    "name": "Jodhpur",
+                    "cities": ["Jodhpur", "Phalodi", "Bilara", "Piparcity"]
+                }
+            ]
+        }
+    ]
+}

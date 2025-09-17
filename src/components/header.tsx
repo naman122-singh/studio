@@ -41,7 +41,7 @@ export function Header() {
               <Link href="#">Sign In</Link>
             </Button>
             <Button asChild className="bg-gradient-to-r from-orange-400 to-yellow-500 text-primary-foreground hover:from-orange-500 hover:to-yellow-600">
-              <Link href="#">Get Started</Link>
+              <Link href="/signup">Get Started</Link>
             </Button>
           </div>
           <Sheet>
@@ -70,7 +70,7 @@ export function Header() {
                         <Link href="#">Sign In</Link>
                     </Button>
                     <Button asChild>
-                        <Link href="#">Get Started</Link>
+                        <Link href="/signup">Get Started</Link>
                     </Button>
                 </div>
               </nav>
