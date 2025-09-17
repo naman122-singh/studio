@@ -1,6 +1,7 @@
 import {
   BookText,
   Bot,
+  Home,
   Image,
   LayoutDashboard,
   Library,
@@ -18,10 +19,16 @@ export type NavLink = {
 
 export const navLinks: NavLink[] = [
   {
-    href: "/dashboard",
+    href: "/",
     label: "Dashboard",
     icon: <LayoutDashboard />,
     tooltip: "Dashboard",
+  },
+  {
+    href: "/landing",
+    label: "Home",
+    icon: <Home />,
+    tooltip: "Home Page",
   },
   {
     href: "/ai-assistant",
