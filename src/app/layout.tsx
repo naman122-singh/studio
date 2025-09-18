@@ -25,10 +25,16 @@ function LayoutContent({ children }: { children: ReactNode }) {
     const pathname = usePathname();
     const { width } = useDevicePreview();
     const isMobile = useIsMobile();
+    const [isClient, setIsClient] = useState(false);
+
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
     
     const isDashboard = pathname !== '/';
 
     if (isDashboard) {
+        const effectiveWidth = isClient && isMobile ? '100%' : width;
         return (
             <div className="flex h-screen w-full">
                 <div className="flex flex-col flex-1 overflow-hidden">
@@ -37,11 +43,11 @@ function LayoutContent({ children }: { children: ReactNode }) {
                         <div
                             className={cn(
                                 "mx-auto transition-all duration-500 ease-in-out",
-                                width !== '100%' && "shadow-2xl ring-1 ring-black/10 rounded-lg overflow-hidden"
+                                effectiveWidth !== '100%' && "shadow-2xl ring-1 ring-black/10 rounded-lg overflow-hidden"
                             )}
-                            style={{ maxWidth: isMobile ? '100%' : width }}
+                            style={{ maxWidth: effectiveWidth }}
                         >
-                            <div className={cn(width !== '100%' && "bg-background")}>
+                            <div className={cn(effectiveWidth !== '100%' && "bg-background")}>
                                 <div className="p-6 lg:p-8 fade-in">
                                     {children}
                                 </div>
