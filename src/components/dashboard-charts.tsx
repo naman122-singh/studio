@@ -9,30 +9,13 @@ import { TrendingUp, FileText } from 'lucide-react';
 import { YearlyProgressChart } from "./yearly-progress-chart";
 
 const weeklySalesData = [
-  { week: "Week 1", sales: 150 },
-  { week: "Week 2", sales: 180 },
-  { week: "Week 3", sales: 220 },
-  { week: "Week 4", sales: 200 },
+  { week: "Week 1", sales: 150, fill: "var(--color-chart-1)" },
+  { week: "Week 2", sales: 180, fill: "var(--color-chart-2)" },
+  { week: "Week 3", sales: 220, fill: "var(--color-chart-3)" },
+  { week: "Week 4", sales: 200, fill: "var(--color-chart-4)" },
 ]
 
-const weeklySalesChartConfig = {
-    sales: {
-      label: "Sales",
-      color: "hsl(var(--chart-1))",
-    },
-} satisfies ChartConfig
-
-const dailySalesData = [
-    { day: "Sun", sales: 90, fill: "var(--color-chart-1)" },
-    { day: "Mon", sales: 140, fill: "var(--color-chart-2)" },
-    { day: "Tue", sales: 160, fill: "var(--color-chart-3)" },
-    { day: "Wed", sales: 150, fill: "var(--color-chart-4)" },
-    { day: "Thu", sales: 180, fill: "var(--color-chart-5)" },
-    { day: "Fri", sales: 210, fill: "var(--color-chart-1)" },
-    { day: "Sat", sales: 190, fill: "var(--color-chart-2)" },
-]
-
-const dailySalesChartConfig = {
+const chartConfig = {
     sales: {
       label: "Sales",
     },
@@ -58,6 +41,16 @@ const dailySalesChartConfig = {
     },
 } satisfies ChartConfig
 
+const dailySalesData = [
+    { day: "Sun", sales: 90, fill: "var(--color-chart-1)" },
+    { day: "Mon", sales: 140, fill: "var(--color-chart-2)" },
+    { day: "Tue", sales: 160, fill: "var(--color-chart-3)" },
+    { day: "Wed", sales: 150, fill: "var(--color-chart-4)" },
+    { day: "Thu", sales: 180, fill: "var(--color-chart-5)" },
+    { day: "Fri", sales: 210, fill: "var(--color-chart-1)" },
+    { day: "Sat", sales: 190, fill: "var(--color-chart-2)" },
+]
+
 export function DashboardCharts() {
   return (
     <div className="grid gap-6">
@@ -68,7 +61,7 @@ export function DashboardCharts() {
                     <CardDescription>A summary of your sales for the current week.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <ChartContainer config={dailySalesChartConfig} className="h-[250px] w-full">
+                    <ChartContainer config={chartConfig} className="h-[250px] w-full">
                     <BarChart data={dailySalesData} accessibilityLayer>
                         <CartesianGrid vertical={false} />
                         <XAxis
@@ -103,25 +96,26 @@ export function DashboardCharts() {
                 <CardDescription>Your sales performance over the past four weeks.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                <ChartContainer config={weeklySalesChartConfig} className="h-[250px] w-full">
-                    <LineChart data={weeklySalesData} accessibilityLayer>
-                    <CartesianGrid vertical={false} />
-                    <XAxis
+                <ChartContainer config={chartConfig} className="h-[250px] w-full">
+                    <BarChart data={weeklySalesData} accessibilityLayer>
+                        <CartesianGrid vertical={false} />
+                        <XAxis
                         dataKey="week"
                         tickLine={false}
+                        tickMargin={10}
                         axisLine={false}
-                        tickMargin={8}
-                    />
-                    <YAxis />
-                    <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-                    <Line
-                        dataKey="sales"
-                        type="monotone"
-                        stroke="var(--color-sales)"
-                        strokeWidth={2}
-                        dot={true}
-                    />
-                    </LineChart>
+                        />
+                        <YAxis />
+                        <ChartTooltip
+                        cursor={false}
+                        content={<ChartTooltipContent hideLabel />}
+                        />
+                        <Bar dataKey="sales" radius={8}>
+                            {weeklySalesData.map((entry, index) => (
+                                <Cell key={`cell-${index}`} fill={entry.fill} />
+                            ))}
+                        </Bar>
+                    </BarChart>
                 </ChartContainer>
                 </CardContent>
                 <CardFooter>

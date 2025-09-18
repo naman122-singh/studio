@@ -7,6 +7,8 @@ import {
 } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Clock } from "lucide-react";
+import { cn } from "@/lib/utils";
+
 
 export type Product = {
   name: string;
@@ -17,6 +19,14 @@ export type Product = {
 interface TopProductsProps {
     products: Product[];
 }
+
+const productColors = [
+    "bg-[hsl(var(--chart-1))]",
+    "bg-[hsl(var(--chart-2))]",
+    "bg-[hsl(var(--chart-3))]",
+    "bg-[hsl(var(--chart-4))]",
+    "bg-[hsl(var(--chart-5))]",
+]
 
 export function TopProducts({ products }: TopProductsProps) {
   const sortedProducts = [...products].sort((a, b) => b.sold - a.sold).slice(0, 5);
@@ -31,14 +41,18 @@ export function TopProducts({ products }: TopProductsProps) {
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
-        {sortedProducts.map(product => (
+        {sortedProducts.map((product, index) => (
           <div key={product.name} className="space-y-1">
             <div className="flex justify-between text-sm">
               <p className="font-medium">{product.name}</p>
               <p className="text-muted-foreground">{product.sold} sold</p>
             </div>
             <div className="flex items-center gap-4">
-              <Progress value={maxSold > 0 ? (product.sold / maxSold) * 100 : 0} className="h-2 flex-1" />
+              <Progress 
+                value={maxSold > 0 ? (product.sold / maxSold) * 100 : 0} 
+                className="h-2 flex-1"
+                indicatorClassName={cn(productColors[index % productColors.length])}
+              />
               <p className="text-sm font-semibold text-right w-20">₹{product.revenue.toLocaleString('en-IN')}</p>
             </div>
           </div>
