@@ -6,10 +6,10 @@ import Image from 'next/image';
 import { cn } from '@/lib/utils';
 
 const images = [
-    { src: 'https://picsum.photos/seed/hero-1/1920/1080', hint: 'artisan workshop' },
-    { src: 'https://picsum.photos/seed/hero-2/1920/1080', hint: 'colorful textiles' },
-    { src: 'https://picsum.photos/seed/hero-3/1920/1080', hint: 'pottery details' },
-    { src: 'https://picsum.photos/seed/hero-4/1920/1080', hint: 'intricate woodwork' },
+    { src: 'https://picsum.photos/seed/indian-craft-1/1920/1080', hint: 'indian pottery' },
+    { src: 'https://picsum.photos/seed/indian-life-1/1920/1080', hint: 'indian market' },
+    { src: 'https://picsum.photos/seed/indian-craft-2/1920/1080', hint: 'weaving loom' },
+    { src: 'https://picsum.photos/seed/indian-life-2/1920/1080', hint: 'holi festival' },
 ];
 
 const TRANSITION_DURATION = 1500; // 1.5 seconds for fade
