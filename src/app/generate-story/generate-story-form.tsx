@@ -11,7 +11,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Mic, Rocket, Square, Languages, QrCode, Check, ChevronsUpDown } from "lucide-react";
+import { Loader2, Mic, Rocket, Square, Languages, QrCode, Check, ChevronsUpDown, Upload, Camera } from "lucide-react";
 import Image from "next/image";
 import { Textarea } from "@/components/ui/textarea";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -152,18 +152,32 @@ export function GenerateStoryForm() {
             </CardHeader>
             <CardContent className="space-y-6">
               <FormItem>
-                <FormLabel>1. Record Your Story</FormLabel>
-                <div className="flex items-center gap-4 p-4 bg-muted rounded-lg">
-                  <Button type="button" size="icon" variant={isRecording ? "destructive" : "outline"} onClick={isRecording ? handleStopRecording : handleStartRecording}>
-                    {isRecording ? <Square className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
-                  </Button>
-                  <div className="flex-1">
-                    <p className="text-sm font-medium">{isRecording ? "Recording..." : "Ready to record"}</p>
-                    <p className="text-xs text-muted-foreground">{isRecording ? "Click the button to stop." : "Click the microphone to start."}</p>
-                  </div>
-                  {audioDataUri && !isRecording && (
-                    <audio src={audioDataUri} controls className="h-10" />
-                  )}
+                <FormLabel>1. Provide Your Story</FormLabel>
+                <div className="p-4 bg-muted rounded-lg space-y-4">
+                    <div className="flex items-center gap-4">
+                        <Button type="button" size="icon" variant={isRecording ? "destructive" : "outline"} onClick={isRecording ? handleStopRecording : handleStartRecording}>
+                            {isRecording ? <Square className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
+                        </Button>
+                        <div className="flex-1">
+                            <p className="text-sm font-medium">{isRecording ? "Recording..." : "Record Audio"}</p>
+                            <p className="text-xs text-muted-foreground">{isRecording ? "Click to stop." : "Click microphone to start."}</p>
+                        </div>
+                        {audioDataUri && !isRecording && (
+                            <audio src={audioDataUri} controls className="h-10" />
+                        )}
+                    </div>
+                    <div className="flex items-center gap-4">
+                        <Button type="button" variant="outline" asChild>
+                           <label htmlFor="story-file" className="cursor-pointer w-full">
+                                <Upload className="mr-2"/> Upload File
+                                <Input id="story-file" type="file" accept="audio/*,video/*,image/*" className="hidden" />
+                           </label>
+                        </Button>
+                        <p className="text-sm text-muted-foreground">OR</p>
+                        <Button type="button" variant="outline" className="w-full" disabled>
+                            <Camera className="mr-2"/> Use Camera
+                        </Button>
+                    </div>
                 </div>
               </FormItem>
               <FormField

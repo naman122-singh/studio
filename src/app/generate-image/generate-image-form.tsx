@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -33,8 +34,9 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Rocket, Loader2, Wand2, GalleryVertical, Download } from "lucide-react";
+import { Rocket, Loader2, Wand2, GalleryVertical, Download, Upload, Camera } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Input } from "@/components/ui/input";
 
 const formSchema = z.object({
   productDescription: z.string().min(10, "Please provide a detailed description (at least 10 characters)."),
@@ -47,6 +49,7 @@ type FormValues = z.infer<typeof formSchema>;
 export function GenerateImageForm() {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const { toast } = useToast();
 
   const form = useForm<FormValues>({
@@ -58,12 +61,34 @@ export function GenerateImageForm() {
     },
   });
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 4 * 1024 * 1024) {
+        toast({
+          title: "Image too large",
+          description: "Please upload an image smaller than 4MB.",
+          variant: "destructive",
+        });
+        return;
+      }
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   async function onSubmit(values: FormValues) {
     setIsLoading(true);
     setImageUrl(null);
 
     try {
-      const result = await generateProductImages(values);
+      const result = await generateProductImages({
+        ...values,
+        productImageUri: imagePreview ?? undefined,
+      });
       if (result.imageUrl) {
         setImageUrl(result.imageUrl);
       } else {
@@ -83,9 +108,6 @@ export function GenerateImageForm() {
 
   const handleDownload = () => {
     if (!imageUrl) return;
-    // Since the image URL is a data URI, we can create a link and trigger a download.
-    // For remote URLs, this approach might not work directly due to cross-origin policies.
-    // However, the `generateProductImages` flow returns a data URI, so this is fine.
     const link = document.createElement("a");
     link.href = imageUrl;
     link.download = "generated-product-image.png";
@@ -124,6 +146,34 @@ export function GenerateImageForm() {
                   </FormItem>
                 )}
               />
+              <FormItem>
+                <FormLabel>Reference Image (Optional)</FormLabel>
+                <div className="flex flex-col items-center justify-center w-full p-4 border-2 border-dashed rounded-lg bg-muted">
+                  {imagePreview ? (
+                      <div className="relative">
+                          <Image src={imagePreview} alt="Preview" width={200} height={200} className="object-cover rounded-md max-h-48 w-auto"/>
+                          <Button variant="destructive" size="sm" className="absolute top-2 right-2" onClick={() => setImagePreview(null)}>Remove</Button>
+                      </div>
+                  ) : (
+                        <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                          <p className="mb-4 text-sm text-muted-foreground">Upload an image or use your camera</p>
+                          <div className="flex gap-4">
+                                <Button asChild variant="outline">
+                                  <label htmlFor="image-gen-file" className="cursor-pointer">
+                                      <Upload className="mr-2"/> Upload File
+                                      <Input id="image-gen-file" type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
+                                  </label>
+                                </Button>
+                                <p className="text-muted-foreground flex items-center">OR</p>
+                                <Button type="button" variant="outline" disabled>
+                                    <Camera className="mr-2"/> Use Camera
+                                </Button>
+                          </div>
+                          <p className="text-xs text-muted-foreground mt-4">PNG, JPG, or WEBP (MAX. 4MB)</p>
+                      </div>
+                  )}
+                </div> 
+              </FormItem>
               <div className="grid sm:grid-cols-2 gap-4">
                 <FormField
                   control={form.control}

@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -26,8 +27,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Rocket, Loader2, Wand2, Video, Film } from "lucide-react";
+import { Rocket, Loader2, Wand2, Video, Film, Upload, Camera } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import Image from "next/image";
 
 const formSchema = z.object({
   prompt: z.string().min(10, "Please provide a detailed prompt (at least 10 characters)."),
@@ -52,6 +54,14 @@ export function GenerateVideoForm() {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+        if (file.size > 4 * 1024 * 1024) {
+            toast({
+                title: "Image too large",
+                description: "Please upload an image smaller than 4MB.",
+                variant: "destructive",
+            });
+            return;
+        }
       const reader = new FileReader();
       reader.onloadend = () => {
         setPhotoPreview(reader.result as string);
@@ -125,9 +135,30 @@ export function GenerateVideoForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Reference Photo (Optional)</FormLabel>
-                    <FormControl>
-                      <Input type="file" accept="image/*" onChange={handleFileChange} />
-                    </FormControl>
+                    <div className="flex flex-col items-center justify-center w-full p-4 border-2 border-dashed rounded-lg bg-muted">
+                        {photoPreview ? (
+                            <div className="relative">
+                                <Image src={photoPreview} alt="Preview" width={200} height={200} className="object-cover rounded-md max-h-48 w-auto"/>
+                                <Button variant="destructive" size="sm" className="absolute top-2 right-2" onClick={() => setPhotoPreview(null)}>Remove</Button>
+                            </div>
+                        ) : (
+                                <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                                <p className="mb-4 text-sm text-muted-foreground">Upload a photo or use your camera</p>
+                                <div className="flex gap-4">
+                                        <Button asChild variant="outline">
+                                        <label htmlFor="video-gen-file" className="cursor-pointer">
+                                            <Upload className="mr-2"/> Upload File
+                                            <Input id="video-gen-file" type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
+                                        </label>
+                                        </Button>
+                                        <Button type="button" variant="outline" disabled>
+                                            <Camera className="mr-2"/> Use Camera
+                                        </Button>
+                                </div>
+                                <p className="text-xs text-muted-foreground mt-4">PNG, JPG, or WEBP (MAX. 4MB)</p>
+                            </div>
+                        )}
+                      </div> 
                     <FormDescription>
                       Upload a photo to influence the video's style and content.
                     </FormDescription>
@@ -135,11 +166,6 @@ export function GenerateVideoForm() {
                   </FormItem>
                 )}
               />
-              {photoPreview && (
-                 <div className="w-32 h-32 rounded-lg overflow-hidden">
-                    <img src={photoPreview} alt="Photo preview" className="w-full h-full object-cover" />
-                 </div>
-              )}
             </CardContent>
             <CardFooter>
               <Button type="submit" disabled={isLoading}>
