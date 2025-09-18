@@ -22,58 +22,33 @@ import { useIsMobile } from "@/hooks/use-mobile";
 
 // This component can't be in the same file as the provider
 function LayoutContent({ children }: { children: ReactNode }) {
-    const pathname = usePathname();
     const { width } = useDevicePreview();
     const isMobile = useIsMobile();
-    const [isClient, setIsClient] = useState(false);
-
-    useEffect(() => {
-        setIsClient(true);
-    }, []);
     
-    const isDashboard = pathname !== '/';
-
-    if (isDashboard) {
-        if (!isClient) {
-            // Render nothing or a loading skeleton on the server to avoid mismatch
-            return null;
-        }
-
-        const effectiveWidth = isMobile ? '100%' : width;
-        return (
-            <div className="flex h-screen w-full">
-                <div className="flex flex-col flex-1 overflow-hidden">
-                    <DashboardHeader />
-                    <main className="flex-1 overflow-y-auto bg-muted/40 p-4 lg:p-6 transition-all duration-300 ease-in-out">
-                        <div
-                            className={cn(
-                                "mx-auto transition-all duration-500 ease-in-out",
-                                effectiveWidth !== '100%' && "shadow-2xl ring-1 ring-black/10 rounded-lg overflow-hidden"
-                            )}
-                            style={{ maxWidth: effectiveWidth }}
-                        >
-                            <div className={cn(effectiveWidth !== '100%' && "bg-background")}>
-                                <div className="p-6 lg:p-8 fade-in">
-                                    {children}
-                                </div>
+    const effectiveWidth = isMobile ? '100%' : width;
+    
+    return (
+        <div className="flex h-screen w-full">
+            <div className="flex flex-col flex-1 overflow-hidden">
+                <DashboardHeader />
+                <main className="flex-1 overflow-y-auto bg-muted/40 p-4 lg:p-6 transition-all duration-300 ease-in-out">
+                    <div
+                        className={cn(
+                            "mx-auto transition-all duration-500 ease-in-out",
+                            effectiveWidth !== '100%' && "shadow-2xl ring-1 ring-black/10 rounded-lg overflow-hidden"
+                        )}
+                        style={{ maxWidth: effectiveWidth }}
+                    >
+                        <div className={cn(effectiveWidth !== '100%' && "bg-background")}>
+                            <div className="p-6 lg:p-8 fade-in">
+                                {children}
                             </div>
                         </div>
-                    </main>
-                </div>
+                    </div>
+                </main>
             </div>
-        );
-    }
-
-
-    return (
-        <div className="flex flex-col min-h-screen">
-            <Header />
-            <main className="flex-1">
-                {children}
-            </main>
-            <Footer />
         </div>
-    )
+    );
 }
 
 
@@ -82,6 +57,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const pathname = usePathname();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  const isDashboard = pathname !== '/';
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -100,7 +83,17 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <DevicePreviewProvider>
-            <LayoutContent>{children}</LayoutContent>
+            {isClient && isDashboard ? (
+                <LayoutContent>{children}</LayoutContent>
+            ) : (
+                <div className="flex flex-col min-h-screen">
+                    <Header />
+                    <main className="flex-1">
+                        {children}
+                    </main>
+                    <Footer />
+                </div>
+            )}
             
             <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-4">
               <Sheet>
