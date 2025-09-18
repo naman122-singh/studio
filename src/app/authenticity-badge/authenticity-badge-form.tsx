@@ -74,10 +74,11 @@ export function AuthenticityBadgeForm() {
   });
 
    useEffect(() => {
+    let stream: MediaStream | null = null;
     async function setupCamera() {
       if (isCameraOpen) {
         try {
-          const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+          stream = await navigator.mediaDevices.getUserMedia({ video: true });
           setHasCameraPermission(true);
           if (videoRef.current) {
             videoRef.current.srcObject = stream;
@@ -97,8 +98,7 @@ export function AuthenticityBadgeForm() {
 
     return () => {
       // Cleanup: stop video stream when component unmounts or camera is closed
-      if (videoRef.current && videoRef.current.srcObject) {
-        const stream = videoRef.current.srcObject as MediaStream;
+      if (stream) {
         stream.getTracks().forEach(track => track.stop());
       }
     }
@@ -203,7 +203,7 @@ export function AuthenticityBadgeForm() {
                                             <Input id="dropzone-file" type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
                                         </label>
                                      </Button>
-                                     <Button type="button" onClick={() => setIsCameraOpen(true)}>
+                                     <Button type="button" variant="outline" onClick={() => setIsCameraOpen(true)}>
                                          <Camera className="mr-2"/> Use Camera
                                      </Button>
                                 </div>
