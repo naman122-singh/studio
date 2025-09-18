@@ -98,9 +98,6 @@ export default function LandingPage() {
                 Watch Demo
               </Link>
             </Button>
-             <Button variant="ghost" size="lg" className="text-lg px-8 py-6 transition-transform duration-300 hover:scale-105 hover:bg-accent/50">
-                Sign In
-            </Button>
           </div>
         </div>
       </section>
