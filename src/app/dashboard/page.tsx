@@ -1,9 +1,11 @@
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowUp, DollarSign, Users, CreditCard, Activity } from "lucide-react";
 import { DashboardCharts } from "@/components/dashboard-charts";
 import Link from "next/link";
 import { SidebarTrigger } from "@/components/app-sidebar";
+import { TopProducts } from "@/components/top-products";
 
 export default function DashboardPage() {
   return (
@@ -57,7 +59,12 @@ export default function DashboardPage() {
             </CardContent>
             </Card>
       </div>
-      <DashboardCharts />
+      <div className="grid gap-6 md:grid-cols-3">
+        <div className="md:col-span-2">
+          <DashboardCharts />
+        </div>
+        <TopProducts />
+      </div>
     </div>
   );
 }
