@@ -39,19 +39,6 @@ const dailySalesChartConfig = {
     },
 } satisfies ChartConfig
 
-const productSalesData = [
-    { name: "Pottery", value: 50, fill: "hsl(var(--chart-1))" },
-    { name: "Textiles", value: 25, fill: "hsl(var(--chart-2))" },
-    { name: "Woodwork", value: 15, fill: "hsl(var(--chart-3))" },
-    { name: "Jewelry", value: 10, fill: "hsl(var(--chart-4))" },
-]
-
-const productChartConfig = {
-    sales: {
-        label: "Sales"
-    }
-} satisfies ChartConfig
-
 export function DashboardCharts() {
   return (
     <div className="grid gap-6">
