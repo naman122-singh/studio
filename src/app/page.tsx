@@ -60,7 +60,7 @@ const features = [
 
 export default function LandingPage() {
   return (
-    <div className="flex flex-col min-h-[calc(100vh-4rem)]">
+    <div className="flex flex-col min-h-screen">
       <section className="relative flex items-center justify-center text-center bg-background/70 fade-in py-20 md:py-28">
         <div className="absolute inset-0 w-full h-full">
           <Image
@@ -109,22 +109,22 @@ export default function LandingPage() {
                 src="https://picsum.photos/seed/mission-bg/1920/1080"
                 alt="Traditional Indian art pattern"
                 fill
-                className="object-cover opacity-5"
+                className="object-cover opacity-20"
                 data-ai-hint="traditional art pattern"
             />
-            <div className="absolute inset-0 bg-background/90"></div>
+            <div className="absolute inset-0 bg-black/60"></div>
         </div>
         <div className="container mx-auto px-4 relative">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-4 text-center p-8 rounded-lg bg-background/50">
+            <div className="space-y-4 text-center p-8 rounded-lg bg-background/50 text-white">
               <h3 className="text-3xl font-bold font-headline flex items-center justify-center gap-2"><Goal className="w-8 h-8 text-primary"/> Our Mission</h3>
-              <p className="text-lg text-muted-foreground">
+              <p className="text-lg text-gray-200">
                 To empower traditional Indian artisans by providing them with cutting-edge AI tools and a global platform, ensuring their timeless crafts thrive in the modern world. We aim to bridge the gap between heritage and technology, fostering economic independence and cultural preservation.
               </p>
             </div>
-            <div className="space-y-4 text-center p-8 rounded-lg bg-background/50">
+            <div className="space-y-4 text-center p-8 rounded-lg bg-background/50 text-white">
               <h3 className="text-3xl font-bold font-headline flex items-center justify-center gap-2"><Eye className="w-8 h-8 text-primary"/> Our Vision</h3>
-              <p className="text-lg text-muted-foreground">
+              <p className="text-lg text-gray-200">
                 A future where every Indian artisan is digitally enabled, their craft is globally recognized, and the rich tapestry of Indian heritage is celebrated and sustained for generations to come. We envision a vibrant ecosystem of creators, buyers, and storytellers united by technology.
               </p>
             </div>
