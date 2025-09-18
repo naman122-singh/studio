@@ -58,12 +58,12 @@ const chatPrompt = ai.definePrompt({
     
     Conversation History:
     {{#each history}}
-      {{#if (eq role 'user')}}From user: {{/if}}
-      {{#if (eq role 'model')}}From you: {{/if}}
-      {{#each content}}
-        {{#if text}}{{text}}{{/if}}
-        {{#if media}}User has uploaded a file.{{/if}}
-      {{/each}}
+        {{#if (this.role === 'user')}}From user: {{/if}}
+        {{#if (this.role === 'model')}}From you: {{/if}}
+        {{#each this.content}}
+            {{#if text}}{{text}}{{/if}}
+            {{#if media}}User has uploaded a file.{{/if}}
+        {{/each}}
     {{/each}}
     
     New user message: {{{message}}}
