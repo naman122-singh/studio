@@ -1,7 +1,8 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { OnboardingStepper } from "@/components/onboarding-stepper";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -26,6 +27,7 @@ export default function DashboardPage() {
     const [products, setProducts] = useState<Product[]>(initialProducts);
     const [isAddProductOpen, setIsAddProductOpen] = useState(false);
     const [newProduct, setNewProduct] = useState({ name: '', sold: '', revenue: '' });
+    const [showOnboarding, setShowOnboarding] = useState(true);
 
     const handleAddProduct = () => {
         if (newProduct.name && newProduct.sold && newProduct.revenue) {
@@ -39,6 +41,10 @@ export default function DashboardPage() {
             setIsAddProductOpen(false);
         }
     };
+    
+    if (showOnboarding) {
+        return <OnboardingStepper onComplete={() => setShowOnboarding(false)} />;
+    }
 
 
   return (
