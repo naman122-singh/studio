@@ -58,8 +58,8 @@ const chatPrompt = ai.definePrompt({
     
     Conversation History:
     {{#each history}}
-        {{#if (this.role === 'user')}}From user: {{/if}}
-        {{#if (this.role === 'model')}}From you: {{/if}}
+        {{#if (eq this.role 'user')}}From user: {{/if}}
+        {{#if (eq this.role 'model')}}From you: {{/if}}
         {{#each this.content}}
             {{#if text}}{{text}}{{/if}}
             {{#if media}}User has uploaded a file.{{/if}}
@@ -82,3 +82,4 @@ const chatFlow = ai.defineFlow(
         return { message: output!.message };
     }
 );
+
