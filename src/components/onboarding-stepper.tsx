@@ -101,3 +101,5 @@ export function OnboardingStepper({ onComplete }: OnboardingStepperProps) {
     </div>
   );
 }
+
+    
