@@ -42,7 +42,7 @@ export function LanguageSelector() {
         <Command>
           <CommandInput placeholder="Search language..." />
           <CommandEmpty>No language found.</CommandEmpty>
-          <CommandGroup>
+          <CommandGroup className="max-h-60 overflow-y-auto">
             {indianLanguages.map((language) => (
               <CommandItem
                 key={language.code}
