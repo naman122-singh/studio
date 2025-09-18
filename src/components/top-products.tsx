@@ -8,16 +8,19 @@ import {
 import { Progress } from "@/components/ui/progress";
 import { Clock } from "lucide-react";
 
-const products = [
-  { name: "Handwoven Silk Saree", sold: 32, revenue: 12450 },
-  { name: "Brass Oil Lamp", sold: 28, revenue: 8960 },
-  { name: "Wooden Jewelry Box", sold: 24, revenue: 7200 },
-  { name: "Block Print Kurta", sold: 18, revenue: 5940 },
-  { name: "Clay Pottery Set", sold: 12, revenue: 3600 },
-];
+export type Product = {
+  name: string;
+  sold: number;
+  revenue: number;
+};
 
-export function TopProducts() {
-  const maxSold = Math.max(...products.map(p => p.sold));
+interface TopProductsProps {
+    products: Product[];
+}
+
+export function TopProducts({ products }: TopProductsProps) {
+  const sortedProducts = [...products].sort((a, b) => b.sold - a.sold).slice(0, 5);
+  const maxSold = sortedProducts.length > 0 ? Math.max(...sortedProducts.map(p => p.sold)) : 0;
 
   return (
     <Card>
@@ -28,14 +31,14 @@ export function TopProducts() {
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
-        {products.map(product => (
+        {sortedProducts.map(product => (
           <div key={product.name} className="space-y-1">
             <div className="flex justify-between text-sm">
               <p className="font-medium">{product.name}</p>
               <p className="text-muted-foreground">{product.sold} sold</p>
             </div>
             <div className="flex items-center gap-4">
-              <Progress value={(product.sold / maxSold) * 100} className="h-2 flex-1" />
+              <Progress value={maxSold > 0 ? (product.sold / maxSold) * 100 : 0} className="h-2 flex-1" />
               <p className="text-sm font-semibold text-right w-20">₹{product.revenue.toLocaleString('en-IN')}</p>
             </div>
           </div>

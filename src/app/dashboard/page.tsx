@@ -1,6 +1,7 @@
 
 "use client";
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -10,10 +11,36 @@ import { ArrowUp, DollarSign, Users, CreditCard, Activity, Edit, PlusCircle } fr
 import { DashboardCharts } from "@/components/dashboard-charts";
 import Link from "next/link";
 import { SidebarTrigger } from "@/components/app-sidebar";
-import { TopProducts } from "@/components/top-products";
+import { TopProducts, type Product } from "@/components/top-products";
 import { Textarea } from "@/components/ui/textarea";
 
+const initialProducts = [
+  { name: "Handwoven Silk Saree", sold: 32, revenue: 12450 },
+  { name: "Brass Oil Lamp", sold: 28, revenue: 8960 },
+  { name: "Wooden Jewelry Box", sold: 24, revenue: 7200 },
+  { name: "Block Print Kurta", sold: 18, revenue: 5940 },
+  { name: "Clay Pottery Set", sold: 12, revenue: 3600 },
+];
+
 export default function DashboardPage() {
+    const [products, setProducts] = useState<Product[]>(initialProducts);
+    const [isAddProductOpen, setIsAddProductOpen] = useState(false);
+    const [newProduct, setNewProduct] = useState({ name: '', sold: '', revenue: '' });
+
+    const handleAddProduct = () => {
+        if (newProduct.name && newProduct.sold && newProduct.revenue) {
+            const productToAdd: Product = {
+                name: newProduct.name,
+                sold: parseInt(newProduct.sold, 10),
+                revenue: parseInt(newProduct.revenue, 10)
+            };
+            setProducts(prevProducts => [...prevProducts, productToAdd]);
+            setNewProduct({ name: '', sold: '', revenue: '' });
+            setIsAddProductOpen(false);
+        }
+    };
+
+
   return (
     <div className="flex flex-col gap-8">
         <header className="flex items-center justify-between gap-4">
@@ -22,10 +49,45 @@ export default function DashboardPage() {
                 <p className="text-muted-foreground">A quick overview of your business.</p>
             </div>
             <div className="flex gap-2">
-                 <Button>
-                    <PlusCircle className="mr-2" />
-                    Add Product
-                </Button>
+                <Dialog open={isAddProductOpen} onOpenChange={setIsAddProductOpen}>
+                    <DialogTrigger asChild>
+                         <Button>
+                            <PlusCircle className="mr-2" />
+                            Add Product
+                        </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[425px]">
+                        <DialogHeader>
+                            <DialogTitle className="font-headline">Add New Product</DialogTitle>
+                            <DialogDescription>
+                                Enter the details of the new product.
+                            </DialogDescription>
+                        </DialogHeader>
+                        <div className="grid gap-4 py-4">
+                            <div className="grid grid-cols-4 items-center gap-4">
+                                <Label htmlFor="product-name" className="text-right">
+                                    Name
+                                </Label>
+                                <Input id="product-name" value={newProduct.name} onChange={(e) => setNewProduct({...newProduct, name: e.target.value})} className="col-span-3" />
+                            </div>
+                            <div className="grid grid-cols-4 items-center gap-4">
+                                <Label htmlFor="product-sold" className="text-right">
+                                    Sold
+                                </Label>
+                                <Input id="product-sold" type="number" value={newProduct.sold} onChange={(e) => setNewProduct({...newProduct, sold: e.target.value})} className="col-span-3" />
+                            </div>
+                             <div className="grid grid-cols-4 items-center gap-4">
+                                <Label htmlFor="product-revenue" className="text-right">
+                                    Revenue
+                                </Label>
+                                <Input id="product-revenue" type="number" value={newProduct.revenue} onChange={(e) => setNewProduct({...newProduct, revenue: e.target.value})} className="col-span-3" />
+                            </div>
+                        </div>
+                        <DialogFooter>
+                            <Button onClick={handleAddProduct}>Save Product</Button>
+                        </DialogFooter>
+                    </DialogContent>
+                </Dialog>
                 <Dialog>
                     <DialogTrigger asChild>
                         <Button>
@@ -113,7 +175,7 @@ export default function DashboardPage() {
         <div className="md:col-span-2">
           <DashboardCharts />
         </div>
-        <TopProducts />
+        <TopProducts products={products} />
       </div>
     </div>
   );
