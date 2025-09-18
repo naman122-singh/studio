@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Heart, MessageCircle, Send, Share2, Search, Filter, Briefcase, MapPin, Package, Users, Star, PlusCircle } from "lucide-react";
+import { Heart, MessageCircle, Send, Share2, Search, Filter, Briefcase, MapPin, Package, Users, Star, PlusCircle, MessageSquare } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 
@@ -57,6 +57,30 @@ const artisans = [
     online: true,
   },
 ];
+
+const nearbyArtisans = [
+    {
+      name: "Lakshmi Crafts",
+      craft: "Embroidery",
+      distance: "2.3 km",
+      rating: 4.7,
+      image: PlaceHolderImages.find(p => p.id === 'artisan5'),
+    },
+    {
+      name: "Ganesh Pottery",
+      craft: "Pottery",
+      distance: "4.1 km",
+      rating: 4.9,
+      image: PlaceHolderImages.find(p => p.id === 'artisan1'),
+    },
+    {
+      name: "Rajesh Metalworks",
+      craft: "Brass Work",
+      distance: "5.8 km",
+      rating: 4.8,
+      image: PlaceHolderImages.find(p => p.id === 'artisan4'),
+    },
+]
 
 const collabPosts = [
     { id: 1, author: "Priya Sharma", title: "Seeking a metalworker for a mixed-media sculpture project.", replies: 5, time: "2h ago"},
@@ -164,34 +188,76 @@ export default function CommunityPage() {
             </Card>
         </TabsContent>
          <TabsContent value="nearby" className="mt-6">
-            <Card>
-                <CardHeader>
-                    <CardTitle className="font-headline">Nearby Artisans & Group Shipping</CardTitle>
-                    <CardDescription>Discover local artisans for collaboration and bulk-buy opportunities.</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <div className="h-80 bg-muted rounded-lg flex items-center justify-center">
-                        <Image
-                        src="https://picsum.photos/seed/map-community/1000/500"
-                        alt="Map of artisans"
-                        width={1000}
-                        height={500}
-                        className="rounded-lg object-cover w-full h-full"
-                        data-ai-hint="India map"
-                        />
-                    </div>
-                     <div className="mt-4">
-                        <h4 className="font-semibold mb-2">Active Group-Buy Opportunity:</h4>
-                        <div className="border p-4 rounded-lg flex justify-between items-center">
-                            <div>
-                                <p className="font-medium">Bulk purchase of high-quality packaging material.</p>
-                                <p className="text-sm text-muted-foreground">10 artisans from Rajasthan have joined. 20% discount achieved.</p>
-                            </div>
-                            <Button>Join Group-Buy</Button>
-                        </div>
-                    </div>
-                </CardContent>
-            </Card>
+            <div className="grid lg:grid-cols-3 gap-6">
+                <div className="lg:col-span-2">
+                    <Card>
+                        <CardHeader>
+                            <CardTitle className="font-headline flex items-center gap-2">
+                                <MapPin/>Artisans Near You
+                            </CardTitle>
+                            <CardDescription>Discover local artisans for collaboration and bulk-buy opportunities.</CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-2">
+                           {nearbyArtisans.map((artisan) => (
+                               <div key={artisan.name} className="flex items-center gap-4 p-4 border rounded-lg hover:bg-muted/50 transition-colors">
+                                   <Avatar className="w-12 h-12">
+                                       <AvatarImage src={artisan.image?.imageUrl} data-ai-hint={artisan.image?.imageHint}/>
+                                       <AvatarFallback>{artisan.name.slice(0, 2)}</AvatarFallback>
+                                   </Avatar>
+                                   <div className="flex-1">
+                                       <h3 className="font-semibold">{artisan.name}</h3>
+                                       <p className="text-sm text-muted-foreground">{artisan.craft}</p>
+                                   </div>
+                                   <div className="text-right">
+                                       <p className="font-semibold">{artisan.distance}</p>
+                                       <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                                            <Star className="w-4 h-4 text-yellow-500 fill-yellow-500"/>
+                                            <span>{artisan.rating}</span>
+                                       </div>
+                                   </div>
+                                   <Button variant="outline" size="icon">
+                                       <MessageSquare className="w-5 h-5"/>
+                                   </Button>
+                               </div>
+                           ))}
+                        </CardContent>
+                    </Card>
+                </div>
+                <div className="space-y-6">
+                    <Card>
+                        <CardHeader>
+                            <CardTitle className="font-headline flex items-center gap-2"><Package/>Group Shipping Opportunity</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <p className="text-sm text-muted-foreground mb-4">Join with 3 nearby artisans for bulk shipping to Mumbai - save 40% on logistics costs.</p>
+                            <Button className="w-full">Learn More</Button>
+                        </CardContent>
+                    </Card>
+                     <Card>
+                        <CardHeader>
+                            <CardTitle className="font-headline">Local Supplier</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                             <div className="flex items-center gap-4">
+                                <Avatar>
+                                    <AvatarImage src="https://picsum.photos/seed/supplier1/40/40" />
+                                    <AvatarFallback>JC</AvatarFallback>
+                                </Avatar>
+                                <div>
+                                    <h4 className="font-semibold">Jaipur Color Company</h4>
+                                     <div className="flex items-center gap-1 text-sm">
+                                        <Star className="w-4 h-4 text-yellow-500 fill-yellow-500"/>
+                                        <span className="font-bold">4.8</span>
+                                        <span className="text-muted-foreground">(45 reviews)</span>
+                                    </div>
+                                </div>
+                             </div>
+                             <p className="text-sm text-muted-foreground my-3">High-quality natural dyes for textiles and pottery.</p>
+                             <Button variant="outline" className="w-full">View Details</Button>
+                        </CardContent>
+                    </Card>
+                </div>
+            </div>
         </TabsContent>
          <TabsContent value="resources" className="mt-6">
             <Card>
@@ -233,4 +299,3 @@ export default function CommunityPage() {
     </div>
   );
 }
-
