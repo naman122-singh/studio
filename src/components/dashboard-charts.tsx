@@ -4,7 +4,7 @@
 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartConfig } from "@/components/ui/chart";
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Line, LineChart, Pie, PieChart, Label, PolarRadiusAxis, RadialBar, RadialBarChart } from "recharts";
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Line, LineChart, Pie, PieChart, Label, PolarRadiusAxis, RadialBar, RadialBarChart, Cell } from "recharts";
 import { TrendingUp, FileText } from 'lucide-react';
 import { YearlyProgressChart } from "./yearly-progress-chart";
 
@@ -23,19 +23,38 @@ const weeklySalesChartConfig = {
 } satisfies ChartConfig
 
 const dailySalesData = [
-    { day: "Sun", sales: 90 },
-    { day: "Mon", sales: 140 },
-    { day: "Tue", sales: 160 },
-    { day: "Wed", sales: 150 },
-    { day: "Thu", sales: 180 },
-    { day: "Fri", sales: 210 },
-    { day: "Sat", sales: 190 },
+    { day: "Sun", sales: 90, fill: "var(--color-chart-1)" },
+    { day: "Mon", sales: 140, fill: "var(--color-chart-2)" },
+    { day: "Tue", sales: 160, fill: "var(--color-chart-3)" },
+    { day: "Wed", sales: 150, fill: "var(--color-chart-4)" },
+    { day: "Thu", sales: 180, fill: "var(--color-chart-5)" },
+    { day: "Fri", sales: 210, fill: "var(--color-chart-1)" },
+    { day: "Sat", sales: 190, fill: "var(--color-chart-2)" },
 ]
 
 const dailySalesChartConfig = {
     sales: {
       label: "Sales",
-      color: "hsl(var(--chart-1))",
+    },
+    "chart-1": {
+        label: "Chart 1",
+        color: "hsl(var(--chart-1))",
+    },
+    "chart-2": {
+        label: "Chart 2",
+        color: "hsl(var(--chart-2))",
+    },
+    "chart-3": {
+        label: "Chart 3",
+        color: "hsl(var(--chart-3))",
+    },
+    "chart-4": {
+        label: "Chart 4",
+        color: "hsl(var(--chart-4))",
+    },
+    "chart-5": {
+        label: "Chart 5",
+        color: "hsl(var(--chart-5))",
     },
 } satisfies ChartConfig
 
@@ -63,7 +82,11 @@ export function DashboardCharts() {
                         cursor={false}
                         content={<ChartTooltipContent hideLabel />}
                         />
-                        <Bar dataKey="sales" fill="var(--color-sales)" radius={8} />
+                        <Bar dataKey="sales" radius={8}>
+                            {dailySalesData.map((entry, index) => (
+                                <Cell key={`cell-${index}`} fill={entry.fill} />
+                            ))}
+                        </Bar>
                     </BarChart>
                     </ChartContainer>
                 </CardContent>
