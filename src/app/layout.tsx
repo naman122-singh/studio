@@ -25,73 +25,44 @@ function LayoutContent({ children }: { children: ReactNode }) {
     const pathname = usePathname();
     const { width } = useDevicePreview();
     const isMobile = useIsMobile();
-    const [isLandingPage, setIsLandingPage] = useState(false);
-    const [showContent, setShowContent] = useState(false);
+    
+    const isDashboard = pathname !== '/';
 
-    useEffect(() => {
-        const hasVisited = localStorage.getItem('hasVisitedKalaSaathi');
-        const isLanding = !hasVisited && pathname === '/';
-        setIsLandingPage(isLanding);
-
-        if (isLanding) {
-            setShowContent(true);
-        } else if (pathname === '/landing') {
-            // If the user navigates back to /landing, we respect that
-            setIsLandingPage(true);
-            setShowContent(true);
-        }
-        else {
-             // For any other page, go straight to dashboard view
-            setIsLandingPage(false);
-            setShowContent(true);
-        }
-
-    }, [pathname]);
-
-    const handleExitLanding = () => {
-        localStorage.setItem('hasVisitedKalaSaathi', 'true');
-        setIsLandingPage(false);
-    };
-
-    if (!showContent) {
-        return null; // Or a loading spinner
-    }
-
-
-    if (isLandingPage) {
+    if (isDashboard) {
         return (
-            <div className="flex flex-col min-h-screen">
-                <Header onExit={handleExitLanding}/>
-                <main className="flex-1">
-                    {children}
-                </main>
-                <Footer />
+            <div className="flex h-screen w-full">
+                <div className="flex flex-col flex-1 overflow-hidden">
+                    <DashboardHeader />
+                    <main className="flex-1 overflow-y-auto bg-muted/40 p-4 lg:p-6 transition-all duration-300 ease-in-out">
+                        <div
+                            className={cn(
+                                "mx-auto transition-all duration-500 ease-in-out",
+                                width !== '100%' && "shadow-2xl ring-1 ring-black/10 rounded-lg overflow-hidden"
+                            )}
+                            style={{ maxWidth: isMobile ? '100%' : width }}
+                        >
+                            <div className={cn(width !== '100%' && "bg-background")}>
+                                <div className="p-6 lg:p-8 fade-in">
+                                    {children}
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                </div>
             </div>
-        )
+        );
     }
+
 
     return (
-        <div className="flex h-screen w-full">
-            <div className="flex flex-col flex-1 overflow-hidden">
-                <DashboardHeader />
-                <main className="flex-1 overflow-y-auto bg-muted/40 p-4 lg:p-6 transition-all duration-300 ease-in-out">
-                    <div
-                        className={cn(
-                            "mx-auto transition-all duration-500 ease-in-out",
-                            width !== '100%' && "shadow-2xl ring-1 ring-black/10 rounded-lg overflow-hidden"
-                        )}
-                        style={{ maxWidth: isMobile ? '100%' : width }}
-                    >
-                        <div className={cn(width !== '100%' && "bg-background")}>
-                             <div className="p-6 lg:p-8 fade-in">
-                                {children}
-                             </div>
-                        </div>
-                    </div>
-                </main>
-            </div>
+        <div className="flex flex-col min-h-screen">
+            <Header />
+            <main className="flex-1">
+                {children}
+            </main>
+            <Footer />
         </div>
-    );
+    )
 }
 
 

@@ -13,8 +13,9 @@ import { ThemeToggle } from "./theme-toggle";
 import { DevicePreviewControls } from "./device-preview-controls";
 
 const navLinks = [
-  { href: "/landing", label: "Home" },
+  { href: "/", label: "Home" },
   { href: "/about", label: "About" },
+  { href: "/dashboard", label: "Dashboard" }
 ];
 
 export function Header({ onExit }: { onExit?: () => void }) {
