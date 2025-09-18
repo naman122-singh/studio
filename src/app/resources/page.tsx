@@ -127,15 +127,15 @@ export default function ResourcesPage() {
               <Card key={scheme.name}>
                 <CardContent className="p-6">
                     <div className="flex justify-between items-start gap-4">
-                        <h3 className="text-xl font-bold font-headline">{scheme.name}</h3>
-                        <div className="flex items-center gap-2">
-                            <Badge variant={scheme.status === 'Active' ? 'default' : 'secondary'} className="bg-orange-500 hover:bg-orange-600">{scheme.status}</Badge>
-                            <Button variant="ghost" size="icon" className="w-8 h-8">
-                                <Bookmark className="w-5 h-5"/>
-                            </Button>
+                        <div className="flex items-center gap-4">
+                          <h3 className="text-xl font-bold font-headline">{scheme.name}</h3>
+                          <Badge variant={scheme.status === 'Active' ? 'default' : 'secondary'} className="bg-orange-500 hover:bg-orange-600">{scheme.status}</Badge>
                         </div>
+                        <Button variant="ghost" size="icon" className="w-8 h-8">
+                            <Bookmark className="w-5 h-5"/>
+                        </Button>
                     </div>
-                    <p className="text-sm text-muted-foreground flex items-center gap-2 mt-1"><Building className="w-4 h-4"/> {scheme.organization}</p>
+                    <p className="text-sm text-muted-foreground flex items-center gap-2 mt-2"><Building className="w-4 h-4"/> {scheme.organization}</p>
                     <p className="text-muted-foreground my-4">{scheme.description}</p>
                     
                     <div className="mb-4">
@@ -159,7 +159,9 @@ export default function ResourcesPage() {
                             <p className="text-muted-foreground flex items-center gap-2"><Calendar className="w-4 h-4 text-primary"/>{scheme.deadline}</p>
                         </div>
                     </div>
-                     <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground mt-4">
+                </CardContent>
+                <div className="flex items-center justify-between p-6 pt-0">
+                     <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">
                         <div className="flex items-center gap-2">
                             <Users className="w-4 h-4 text-primary"/>
                             <span>{scheme.applied} applied</span>
@@ -169,11 +171,10 @@ export default function ResourcesPage() {
                             <span>{scheme.successRate} success rate</span>
                         </div>
                     </div>
-
-                </CardContent>
-                <div className="flex items-center justify-end p-6 pt-0 gap-4">
-                    <Button variant="outline">Learn More</Button>
-                    <Button><ExternalLink className="mr-2"/>Apply Now</Button>
+                    <div className="flex items-center gap-4">
+                      <Button variant="outline">Learn More</Button>
+                      <Button className="bg-orange-500 hover:bg-orange-600"><ExternalLink className="mr-2"/>Apply Now</Button>
+                    </div>
                 </div>
               </Card>
             ))}
