@@ -1,9 +1,11 @@
 
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Building, Filter, Search, Bookmark, Lightbulb, TrendingUp, Users } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
+import { Building, Filter, Search, Bookmark, Lightbulb, TrendingUp, Users, CheckCircle, Clock, Calendar, ExternalLink } from "lucide-react";
 
 const schemes = [
   {
@@ -12,7 +14,11 @@ const schemes = [
     description: "Financial support and skill development for traditional artisans and craftspeople.",
     benefits: ["₹1-3 lakh credit", "Skill training", "Digital marketing support"],
     status: "Active",
-    type: "Government"
+    type: "Government",
+    eligibility: "Traditional artisans engaged in handicrafts",
+    deadline: "31 March 2024",
+    applied: "2.5M+",
+    successRate: "78%",
   },
   {
     name: "Crafts Council of India Grant",
@@ -20,7 +26,11 @@ const schemes = [
     description: "Grants for artisans to participate in international exhibitions and workshops.",
     benefits: ["Exhibition funding", "Travel stipend"],
     status: "Active",
-    type: "NGO"
+    type: "NGO",
+    eligibility: "Artisans with 5+ years of experience",
+    deadline: "15 April 2024",
+    applied: "1.2M+",
+    successRate: "65%",
   },
   {
     name: "Stand-Up India Scheme",
@@ -28,23 +38,39 @@ const schemes = [
     description: "Facilitates bank loans for enterprises led by SC/ST or women entrepreneurs.",
     benefits: ["₹10 lakh - 1 Cr loan", "Women & SC/ST Focus"],
     status: "Active",
-    type: "Government"
+    type: "Government",
+    eligibility: "SC/ST or Women Entrepreneurs",
+    deadline: "Ongoing",
+    applied: "800K+",
+    successRate: "72%",
   },
   {
-    name: "Dastkar Livelihood Support",
-    organization: "Dastkar",
-    description: "Provides support to craftspeople for developing new products and reaching new markets.",
-    benefits: ["Design input", "Market linkage"],
-    status: "Ongoing",
-    type: "NGO"
-  },
-  {
-      name: "Scheme of Fund for Regeneration of Traditional Industries (SFURTI)",
-      description: "Organizes traditional industries and artisans into clusters to make them competitive.",
-      benefits: ["Cluster Development", "Sustainability"],
+      name: "Handicrafts Development Programme",
+      organization: "Office of Development Commissioner (Handicrafts)",
+      description: "Comprehensive scheme for development of handicrafts sector.",
+      benefits: ["Market linkage", "Design development", "Export promotion"],
       status: "Active",
-      type: "Government"
+      type: "Government",
+      eligibility: "All registered handicraft artisans",
+      deadline: "30 June 2024",
+      applied: "3.1M+",
+      successRate: "85%",
   }
+]
+
+const comingSoon = [
+    {
+        name: "Craft Heritage Preservation Grant",
+        organization: "Ministry of Culture",
+        date: "February 2024",
+        benefit: "₹5 lakh grants"
+    },
+    {
+        name: "Women Artisan Entrepreneur Program",
+        organization: "National Skill Development Corporation",
+        date: "March 2024",
+        benefit: "Business incubation support"
+    }
 ]
 
 export default function ResourcesPage() {
@@ -110,7 +136,8 @@ export default function ResourcesPage() {
                     </div>
                     <p className="text-sm text-muted-foreground flex items-center gap-2 mt-1"><Building className="w-4 h-4"/> {scheme.organization}</p>
                     <p className="text-muted-foreground my-4">{scheme.description}</p>
-                    <div>
+                    
+                    <div className="mb-4">
                         <h4 className="text-sm font-semibold mb-2">Key Benefits</h4>
                         <div className="flex flex-wrap gap-2">
                             {scheme.benefits.map(benefit => (
@@ -118,7 +145,35 @@ export default function ResourcesPage() {
                             ))}
                         </div>
                     </div>
+
+                    <Separator className="my-4"/>
+
+                    <div className="grid sm:grid-cols-2 gap-4 text-sm">
+                        <div>
+                            <h4 className="font-semibold mb-1">Eligibility</h4>
+                            <p className="text-muted-foreground">{scheme.eligibility}</p>
+                        </div>
+                         <div>
+                            <h4 className="font-semibold mb-1">Deadline</h4>
+                            <p className="text-muted-foreground flex items-center gap-2"><Calendar className="w-4 h-4 text-primary"/>{scheme.deadline}</p>
+                        </div>
+                    </div>
+                     <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground mt-4">
+                        <div className="flex items-center gap-2">
+                            <Users className="w-4 h-4 text-primary"/>
+                            <span>{scheme.applied} applied</span>
+                        </div>
+                         <div className="flex items-center gap-2">
+                            <CheckCircle className="w-4 h-4 text-green-500"/>
+                            <span>{scheme.successRate} success rate</span>
+                        </div>
+                    </div>
+
                 </CardContent>
+                <div className="flex items-center justify-end p-6 pt-0 gap-4">
+                    <Button variant="outline">Learn More</Button>
+                    <Button><ExternalLink className="mr-2"/>Apply Now</Button>
+                </div>
               </Card>
             ))}
         </div>
@@ -147,21 +202,19 @@ export default function ResourcesPage() {
             </Card>
              <Card>
                 <CardHeader>
-                    <CardTitle className="font-headline">Trending Topics</CardTitle>
+                    <CardTitle className="font-headline flex items-center gap-2"><Clock/> Coming Soon</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-3">
-                   <div className="flex items-center gap-3 hover:bg-muted/50 p-2 rounded-lg cursor-pointer">
-                        <Lightbulb className="w-5 h-5 text-primary"/>
-                        <p className="font-medium">New MSME Registration Rules</p>
-                   </div>
-                   <div className="flex items-center gap-3 hover:bg-muted/50 p-2 rounded-lg cursor-pointer">
-                        <TrendingUp className="w-5 h-5 text-primary"/>
-                        <p className="font-medium">Export Opportunities in EU</p>
-                   </div>
-                   <div className="flex items-center gap-3 hover:bg-muted/50 p-2 rounded-lg cursor-pointer">
-                        <Users className="w-5 h-5 text-primary"/>
-                        <p className="font-medium">Forming an Artisan Cooperative</p>
-                   </div>
+                <CardContent className="space-y-4">
+                   {comingSoon.map(item => (
+                       <div key={item.name} className="p-3 bg-muted/50 rounded-lg">
+                            <h4 className="font-semibold">{item.name}</h4>
+                            <p className="text-sm text-muted-foreground">{item.organization}</p>
+                            <div className="flex justify-between items-center mt-2 text-xs">
+                                <Badge variant="secondary" className="bg-red-100 text-red-800">{item.date}</Badge>
+                                <Badge variant="outline">{item.benefit}</Badge>
+                            </div>
+                       </div>
+                   ))}
                 </CardContent>
             </Card>
         </div>
@@ -171,5 +224,3 @@ export default function ResourcesPage() {
     </div>
   );
 }
-
-    
