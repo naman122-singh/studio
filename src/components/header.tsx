@@ -15,7 +15,7 @@ import { LanguageSelector } from "./language-selector";
 
 const navLinks = [
   { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
+  { href: "/about", label: "About Us" },
 ];
 
 export function Header({ onExit }: { onExit?: () => void }) {
