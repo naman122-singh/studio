@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Eye, Goal, Wand2, TrendingUp, BookText, Award, Users, HeartHandshake, Video, DollarSign } from "lucide-react";
+import { ArrowRight, Eye, Goal, Wand2, TrendingUp, BookText, Award, Users, HeartHandshake, Video, DollarSign, Play } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -91,8 +91,14 @@ export default function LandingPage() {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="text-lg px-8 py-6 transition-transform duration-300 hover:scale-105">
-              <Link href="#">Watch Demo</Link>
+            <Button asChild variant="outline" size="lg" className="text-lg px-8 py-6 transition-transform duration-300 hover:scale-105 hover:bg-accent/50">
+              <Link href="#">
+                <Play className="mr-2 h-5 w-5" />
+                Watch Demo
+              </Link>
+            </Button>
+             <Button variant="ghost" size="lg" className="text-lg px-8 py-6 transition-transform duration-300 hover:scale-105 hover:bg-accent/50">
+                Sign In
             </Button>
           </div>
         </div>
