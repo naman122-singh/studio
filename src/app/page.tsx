@@ -102,16 +102,26 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section className="bg-background relative z-10 py-16 md:py-24 slide-in-up">
-        <div className="container mx-auto px-4">
+      <section className="relative bg-background z-10 py-16 md:py-24 slide-in-up">
+        <div className="absolute inset-0 w-full h-full">
+            <Image 
+                src="https://picsum.photos/seed/mission-bg/1920/1080"
+                alt="Traditional Indian art pattern"
+                fill
+                className="object-cover opacity-10"
+                data-ai-hint="traditional art pattern"
+            />
+            <div className="absolute inset-0 bg-background/80"></div>
+        </div>
+        <div className="container mx-auto px-4 relative">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-4 text-center">
+            <div className="space-y-4 text-center p-8 rounded-lg bg-background/50">
               <h3 className="text-3xl font-bold font-headline flex items-center justify-center gap-2"><Goal className="w-8 h-8 text-primary"/> Our Mission</h3>
               <p className="text-lg text-muted-foreground">
                 To empower traditional Indian artisans by providing them with cutting-edge AI tools and a global platform, ensuring their timeless crafts thrive in the modern world. We aim to bridge the gap between heritage and technology, fostering economic independence and cultural preservation.
               </p>
             </div>
-            <div className="space-y-4 text-center">
+            <div className="space-y-4 text-center p-8 rounded-lg bg-background/50">
               <h3 className="text-3xl font-bold font-headline flex items-center justify-center gap-2"><Eye className="w-8 h-8 text-primary"/> Our Vision</h3>
               <p className="text-lg text-muted-foreground">
                 A future where every Indian artisan is digitally enabled, their craft is globally recognized, and the rich tapestry of Indian heritage is celebrated and sustained for generations to come. We envision a vibrant ecosystem of creators, buyers, and storytellers united by technology.
