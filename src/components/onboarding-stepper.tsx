@@ -50,8 +50,8 @@ export function OnboardingStepper({ onComplete }: OnboardingStepperProps) {
             <p className="text-muted-foreground text-center">Let's set up your profile to get the most out of our platform.</p>
        </div>
 
-      <div className="mb-8 px-4 flex justify-center">
-        <ol className="flex items-center w-full max-w-xl">
+      <div className="mb-8 flex justify-center">
+        <ol className="flex items-center w-full max-w-2xl">
           {steps.map((step, index) => (
             <li
               key={step.id}
