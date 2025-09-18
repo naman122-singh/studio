@@ -17,6 +17,7 @@ import { AppSidebar } from "./app-sidebar";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { DevicePreviewControls } from "./device-preview-controls";
 import { ThemeToggle } from "./theme-toggle";
+import { LanguageSelector } from "./language-selector";
 
 export function DashboardHeader() {
   return (
@@ -25,6 +26,7 @@ export function DashboardHeader() {
             <AppSidebar />
         </div>
         <div className="flex items-center gap-2">
+            <LanguageSelector />
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="rounded-full">

@@ -11,6 +11,7 @@ import { Logo } from "./logo";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "./theme-toggle";
 import { DevicePreviewControls } from "./device-preview-controls";
+import { LanguageSelector } from "./language-selector";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -43,6 +44,9 @@ export function Header({ onExit }: { onExit?: () => void }) {
           ))}
         </nav>
         <div className="flex flex-1 items-center justify-end space-x-2">
+            <div className="hidden md:block">
+              <LanguageSelector />
+            </div>
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="rounded-full">
@@ -108,6 +112,9 @@ export function Header({ onExit }: { onExit?: () => void }) {
                     {link.label}
                   </Link>
                 ))}
+                 <div className="border-t pt-4">
+                  <LanguageSelector />
+                 </div>
                 <div className="border-t pt-4 flex flex-col space-y-2">
                     <Button variant="ghost" asChild>
                         <Link href="#">Sign In</Link>
