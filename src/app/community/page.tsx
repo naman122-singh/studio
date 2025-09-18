@@ -75,7 +75,7 @@ export default function CommunityPage() {
     <div className="flex flex-col gap-6">
       <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-4xl font-bold tracking-tight font-headline">Artisan Community</h1>
+          <h1 className="text-4xl font-bold tracking-tight font-headline">Artisan AI Community</h1>
           <p className="text-muted-foreground mt-1">Connect, collaborate, and grow together with fellow artisans.</p>
         </div>
         <Button>
