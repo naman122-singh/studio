@@ -34,8 +34,10 @@ export default function DashboardPage() {
         setIsClient(true);
         // We assume a new user is one that hasn't completed onboarding.
         // In a real app, this would be determined from user data.
-        const isNewUser = !localStorage.getItem("hasCompletedOnboarding");
-        setShowOnboarding(isNewUser);
+        if (typeof window !== 'undefined') {
+            const isNewUser = !localStorage.getItem("hasCompletedOnboarding");
+            setShowOnboarding(isNewUser);
+        }
     }, []);
 
     const handleAddProduct = () => {
@@ -58,14 +60,13 @@ export default function DashboardPage() {
         setShowOnboarding(false);
     };
     
-    if (isClient && showOnboarding) {
-        return <OnboardingStepper onComplete={handleOnboardingComplete} />;
-    }
-
     if (!isClient) {
         return null; // Or a loading spinner
     }
 
+    if (showOnboarding) {
+        return <OnboardingStepper onComplete={handleOnboardingComplete} />;
+    }
 
   return (
     <div className="flex flex-col gap-8">
@@ -206,5 +207,6 @@ export default function DashboardPage() {
     </div>
   );
 }
+
 
 
