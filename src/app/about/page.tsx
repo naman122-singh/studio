@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function AboutPage() {
     return (
         <div className="container mx-auto px-4 py-12">
-            <h1 className="text-4xl font-bold font-headline text-center mb-8">About Kala Saathi</h1>
+            <h1 className="text-4xl font-bold font-headline text-center mb-8 flex items-center justify-center gap-3">About <span className="font-hindi text-5xl">कला</span> Saathi</h1>
             <p className="text-lg text-muted-foreground text-center max-w-3xl mx-auto mb-12">
                 Kala Saathi is an AI-powered platform dedicated to empowering Indian traditional artists and craftsmen. Our mission is to bridge the gap between timeless heritage and modern technology, ensuring that these invaluable art forms not only survive but thrive in the digital age.
             </p>

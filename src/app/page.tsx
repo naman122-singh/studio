@@ -66,8 +66,8 @@ export default function LandingPage() {
         <HeroBackground />
         <div className="relative z-10 container px-4 mx-auto slide-in-up">
           <h1 className="text-5xl md:text-7xl font-bold font-headline mb-4">
-            <span className="bg-gradient-to-r from-orange-400 via-yellow-500 to-teal-400 text-transparent bg-clip-text">
-              Kala Saathi
+            <span className="bg-gradient-to-r from-orange-400 via-yellow-500 to-teal-400 text-transparent bg-clip-text flex items-center justify-center gap-4">
+              <span className="font-hindi text-6xl md:text-8xl">कला</span> Saathi
             </span>
           </h1>
           <h2 className="text-4xl md:text-6xl font-bold font-headline mb-6">
