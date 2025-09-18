@@ -86,42 +86,6 @@ export function DashboardCharts() {
                     </p>
                 </CardFooter>
             </Card>
-        
-            <Card>
-                <CardHeader>
-                    <CardTitle className="font-headline">Product-wise Sales</CardTitle>
-                    <CardDescription>Distribution of sales across your product categories.</CardDescription>
-                </CardHeader>
-                <CardContent className="flex items-center justify-center">
-                    <ChartContainer config={productChartConfig} className="h-[250px] w-full max-w-[250px]">
-                        <RadialBarChart
-                            data={productSalesData}
-                            innerRadius="60%"
-                            outerRadius="100%"
-                            startAngle={90}
-                            endAngle={90 + 360}
-                        >
-                            <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
-                                <Label content={() => null} />
-                            </PolarRadiusAxis>
-                            <RadialBar
-                                dataKey="value"
-                                background={{ fill: "hsl(var(--muted))" }}
-                                cornerRadius={10}
-                            />
-                            <ChartTooltip
-                                cursor={false}
-                                content={<ChartTooltipContent hideLabel hideIndicator />}
-                            />
-                        </RadialBarChart>
-                    </ChartContainer>
-                </CardContent>
-                <CardFooter className="flex-col gap-2 text-sm">
-                    <p className="text-sm text-muted-foreground">
-                        <span className="font-bold text-foreground">AI Analysis:</span> Pottery is your star performer, driving 50% of your sales. Textiles also contribute significantly. There is an opportunity to grow your Woodwork and Jewelry categories through targeted marketing.
-                    </p>
-                </CardFooter>
-            </Card>
 
             <Card>
                 <CardHeader>
