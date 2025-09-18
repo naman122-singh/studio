@@ -39,6 +39,22 @@ const chartConfig = {
         label: "Chart 5",
         color: "hsl(var(--chart-5))",
     },
+    "Week 1": {
+        label: "Week 1",
+        color: "hsl(var(--chart-1))",
+    },
+    "Week 2": {
+        label: "Week 2",
+        color: "hsl(var(--chart-2))",
+    },
+    "Week 3": {
+        label: "Week 3",
+        color: "hsl(var(--chart-3))",
+    },
+    "Week 4": {
+        label: "Week 4",
+        color: "hsl(var(--chart-4))",
+    },
 } satisfies ChartConfig
 
 const dailySalesData = [
@@ -96,26 +112,24 @@ export function DashboardCharts() {
                 <CardDescription>Your sales performance over the past four weeks.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                <ChartContainer config={chartConfig} className="h-[250px] w-full">
-                    <BarChart data={weeklySalesData} accessibilityLayer>
-                        <CartesianGrid vertical={false} />
-                        <XAxis
-                        dataKey="week"
-                        tickLine={false}
-                        tickMargin={10}
-                        axisLine={false}
-                        />
-                        <YAxis />
+                <ChartContainer config={chartConfig} className="mx-auto aspect-square h-[250px] w-full">
+                    <PieChart>
                         <ChartTooltip
                         cursor={false}
                         content={<ChartTooltipContent hideLabel />}
                         />
-                        <Bar dataKey="sales" radius={8}>
-                            {weeklySalesData.map((entry, index) => (
+                        <Pie
+                            data={weeklySalesData}
+                            dataKey="sales"
+                            nameKey="week"
+                            innerRadius={60}
+                            strokeWidth={5}
+                        >
+                             {weeklySalesData.map((entry, index) => (
                                 <Cell key={`cell-${index}`} fill={entry.fill} />
                             ))}
-                        </Bar>
-                    </BarChart>
+                        </Pie>
+                    </PieChart>
                 </ChartContainer>
                 </CardContent>
                 <CardFooter>
