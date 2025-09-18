@@ -1,11 +1,8 @@
 
 "use client";
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
+import { useFormContext } from "react-hook-form";
 import {
-  Form,
   FormControl,
   FormField,
   FormItem,
@@ -16,26 +13,11 @@ import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
 import { Upload, Link } from "lucide-react";
 
-const formSchema = z.object({
-  productImages: z.any(),
-  socialMediaLink: z.string().url().optional().or(z.literal('')),
-});
-
 export function StepDataCollection() {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-        socialMediaLink: "",
-    }
-  });
-
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-  }
+  const form = useFormContext();
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+    <div className="space-y-8">
         <FormField
           control={form.control}
           name="productImages"
@@ -50,7 +32,7 @@ export function StepDataCollection() {
                             <p className="mb-2 text-sm text-muted-foreground"><span className="font-semibold">Click to upload</span> or drag and drop</p>
                             <p className="text-xs text-muted-foreground">SVG, PNG, JPG, GIF, MP4, MOV</p>
                         </div>
-                        <Input id="dropzone-file" type="file" multiple className="hidden" />
+                        <Input id="dropzone-file" type="file" multiple className="hidden" {...field} />
                     </label>
                 </div> 
               </FormControl>
@@ -83,7 +65,6 @@ export function StepDataCollection() {
                 <Button variant="outline">Connect Amazon Karigar</Button>
             </div>
          </div>
-      </form>
-    </Form>
+    </div>
   );
 }

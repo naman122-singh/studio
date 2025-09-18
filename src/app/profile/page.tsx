@@ -3,28 +3,28 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Settings, Heart, Edit, Share2, Mail, Phone, MapPin, BadgeCheck, Camera, Sparkles, QrCode } from "lucide-react";
+import { Settings, Heart, Edit, Share2, Mail, Phone, MapPin, BadgeCheck, Camera, Sparkles, QrCode, UserPlus } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { Textarea } from "@/components/ui/textarea";
 
 interface UserProfile {
   fullName: string;
   phoneNumber: string;
   location: string;
   craft: string;
+  experience: number;
+  businessScale: string;
+  story: string;
 }
 
-const defaultProfile: UserProfile = {
-  fullName: "Artisan Name",
-  phoneNumber: "+91 0000000000",
-  location: "City, State",
-  craft: "Traditional Craft",
-};
-
 export default function ProfilePage() {
-  const [profile, setProfile] = useState<UserProfile>(defaultProfile);
+  const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [isEditingStory, setIsEditingStory] = useState(false);
+  const [story, setStory] = useState("");
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -32,17 +32,59 @@ export default function ProfilePage() {
     if (typeof window !== "undefined") {
       const storedProfile = localStorage.getItem('userProfile');
       if (storedProfile) {
-        setProfile(JSON.parse(storedProfile));
+        const parsedProfile = JSON.parse(storedProfile);
+        setProfile(parsedProfile);
+        setStory(parsedProfile.story || `My family has been creating beautiful ${parsedProfile.craft.toLowerCase()} for generations. I learned this sacred art from my family, who taught me that every piece holds the potential for beauty. Today, I blend traditional techniques with contemporary designs, creating pieces that tell stories of our rich heritage.`);
       }
     }
   }, []);
 
-  const story = `My family has been creating beautiful ${profile.craft.toLowerCase()} for generations. I learned this sacred art from my family, who taught me that every piece holds the potential for beauty. Today, I blend traditional techniques with contemporary designs, creating pieces that tell stories of our rich heritage.`;
+  const handleSaveStory = () => {
+    if (profile) {
+        const updatedProfile = { ...profile, story };
+        localStorage.setItem('userProfile', JSON.stringify(updatedProfile));
+        setProfile(updatedProfile);
+        setIsEditingStory(false);
+    }
+  };
+
+  const avatarFallback = profile?.fullName.split(' ').map(n => n[0]).join('').slice(0,2).toUpperCase();
   const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(story)}`;
-  const avatarFallback = profile.fullName.split(' ').map(n => n[0]).join('').slice(0,2).toUpperCase();
 
   if (!isClient) {
-      return null; // Or a loading skeleton
+      return (
+        <div className="flex flex-col gap-8">
+            <Card className="max-w-4xl mx-auto w-full animate-pulse">
+                <CardContent className="p-6">
+                     <div className="grid md:grid-cols-3 gap-6 items-center">
+                        <div className="flex flex-col items-center justify-center relative">
+                            <div className="w-32 h-32 rounded-full bg-muted"></div>
+                        </div>
+                        <div className="md:col-span-2 space-y-3">
+                            <div className="h-8 bg-muted rounded w-3/4"></div>
+                            <div className="h-4 bg-muted rounded w-1/4"></div>
+                            <div className="h-4 bg-muted rounded w-1/2"></div>
+                        </div>
+                    </div>
+                </CardContent>
+            </Card>
+        </div>
+      );
+  }
+
+  if (!profile) {
+    return (
+        <div className="text-center p-10 flex flex-col items-center justify-center h-[calc(100vh-10rem)]">
+            <UserPlus className="w-16 h-16 text-muted-foreground mb-4"/>
+            <h2 className="text-2xl font-bold font-headline mb-2">Create Your Profile</h2>
+            <p className="text-muted-foreground mb-6 max-w-md">
+                You don't have a profile yet. Sign up to showcase your craft, tell your story, and connect with a community of artisans.
+            </p>
+            <Button asChild>
+                <Link href="/signup">Sign Up to Create Profile</Link>
+            </Button>
+        </div>
+    )
   }
 
   return (
@@ -75,10 +117,10 @@ export default function ProfilePage() {
             </div>
             <div className="md:col-span-2">
               <h2 className="text-3xl font-bold font-headline">{profile.fullName}</h2>
-              <p className="text-primary font-medium">{profile.craft}</p>
+              <p className="text-primary font-medium capitalize">{profile.craft}</p>
               <div className="flex flex-wrap gap-2 my-3">
-                <Badge variant="secondary">0 years</Badge>
-                <Badge variant="secondary">Handicraft</Badge>
+                <Badge variant="secondary">{profile.experience} years</Badge>
+                <Badge variant="secondary" className="capitalize">{profile.businessScale}</Badge>
               </div>
               <div className="grid sm:grid-cols-2 gap-y-2 gap-x-4 text-sm text-muted-foreground mt-4">
                 <div className="flex items-center gap-2">
@@ -112,16 +154,31 @@ export default function ProfilePage() {
             <CardTitle className="font-headline flex items-center gap-2 text-2xl">
               <Heart className="text-primary"/> My Craft Story
             </CardTitle>
-            <Button variant="outline">
-              <Edit className="mr-2"/> Edit Story
-            </Button>
+            {isEditingStory ? (
+                 <Button onClick={handleSaveStory}>Save Story</Button>
+            ) : (
+                <Button variant="outline" onClick={() => setIsEditingStory(true)}>
+                  <Edit className="mr-2"/> Edit Story
+                </Button>
+            )}
           </div>
           <CardDescription>
             Share the journey behind your art and connect with your audience
           </CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col md:flex-row gap-6">
-          <p className="flex-1 text-muted-foreground">{story}</p>
+            <div className="flex-1">
+                {isEditingStory ? (
+                    <Textarea 
+                        value={story}
+                        onChange={(e) => setStory(e.target.value)}
+                        rows={6}
+                        className="text-muted-foreground"
+                    />
+                ) : (
+                    <p className="text-muted-foreground whitespace-pre-wrap">{story}</p>
+                )}
+            </div>
           <div className="flex flex-col items-center gap-2">
              <Image 
                 src={qrCodeUrl}

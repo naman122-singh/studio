@@ -1,11 +1,8 @@
 
 "use client";
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
+import { useFormContext } from "react-hook-form";
 import {
-  Form,
   FormControl,
   FormField,
   FormItem,
@@ -23,27 +20,11 @@ const objectives = [
   { id: "collaboration", label: "Find collaboration opportunities" },
 ];
 
-const formSchema = z.object({
-  objectives: z.array(z.string()).refine((value) => value.some((item) => item), {
-    message: "You have to select at least one item.",
-  }),
-});
-
 export function StepBusinessObjectives() {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      objectives: [],
-    },
-  });
-
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log(data);
-  }
+  const form = useFormContext();
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+    <div className="space-y-8">
         <FormField
           control={form.control}
           name="objectives"
@@ -62,25 +43,29 @@ export function StepBusinessObjectives() {
                       return (
                         <FormItem
                           key={item.id}
-                          className="flex flex-row items-start space-x-3 space-y-0"
                         >
-                          <FormControl>
-                            <Checkbox
-                              checked={field.value?.includes(item.id)}
-                              onCheckedChange={(checked) => {
-                                return checked
-                                  ? field.onChange([...field.value, item.id])
-                                  : field.onChange(
-                                      field.value?.filter(
-                                        (value) => value !== item.id
-                                      )
-                                    );
-                              }}
-                            />
-                          </FormControl>
-                          <FormLabel className="font-normal">
-                            {item.label}
-                          </FormLabel>
+                           <FormControl>
+                                <Checkbox
+                                    className="peer sr-only"
+                                    id={item.id}
+                                    checked={field.value?.includes(item.id)}
+                                    onCheckedChange={(checked) => {
+                                        return checked
+                                        ? field.onChange([...field.value, item.id])
+                                        : field.onChange(
+                                            field.value?.filter(
+                                                (value) => value !== item.id
+                                            )
+                                            );
+                                    }}
+                                />
+                           </FormControl>
+                           <label
+                                htmlFor={item.id}
+                                className="flex items-center justify-center rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer"
+                            >
+                                {item.label}
+                            </label>
                         </FormItem>
                       );
                     }}
@@ -91,7 +76,6 @@ export function StepBusinessObjectives() {
             </FormItem>
           )}
         />
-      </form>
-    </Form>
+    </div>
   );
 }

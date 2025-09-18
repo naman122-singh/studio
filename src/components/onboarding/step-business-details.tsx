@@ -1,12 +1,9 @@
 
 "use client";
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
+import { useFormContext } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import {
-  Form,
   FormControl,
   FormField,
   FormItem,
@@ -23,29 +20,11 @@ import {
 } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
-const formSchema = z.object({
-  craftType: z.string().min(1, "Please select a craft type."),
-  experience: z.coerce.number().min(0, "Years of experience is required."),
-  businessScale: z.enum(["individual", "family-run", "cooperative", "small-enterprise"]),
-});
-
 export function StepBusinessDetails() {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-        craftType: "",
-        experience: 0,
-        businessScale: "individual",
-    },
-  });
-
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-  }
+  const form = useFormContext();
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+    <div className="space-y-8">
         <FormField
           control={form.control}
           name="craftType"
@@ -97,36 +76,36 @@ export function StepBusinessDetails() {
                   defaultValue={field.value}
                   className="grid grid-cols-2 md:grid-cols-4 gap-4"
                 >
-                  <FormItem className="flex items-center space-x-3 space-y-0">
+                  <FormItem>
                     <FormControl>
-                        <div className="p-4 border rounded-lg hover:border-primary cursor-pointer w-full text-center">
-                            <RadioGroupItem value="individual" id="individual" className="sr-only"/>
-                            <label htmlFor="individual" className="font-medium cursor-pointer">Individual</label>
-                        </div>
+                        <RadioGroupItem value="individual" id="individual" className="peer sr-only"/>
+                        <label htmlFor="individual" className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer">
+                            Individual
+                        </label>
                     </FormControl>
                   </FormItem>
-                  <FormItem className="flex items-center space-x-3 space-y-0">
+                  <FormItem>
                     <FormControl>
-                         <div className="p-4 border rounded-lg hover:border-primary cursor-pointer w-full text-center">
-                            <RadioGroupItem value="family-run" id="family-run" className="sr-only"/>
-                            <label htmlFor="family-run" className="font-medium cursor-pointer">Family-run</label>
-                        </div>
+                         <RadioGroupItem value="family-run" id="family-run" className="peer sr-only"/>
+                         <label htmlFor="family-run" className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer">
+                            Family-run
+                        </label>
                     </FormControl>
                   </FormItem>
-                  <FormItem className="flex items-center space-x-3 space-y-0">
+                   <FormItem>
                     <FormControl>
-                        <div className="p-4 border rounded-lg hover:border-primary cursor-pointer w-full text-center">
-                            <RadioGroupItem value="cooperative" id="cooperative" className="sr-only"/>
-                            <label htmlFor="cooperative" className="font-medium cursor-pointer">Cooperative</label>
-                        </div>
+                        <RadioGroupItem value="cooperative" id="cooperative" className="peer sr-only"/>
+                         <label htmlFor="cooperative" className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer">
+                           Cooperative
+                        </label>
                     </FormControl>
                   </FormItem>
-                   <FormItem className="flex items-center space-x-3 space-y-0">
+                   <FormItem>
                     <FormControl>
-                        <div className="p-4 border rounded-lg hover:border-primary cursor-pointer w-full text-center">
-                            <RadioGroupItem value="small-enterprise" id="small-enterprise" className="sr-only"/>
-                             <label htmlFor="small-enterprise" className="font-medium cursor-pointer">Small Enterprise</label>
-                        </div>
+                        <RadioGroupItem value="small-enterprise" id="small-enterprise" className="peer sr-only"/>
+                        <label htmlFor="small-enterprise" className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer">
+                             Small Enterprise
+                        </label>
                     </FormControl>
                   </FormItem>
                 </RadioGroup>
@@ -135,7 +114,6 @@ export function StepBusinessDetails() {
             </FormItem>
           )}
         />
-      </form>
-    </Form>
+    </div>
   );
 }
