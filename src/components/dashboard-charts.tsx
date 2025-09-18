@@ -54,108 +54,109 @@ const productChartConfig = {
 
 export function DashboardCharts() {
   return (
-    <div className="grid gap-6 md:grid-cols-2">
-      <Card>
-          <CardHeader>
-            <CardTitle className="font-headline">Day-wise Sales</CardTitle>
-            <CardDescription>A summary of your sales for the current week.</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ChartContainer config={dailySalesChartConfig} className="h-[250px] w-full">
-              <BarChart data={dailySalesData} accessibilityLayer>
-                <CartesianGrid vertical={false} />
-                <XAxis
-                  dataKey="day"
-                  tickLine={false}
-                  tickMargin={10}
-                  axisLine={false}
-                />
-                <YAxis />
-                <ChartTooltip
-                  cursor={false}
-                  content={<ChartTooltipContent hideLabel />}
-                />
-                <Bar dataKey="sales" fill="var(--color-sales)" radius={8} />
-              </BarChart>
-            </ChartContainer>
-          </CardContent>
-          <CardFooter>
-            <p className="text-sm text-muted-foreground">
-              <span className="font-bold text-foreground">AI Analysis:</span> Your sales show a strong midweek performance, peaking on Friday. Consider running promotions on Sundays and Mondays to boost sales on slower days.
-            </p>
-          </CardFooter>
-        </Card>
-        
-        <Card>
-            <CardHeader>
-                <CardTitle className="font-headline">Product-wise Sales</CardTitle>
-                <CardDescription>Distribution of sales across your product categories.</CardDescription>
-            </CardHeader>
-            <CardContent className="flex items-center justify-center">
-                <ChartContainer config={productChartConfig} className="h-[250px] w-full max-w-[250px]">
-                    <RadialBarChart
-                        data={productSalesData}
-                        innerRadius="60%"
-                        outerRadius="100%"
-                        startAngle={90}
-                        endAngle={90 + 360}
-                    >
-                        <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
-                            <Label content={() => null} />
-                        </PolarRadiusAxis>
-                        <RadialBar
-                            dataKey="value"
-                            background={{ fill: "hsl(var(--muted))" }}
-                            cornerRadius={10}
+    <div className="grid gap-6">
+        <div className="grid gap-6 md:grid-cols-2">
+            <Card>
+                <CardHeader>
+                    <CardTitle className="font-headline">Day-wise Sales</CardTitle>
+                    <CardDescription>A summary of your sales for the current week.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <ChartContainer config={dailySalesChartConfig} className="h-[250px] w-full">
+                    <BarChart data={dailySalesData} accessibilityLayer>
+                        <CartesianGrid vertical={false} />
+                        <XAxis
+                        dataKey="day"
+                        tickLine={false}
+                        tickMargin={10}
+                        axisLine={false}
                         />
-                         <ChartTooltip
-                            cursor={false}
-                            content={<ChartTooltipContent hideLabel hideIndicator />}
-                         />
-                    </RadialBarChart>
+                        <YAxis />
+                        <ChartTooltip
+                        cursor={false}
+                        content={<ChartTooltipContent hideLabel />}
+                        />
+                        <Bar dataKey="sales" fill="var(--color-sales)" radius={8} />
+                    </BarChart>
+                    </ChartContainer>
+                </CardContent>
+                <CardFooter>
+                    <p className="text-sm text-muted-foreground">
+                    <span className="font-bold text-foreground">AI Analysis:</span> Your sales show a strong midweek performance, peaking on Friday. Consider running promotions on Sundays and Mondays to boost sales on slower days.
+                    </p>
+                </CardFooter>
+            </Card>
+        
+            <Card>
+                <CardHeader>
+                    <CardTitle className="font-headline">Product-wise Sales</CardTitle>
+                    <CardDescription>Distribution of sales across your product categories.</CardDescription>
+                </CardHeader>
+                <CardContent className="flex items-center justify-center">
+                    <ChartContainer config={productChartConfig} className="h-[250px] w-full max-w-[250px]">
+                        <RadialBarChart
+                            data={productSalesData}
+                            innerRadius="60%"
+                            outerRadius="100%"
+                            startAngle={90}
+                            endAngle={90 + 360}
+                        >
+                            <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
+                                <Label content={() => null} />
+                            </PolarRadiusAxis>
+                            <RadialBar
+                                dataKey="value"
+                                background={{ fill: "hsl(var(--muted))" }}
+                                cornerRadius={10}
+                            />
+                            <ChartTooltip
+                                cursor={false}
+                                content={<ChartTooltipContent hideLabel hideIndicator />}
+                            />
+                        </RadialBarChart>
+                    </ChartContainer>
+                </CardContent>
+                <CardFooter className="flex-col gap-2 text-sm">
+                    <p className="text-sm text-muted-foreground">
+                        <span className="font-bold text-foreground">AI Analysis:</span> Pottery is your star performer, driving 50% of your sales. Textiles also contribute significantly. There is an opportunity to grow your Woodwork and Jewelry categories through targeted marketing.
+                    </p>
+                </CardFooter>
+            </Card>
+
+            <Card>
+                <CardHeader>
+                <CardTitle className="font-headline">Weekly Sales</CardTitle>
+                <CardDescription>Your sales performance over the past four weeks.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                <ChartContainer config={weeklySalesChartConfig} className="h-[250px] w-full">
+                    <LineChart data={weeklySalesData} accessibilityLayer>
+                    <CartesianGrid vertical={false} />
+                    <XAxis
+                        dataKey="week"
+                        tickLine={false}
+                        axisLine={false}
+                        tickMargin={8}
+                    />
+                    <YAxis />
+                    <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+                    <Line
+                        dataKey="sales"
+                        type="monotone"
+                        stroke="var(--color-sales)"
+                        strokeWidth={2}
+                        dot={true}
+                    />
+                    </LineChart>
                 </ChartContainer>
-            </CardContent>
-             <CardFooter className="flex-col gap-2 text-sm">
-                <p className="text-sm text-muted-foreground">
-                    <span className="font-bold text-foreground">AI Analysis:</span> Pottery is your star performer, driving 50% of your sales. Textiles also contribute significantly. There is an opportunity to grow your Woodwork and Jewelry categories through targeted marketing.
-                </p>
-            </CardFooter>
-        </Card>
-
-        <Card>
-            <CardHeader>
-            <CardTitle className="font-headline">Weekly Sales</CardTitle>
-            <CardDescription>Your sales performance over the past four weeks.</CardDescription>
-            </CardHeader>
-            <CardContent>
-            <ChartContainer config={weeklySalesChartConfig} className="h-[250px] w-full">
-                <LineChart data={weeklySalesData} accessibilityLayer>
-                <CartesianGrid vertical={false} />
-                <XAxis
-                    dataKey="week"
-                    tickLine={false}
-                    axisLine={false}
-                    tickMargin={8}
-                />
-                <YAxis />
-                <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-                <Line
-                    dataKey="sales"
-                    type="monotone"
-                    stroke="var(--color-sales)"
-                    strokeWidth={2}
-                    dot={true}
-                />
-                </LineChart>
-            </ChartContainer>
-            </CardContent>
-            <CardFooter>
-                <p className="text-sm text-muted-foreground">
-                    <span className="font-bold text-foreground">AI Analysis:</span> You have a consistent upward trend in weekly sales, indicating healthy business growth. The slight dip in the most recent week is minor, but monitor next week's performance to ensure the growth trajectory continues.
-                </p>
-            </CardFooter>
-        </Card>
-
+                </CardContent>
+                <CardFooter>
+                    <p className="text-sm text-muted-foreground">
+                        <span className="font-bold text-foreground">AI Analysis:</span> You have a consistent upward trend in weekly sales, indicating healthy business growth. The slight dip in the most recent week is minor, but monitor next week's performance to ensure the growth trajectory continues.
+                    </p>
+                </CardFooter>
+            </Card>
+        </div>
         <Card>
             <CardHeader>
                 <CardTitle className="font-headline">Monthly wise Progress</CardTitle>
