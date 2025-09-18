@@ -31,7 +31,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Loader2, Calculator, Upload, DollarSign, Wand2 } from "lucide-react";
+import { Loader2, Calculator, Upload, IndianRupee, Wand2 } from "lucide-react";
 
 
 const PredictPriceFormSchema = z.object({
@@ -216,7 +216,7 @@ export function PricePredictorForm() {
             {prediction && (
                 <div className="space-y-4 border rounded-lg p-4 mt-4">
                     <div>
-                        <h3 className="font-semibold mb-2 flex items-center gap-2"><DollarSign className="w-5 h-5 text-primary"/> Suggested Price Range</h3>
+                        <h3 className="font-semibold mb-2 flex items-center gap-2"><IndianRupee className="w-5 h-5 text-primary"/> Suggested Price Range</h3>
                         <p className="text-3xl font-bold font-headline text-center py-2">
                            ₹{prediction.priceRange.min.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} - ₹{prediction.priceRange.max.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                         </p>

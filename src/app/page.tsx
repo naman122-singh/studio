@@ -1,7 +1,7 @@
 
 
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Eye, Goal, Wand2, TrendingUp, BookText, Award, Users, HeartHandshake, Video, DollarSign, Play } from "lucide-react";
+import { ArrowRight, Eye, Goal, Wand2, TrendingUp, BookText, Award, Users, HeartHandshake, Video, IndianRupee, Play } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -15,7 +15,7 @@ const features = [
     href: "/sales-strategy",
   },
   {
-    icon: <DollarSign className="w-8 h-8 text-primary" />,
+    icon: <IndianRupee className="w-8 h-8 text-primary" />,
     title: "AI Price Predictor",
     description: "Get a fair price suggestion for your craft based on AI analysis.",
     href: "/sales-strategy?tab=predictor",
