@@ -1,3 +1,4 @@
+
 import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -6,174 +7,230 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Heart, MessageCircle, Send, Share2 } from "lucide-react";
-import { SidebarTrigger } from "@/components/app-sidebar";
+import { Heart, MessageCircle, Send, Share2, Search, Filter, Briefcase, MapPin, Package, Users, Star, PlusCircle } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
 
 const artisans = [
   {
-    name: "Priya Sharma",
-    craft: "Pottery",
-    location: "Jaipur, Rajasthan",
-    image: PlaceHolderImages.find(p => p.id === 'artisan1'),
-    bio: "Clay whispers stories to my hands. I craft modern ceramics with traditional soul.",
-  },
-  {
-    name: "Rohan Das",
-    craft: "Woodworking",
-    location: "Kolkata, West Bengal",
+    name: "Ravi Kumar",
+    craft: "Wood Carving",
+    location: "Kerala",
     image: PlaceHolderImages.find(p => p.id === 'artisan2'),
-    bio: "Reclaiming old wood to give it a new life and purpose in your home.",
+    specialty: "Teak Wood Sculptures",
+    bio: "Traditional wood carving artist specializing in temple art and furniture.",
+    rating: 4.9,
+    reviews: 234,
+    online: true,
   },
   {
+    name: "Meera Devi",
+    craft: "Pottery",
+    location: "Gujarat",
+    image: PlaceHolderImages.find(p => p.id === 'artisan1'),
+    specialty: "Blue Pottery",
+    bio: "Blue pottery expert carrying forward the Jaipur tradition.",
+    rating: 4.8,
+    reviews: 189,
+    online: false,
+  },
+  {
+    name: "Arjun Singh",
+    craft: "Metalwork",
+    location: "Rajasthan",
+    image: PlaceHolderImages.find(p => p.id === 'artisan4'),
+    specialty: "Brass Artifacts",
+    bio: "Brass and copper artisan creating traditional utensils and decor.",
+    rating: 4.9,
+    reviews: 156,
+    online: true,
+  },
+   {
     name: "Ananya Reddy",
     craft: "Textile Weaving",
     location: "Hyderabad, Telangana",
     image: PlaceHolderImages.find(p => p.id === 'artisan3'),
+    specialty: "Ikat Sarees",
     bio: "Weaving threads of tradition into contemporary fabrics. Each piece is a poem.",
-  },
-  {
-    name: "Vikram Singh",
-    craft: "Metalwork",
-    location: "Ahmedabad, Gujarat",
-    image: PlaceHolderImages.find(p => p.id === 'artisan4'),
-    bio: "Forging metal into art. Inspired by nature's geometry and industrial forms.",
-  },
-    {
-    name: "Meera Iyer",
-    craft: "Jewelry Design",
-    location: "Chennai, Tamil Nadu",
-    image: PlaceHolderImages.find(p => p.id === 'artisan5'),
-    bio: "Creating minimalist jewelry that tells a maximalist story. For the modern spirit.",
-  },
-    {
-    name: "Kabir Khan",
-    craft: "Leather Goods",
-    location: "Mumbai, Maharashtra",
-    image: PlaceHolderImages.find(p => p.id === 'artisan6'),
-    bio: "Hand-stitched leather goods that age as gracefully as you do.",
+    rating: 4.9,
+    reviews: 312,
+    online: true,
   },
 ];
 
+const collabPosts = [
+    { id: 1, author: "Priya Sharma", title: "Seeking a metalworker for a mixed-media sculpture project.", replies: 5, time: "2h ago"},
+    { id: 2, author: "Vikram Singh", title: "Looking for textile artists to collaborate on a new line of home decor.", replies: 12, time: "1d ago"},
+    { id: 3, author: "Kabir Khan", title: "Bulk leather purchase - anyone in Maharashtra want to join?", replies: 8, time: "3d ago"},
+]
+
+const resources = [
+    { id: 1, name: "Jaipur Color Company", category: "Raw Materials", addedBy: "Meera Devi", rating: 4.8, reviews: 45, description: "High-quality natural dyes for textiles and pottery." },
+    { id: 2, name: "CraftsIndia Logistics", category: "Logistics", addedBy: "Ravi Kumar", rating: 4.5, reviews: 32, description: "Reliable shipping for fragile items, pan-India." },
+    { id: 3, name: "The Woodworkers' Hub", category: "Tools & Equipment", addedBy: "Arjun Singh", rating: 4.9, reviews: 67, description: "Excellent source for specialized carving tools." },
+]
+
 export default function CommunityPage() {
   return (
-    <div className="flex flex-col gap-8">
-      <header className="flex items-center gap-4">
-        
+    <div className="flex flex-col gap-6">
+      <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight font-headline">Artisan AI Community</h1>
-          <p className="text-muted-foreground">Connect, collaborate, and grow with fellow creators.</p>
+          <h1 className="text-4xl font-bold tracking-tight font-headline">Artisan Community</h1>
+          <p className="text-muted-foreground mt-1">Connect, collaborate, and grow together with fellow artisans.</p>
         </div>
+        <Button>
+            <PlusCircle className="mr-2" />
+            Join Community
+        </Button>
       </header>
       
-      <div className="grid lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 space-y-8">
-          <Card>
-            <CardHeader>
-              <CardTitle className="font-headline">Find Nearby Artisans</CardTitle>
-              <CardDescription>Discover collaborators for group shipping or local markets.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="h-64 bg-muted rounded-lg flex items-center justify-center">
-                <Image
-                  src="https://picsum.photos/seed/map/800/400"
-                  alt="Map of artisans"
-                  width={800}
-                  height={400}
-                  className="rounded-lg object-cover w-full h-full"
-                  data-ai-hint="world map"
-                />
-              </div>
-            </CardContent>
-          </Card>
-          
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold font-headline">Community Feed</h2>
-            {artisans.slice(0, 2).map((artisan) => (
-              <Card key={artisan.name}>
-                <CardHeader className="flex flex-row items-center gap-4">
-                  <Avatar className="h-12 w-12">
-                    <AvatarImage src={artisan.image?.imageUrl} data-ai-hint={artisan.image?.imageHint} />
-                    <AvatarFallback>{artisan.name.charAt(0)}</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <CardTitle className="text-base">{artisan.name}</CardTitle>
-                    <CardDescription>{artisan.craft} &middot; {artisan.location}</CardDescription>
-                  </div>
+      <div className="flex items-center gap-2">
+        <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+            <Input placeholder="Search artisans by craft, location, or name..." className="pl-10" />
+        </div>
+        <Button variant="outline">
+            <Filter className="mr-2"/>
+            Filter
+        </Button>
+      </div>
+
+      <Tabs defaultValue="discover" className="w-full">
+        <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 max-w-2xl">
+          <TabsTrigger value="discover"><Users className="mr-2"/>Discover Artisans</TabsTrigger>
+          <TabsTrigger value="collab"><Briefcase className="mr-2"/>Collaboration Board</TabsTrigger>
+          <TabsTrigger value="nearby"><MapPin className="mr-2"/>Nearby Artisans</TabsTrigger>
+          <TabsTrigger value="resources"><Package className="mr-2"/>Resource Hub</TabsTrigger>
+        </TabsList>
+        <TabsContent value="discover" className="mt-6">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {artisans.map((artisan) => (
+                    <Card key={artisan.name} className="overflow-hidden">
+                        <CardHeader className="flex flex-row items-center gap-4 pb-4">
+                             <Avatar className="w-12 h-12 relative">
+                                <AvatarImage src={artisan.image?.imageUrl} data-ai-hint={artisan.image?.imageHint} />
+                                <AvatarFallback>{artisan.name.slice(0, 2)}</AvatarFallback>
+                                <div className={ `absolute right-0 bottom-0 w-3 h-3 rounded-full border-2 border-card ${artisan.online ? 'bg-green-500' : 'bg-gray-400'}`}/>
+                            </Avatar>
+                            <div>
+                                <h3 className="text-lg font-bold font-headline flex items-center gap-2">{artisan.name}</h3>
+                                <p className="text-sm text-muted-foreground flex items-center gap-1"><MapPin className="w-3 h-3" />{artisan.location}</p>
+                            </div>
+                        </CardHeader>
+                        <CardContent className="pt-0 space-y-3">
+                            <div>
+                                <Badge>{artisan.craft}</Badge>
+                                <p className="font-semibold mt-1">{artisan.specialty}</p>
+                            </div>
+                            <p className="text-sm text-muted-foreground h-10">{artisan.bio}</p>
+                            <div className="flex justify-between items-center pt-2 border-t">
+                                <div className="flex items-center gap-1 text-sm">
+                                    <Star className="w-4 h-4 text-yellow-500 fill-yellow-500"/>
+                                    <span className="font-bold">{artisan.rating}</span>
+                                    <span className="text-muted-foreground">({artisan.reviews})</span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                     <Button variant="outline" size="sm">Chat</Button>
+                                     <Button variant="ghost" size="icon" className="w-8 h-8">
+                                         <Heart className="w-4 h-4"/>
+                                     </Button>
+                                </div>
+                            </div>
+                        </CardContent>
+                    </Card>
+                ))}
+            </div>
+        </TabsContent>
+        <TabsContent value="collab" className="mt-6">
+            <Card>
+                <CardHeader>
+                    <CardTitle className="font-headline">Collaboration Board</CardTitle>
+                    <CardDescription>Post opportunities and find partners for your next project.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                   <Image
-                    src="https://picsum.photos/seed/craft1/600/400"
-                    alt="Artisan's work"
-                    width={600}
-                    height={400}
-                    className="rounded-lg mb-4 w-full"
-                    data-ai-hint="artisan craft"
-                  />
-                  <p className="text-sm mb-4">Just finished this new collection! What do you all think? Open for collaborations!</p>
-                  <div className="flex items-center gap-4 text-muted-foreground">
-                    <Button variant="ghost" size="sm" className="flex items-center gap-2">
-                      <Heart className="w-4 h-4" /> 23
-                    </Button>
-                    <Button variant="ghost" size="sm" className="flex items-center gap-2">
-                      <MessageCircle className="w-4 h-4" /> 5
-                    </Button>
-                     <Button variant="ghost" size="sm" className="flex items-center gap-2">
-                      <Share2 className="w-4 h-4" /> Share
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-        
-        <div className="space-y-8">
-            <Card>
-            <CardHeader>
-                <CardTitle className="font-headline">Members</CardTitle>
-            </CardHeader>
-            <CardContent>
-                <ScrollArea className="h-96">
-                <div className="space-y-4">
-                    {artisans.map((artisan) => (
-                    <div key={artisan.name} className="flex items-center gap-4">
-                        <Avatar>
-                        <AvatarImage src={artisan.image?.imageUrl} data-ai-hint={artisan.image?.imageHint} />
-                        <AvatarFallback>{artisan.name.charAt(0)}</AvatarFallback>
-                        </Avatar>
-                        <div className="flex-1">
-                        <p className="text-sm font-medium">{artisan.name}</p>
-                        <p className="text-xs text-muted-foreground">{artisan.craft}</p>
-                        </div>
-                        <Button variant="outline" size="sm">Connect</Button>
+                    <Button className="mb-4">Post a Collaboration</Button>
+                    <div className="space-y-4">
+                        {collabPosts.map(post => (
+                            <div key={post.id} className="border p-4 rounded-lg flex justify-between items-center">
+                                <div>
+                                    <h4 className="font-semibold">{post.title}</h4>
+                                    <p className="text-sm text-muted-foreground">Posted by {post.author} &middot; {post.time}</p>
+                                </div>
+                                <Button variant="outline">View ({post.replies})</Button>
+                            </div>
+                        ))}
                     </div>
-                    ))}
-                </div>
-                </ScrollArea>
-            </CardContent>
+                </CardContent>
             </Card>
-
+        </TabsContent>
+         <TabsContent value="nearby" className="mt-6">
             <Card>
-            <CardHeader>
-                <CardTitle className="font-headline">Group Chat</CardTitle>
-                <CardDescription>#general</CardDescription>
-            </CardHeader>
-            <CardContent className="flex flex-col h-96">
-                <ScrollArea className="flex-1 p-4 -m-4">
-                <div className="space-y-4 text-sm">
-                    <p><span className="font-semibold text-primary">Priya:</span> Anyone going to the Delhi craft fair next month?</p>
-                    <p><span className="font-semibold text-accent">Rohan:</span> I'll be there! Let's share a stall.</p>
-                    <p><span className="font-semibold text-primary">You:</span> Great idea! I'm in.</p>
-                </div>
-                </ScrollArea>
-                <form className="flex items-center gap-2 pt-4 border-t">
-                    <Input placeholder="Message #general" />
-                    <Button type="submit" size="icon"><Send className="w-4 h-4" /></Button>
-                </form>
-            </CardContent>
+                <CardHeader>
+                    <CardTitle className="font-headline">Nearby Artisans & Group Shipping</CardTitle>
+                    <CardDescription>Discover local artisans for collaboration and bulk-buy opportunities.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <div className="h-80 bg-muted rounded-lg flex items-center justify-center">
+                        <Image
+                        src="https://picsum.photos/seed/map-community/1000/500"
+                        alt="Map of artisans"
+                        width={1000}
+                        height={500}
+                        className="rounded-lg object-cover w-full h-full"
+                        data-ai-hint="India map"
+                        />
+                    </div>
+                     <div className="mt-4">
+                        <h4 className="font-semibold mb-2">Active Group-Buy Opportunity:</h4>
+                        <div className="border p-4 rounded-lg flex justify-between items-center">
+                            <div>
+                                <p className="font-medium">Bulk purchase of high-quality packaging material.</p>
+                                <p className="text-sm text-muted-foreground">10 artisans from Rajasthan have joined. 20% discount achieved.</p>
+                            </div>
+                            <Button>Join Group-Buy</Button>
+                        </div>
+                    </div>
+                </CardContent>
             </Card>
-        </div>
-      </div>
+        </TabsContent>
+         <TabsContent value="resources" className="mt-6">
+            <Card>
+                <CardHeader>
+                    <CardTitle className="font-headline">Supplier & Logistics Hub</CardTitle>
+                    <CardDescription>A community-verified directory of resources.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                     <Button className="mb-4">Add a Resource</Button>
+                     <div className="space-y-4">
+                        {resources.map(res => (
+                             <div key={res.id} className="border p-4 rounded-lg">
+                                <div className="flex justify-between items-start">
+                                    <div>
+                                        <h4 className="font-semibold">{res.name}</h4>
+                                        <Badge variant="secondary">{res.category}</Badge>
+                                    </div>
+                                    <div className="text-right">
+                                        <div className="flex items-center gap-1 text-sm">
+                                            <Star className="w-4 h-4 text-yellow-500 fill-yellow-500"/>
+                                            <span className="font-bold">{res.rating}</span>
+                                            <span className="text-muted-foreground">({res.reviews} reviews)</span>
+                                        </div>
+                                         <p className="text-xs text-muted-foreground mt-1">Added by {res.addedBy}</p>
+                                    </div>
+                                </div>
+                                <p className="text-sm text-muted-foreground mt-2">{res.description}</p>
+                                <div className="mt-3 flex gap-2">
+                                    <Button variant="outline" size="sm">View Details</Button>
+                                    <Button variant="ghost" size="sm">Leave a Review</Button>
+                                </div>
+                             </div>
+                        ))}
+                     </div>
+                </CardContent>
+            </Card>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }
+
