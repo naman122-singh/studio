@@ -1,6 +1,19 @@
-import { ChatAssistant } from "@/components/chat-assistant";
+
+"use client";
+
+import dynamic from 'next/dynamic';
 import { SidebarTrigger } from "@/components/app-sidebar";
 import { AiAssistantIcon } from "@/components/ai-assistant-icon";
+import { Skeleton } from '@/components/ui/skeleton';
+
+const ChatAssistant = dynamic(
+  () => import('@/components/chat-assistant').then(mod => mod.ChatAssistant),
+  { 
+    ssr: false,
+    loading: () => <Skeleton className="w-full h-full" />
+  }
+);
+
 
 export default function AiAssistantPage() {
   return (
@@ -23,5 +36,3 @@ export default function AiAssistantPage() {
     </div>
   );
 }
-
-    
