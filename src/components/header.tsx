@@ -77,6 +77,7 @@ export function Header({ onExit }: { onExit?: () => void }) {
                           <ThemeToggle />
                       </div>
                   </div>
+                   <DevicePreviewControls />
                 </div>
               </SheetContent>
             </Sheet>
