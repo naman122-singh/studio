@@ -24,7 +24,13 @@ function LayoutContent({ children }: { children: ReactNode }) {
     const { width } = useDevicePreview();
     const isMobile = useIsMobile();
     
-    const effectiveWidth = isMobile ? '100%' : width;
+    const [effectiveWidth, setEffectiveWidth] = useState('100%');
+    
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            setEffectiveWidth(isMobile ? '100%' : width);
+        }
+    }, [isMobile, width]);
     
     return (
         <div className="flex h-screen w-full">
@@ -63,8 +69,6 @@ export default function RootLayout({
     setIsClient(true);
   }, []);
 
-  const isDashboard = isClient && pathname !== '/';
-
   if (!isClient) {
     return (
         <html lang="en" suppressHydrationWarning>
@@ -74,7 +78,7 @@ export default function RootLayout({
                 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet" />
                 <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet" />
                 <link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;700&family=Martel+Sans:wght@400;700&display=swap" rel="stylesheet" />
-                <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@700&display=swap" rel="stylesheet" />
+                <link href="https://fonts.googleapis.com/css2?family=Samarkan:wght@400&display=swap" rel="stylesheet" />
             </head>
             <body className="font-body antialiased">
                 {/* Render a static layout on the server */}
@@ -82,6 +86,8 @@ export default function RootLayout({
         </html>
     );
   }
+  
+  const isDashboard = pathname !== '/';
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -91,7 +97,7 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;700&family=Martel+Sans:wght@400;700&display=swap" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Samarkan:wght@400&display=swap" rel="stylesheet" />
       </head>
       <body className="font-body antialiased">
         <ThemeProvider

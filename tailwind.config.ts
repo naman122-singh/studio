@@ -13,7 +13,7 @@ export default {
         body: ['PT Sans', 'sans-serif'],
         headline: ['Playfair Display', 'serif'],
         code: ['monospace'],
-        hindi: ['Kalam', 'cursive'],
+        hindi: ['Samarkan', 'cursive'],
       },
       colors: {
         background: 'hsl(var(--background))',
