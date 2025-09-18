@@ -14,6 +14,8 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/t
 import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogClose } from "@/components/ui/dialog";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { indianLanguages } from "@/lib/languages";
 
 
 interface MessageContent {
@@ -47,6 +49,7 @@ export function ChatAssistant() {
   const [isListening, setIsListening] = useState(false);
   const [isCameraOpen, setIsCameraOpen] = useState(false);
   const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(null);
+  const [language, setLanguage] = useState("en-US");
   
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -164,7 +167,7 @@ export function ChatAssistant() {
     recognitionRef.current = new SpeechRecognition();
     recognitionRef.current.continuous = false;
     recognitionRef.current.interimResults = false;
-    recognitionRef.current.lang = 'en-US'; // Can be changed dynamically
+    recognitionRef.current.lang = language;
 
     recognitionRef.current.onstart = () => {
       setIsListening(true);
@@ -299,6 +302,16 @@ export function ChatAssistant() {
               aria-label="Chat input"
               disabled={isLoading}
             />
+             <Select value={language} onValueChange={setLanguage}>
+              <SelectTrigger className="w-auto">
+                <SelectValue placeholder="Language" />
+              </SelectTrigger>
+              <SelectContent>
+                {indianLanguages.map(lang => (
+                    <SelectItem key={lang.code} value={lang.code}>{lang.name}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
             <TooltipProvider>
               <Tooltip>
                   <TooltipTrigger asChild>
@@ -371,5 +384,7 @@ export function ChatAssistant() {
     </>
   );
 }
+
+    
 
     
