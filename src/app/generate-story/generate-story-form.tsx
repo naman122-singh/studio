@@ -11,12 +11,15 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Mic, Rocket, Square, Languages, QrCode, Check, ChevronsUpDown, Upload, Camera } from "lucide-react";
+import { Loader2, Mic, Rocket, Square, Languages, QrCode, Check, ChevronsUpDown, Upload, Camera, Video, AlertTriangle } from "lucide-react";
 import Image from "next/image";
 import { Textarea } from "@/components/ui/textarea";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command";
 import { cn } from "@/lib/utils";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogClose } from "@/components/ui/dialog";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+
 
 const languages = [
     { name: 'Assamese', code: 'as' },
@@ -65,6 +68,13 @@ export function GenerateStoryForm() {
   const audioChunksRef = useRef<Blob[]>([]);
   const { toast } = useToast();
 
+  // For camera
+  const [isCameraOpen, setIsCameraOpen] = useState(false);
+  const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -72,6 +82,36 @@ export function GenerateStoryForm() {
       targetLanguages: ["hi", "bn", "ta"],
     },
   });
+
+  useEffect(() => {
+    let stream: MediaStream | null = null;
+    async function setupCamera() {
+      if (isCameraOpen) {
+        try {
+          stream = await navigator.mediaDevices.getUserMedia({ video: true });
+          setHasCameraPermission(true);
+          if (videoRef.current) {
+            videoRef.current.srcObject = stream;
+          }
+        } catch (error) {
+          console.error('Error accessing camera:', error);
+          setHasCameraPermission(false);
+          toast({
+            variant: 'destructive',
+            title: 'Camera Access Denied',
+            description: 'Please enable camera permissions in your browser settings.',
+          });
+        }
+      }
+    }
+    setupCamera();
+
+    return () => {
+      if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+      }
+    }
+  }, [isCameraOpen, toast]);
 
   const generateQrCode = (lang: string, story: string) => {
     const newQrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent(story)}`;
@@ -117,6 +157,39 @@ export function GenerateStoryForm() {
       setIsRecording(false);
     }
   };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        if (file.type.startsWith('audio/')) {
+            setAudioDataUri(reader.result as string);
+        } else if (file.type.startsWith('image/')) {
+            setImagePreview(reader.result as string);
+        } else {
+            toast({ title: "Unsupported file type", description: "Please upload an audio or image file.", variant: "destructive" });
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleTakePhoto = () => {
+    if (videoRef.current && canvasRef.current) {
+      const video = videoRef.current;
+      const canvas = canvasRef.current;
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      const context = canvas.getContext('2d');
+      if (context) {
+        context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+        const dataUrl = canvas.toDataURL('image/webp');
+        setImagePreview(dataUrl);
+      }
+      setIsCameraOpen(false);
+    }
+  };
   
   async function onSubmit(values: FormValues) {
     if (!audioDataUri) {
@@ -142,6 +215,7 @@ export function GenerateStoryForm() {
   }
 
   return (
+    <>
     <div className="grid lg:grid-cols-2 gap-8">
       <Card>
         <Form {...form}>
@@ -166,15 +240,21 @@ export function GenerateStoryForm() {
                             <audio src={audioDataUri} controls className="h-10" />
                         )}
                     </div>
+                    {imagePreview && (
+                        <div className="relative w-fit mx-auto">
+                            <Image src={imagePreview} alt="Preview" width={150} height={150} className="object-cover rounded-md"/>
+                            <Button variant="destructive" size="sm" className="absolute top-1 right-1 h-auto py-1 px-2 text-xs" onClick={() => setImagePreview(null)}>Remove</Button>
+                        </div>
+                    )}
                     <div className="flex items-center gap-4">
                         <Button type="button" variant="outline" asChild>
                            <label htmlFor="story-file" className="cursor-pointer w-full">
                                 <Upload className="mr-2"/> Upload File
-                                <Input id="story-file" type="file" accept="audio/*,video/*,image/*" className="hidden" />
+                                <Input id="story-file" type="file" accept="audio/*,video/*,image/*" className="hidden" onChange={handleFileChange} />
                            </label>
                         </Button>
                         <p className="text-sm text-muted-foreground">OR</p>
-                        <Button type="button" variant="outline" className="w-full" disabled>
+                        <Button type="button" variant="outline" className="w-full" onClick={() => setIsCameraOpen(true)}>
                             <Camera className="mr-2"/> Use Camera
                         </Button>
                     </div>
@@ -289,7 +369,7 @@ export function GenerateStoryForm() {
                         <Textarea readOnly value={story} className="flex-1" rows={4}/>
                         <div className="flex flex-col items-center gap-2 w-28">
                              {qrCodes[lang] ? (
-                                <Image 
+                                <Image
                                     src={qrCodes[lang]}
                                     alt={`QR code for ${lang} story`}
                                     width={100}
@@ -322,5 +402,36 @@ export function GenerateStoryForm() {
         </CardContent>
       </Card>
     </div>
+
+    <Dialog open={isCameraOpen} onOpenChange={setIsCameraOpen}>
+        <DialogContent className="max-w-xl">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2"><Video/> Camera Capture</DialogTitle>
+          </DialogHeader>
+          <div className="relative aspect-video bg-muted rounded-md overflow-hidden flex items-center justify-center">
+            {hasCameraPermission === null && <Loader2 className="w-8 h-8 animate-spin" />}
+            {hasCameraPermission === false && (
+                <Alert variant="destructive">
+                    <AlertTriangle className="h-4 w-4" />
+                    <AlertTitle>Camera Access Denied</AlertTitle>
+                    <AlertDescription>
+                        Please allow camera access in your browser settings to use this feature.
+                    </AlertDescription>
+                </Alert>
+            )}
+            <video ref={videoRef} className="w-full h-full object-cover" autoPlay playsInline muted />
+          </div>
+          <DialogFooter>
+            <DialogClose asChild>
+                <Button variant="outline">Cancel</Button>
+            </DialogClose>
+            <Button onClick={handleTakePhoto} disabled={!hasCameraPermission}>
+              <Camera className="mr-2"/> Take Photo
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+      <canvas ref={canvasRef} className="hidden"></canvas>
+    </>
   );
 }
