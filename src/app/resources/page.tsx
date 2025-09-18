@@ -1,5 +1,7 @@
 
+"use client";
 
+import { useState, useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,7 +10,7 @@ import { Separator } from "@/components/ui/separator";
 import { Building, Filter, Search, Bookmark, Lightbulb, TrendingUp, Users, CheckCircle, Clock, Calendar, ExternalLink, Heart } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
-const schemes = [
+const allSchemes = [
   {
     name: "PM Vishwakarma Scheme",
     organization: "Ministry of MSME",
@@ -57,7 +59,7 @@ const schemes = [
       applied: "3.1M+",
       successRate: "85%",
   }
-]
+];
 
 const comingSoon = [
     {
@@ -72,9 +74,41 @@ const comingSoon = [
         date: "March 2024",
         benefit: "Business incubation support"
     }
-]
+];
+
+const filters = ["All Schemes", "Government", "NGO Programs", "Training", "Financial Aid"];
 
 export default function ResourcesPage() {
+  const [schemes, setSchemes] = useState(allSchemes);
+  const [activeFilter, setActiveFilter] = useState("All Schemes");
+  const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    let filteredSchemes = allSchemes;
+
+    if (activeFilter !== "All Schemes") {
+        if (activeFilter === "Government") {
+            filteredSchemes = filteredSchemes.filter(s => s.type === "Government");
+        } else if (activeFilter === "NGO Programs") {
+            filteredSchemes = filteredSchemes.filter(s => s.type === "NGO");
+        } else if (activeFilter === "Training") {
+            filteredSchemes = filteredSchemes.filter(s => s.benefits.some(b => b.toLowerCase().includes("training")));
+        } else if (activeFilter === "Financial Aid") {
+             filteredSchemes = filteredSchemes.filter(s => s.benefits.some(b => b.toLowerCase().includes("loan") || b.toLowerCase().includes("credit") || b.toLowerCase().includes("funding")));
+        }
+    }
+    
+    if (searchTerm) {
+        filteredSchemes = filteredSchemes.filter(s => 
+            s.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            s.organization.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            s.description.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+    }
+
+    setSchemes(filteredSchemes);
+  }, [activeFilter, searchTerm]);
+
   return (
     <div className="flex flex-col gap-8">
       <header>
@@ -105,14 +139,24 @@ export default function ResourcesPage() {
         <div className="flex flex-col sm:flex-row gap-4">
             <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-                <Input placeholder="Search schemes by name, organization, or benefit..." className="pl-10" />
+                <Input 
+                    placeholder="Search schemes by name, organization, or benefit..." 
+                    className="pl-10"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
             </div>
             <div className="flex items-center gap-2 overflow-x-auto pb-2">
-                <Button variant="default" className="shrink-0">All Schemes</Button>
-                <Button variant="outline" className="shrink-0">Government</Button>
-                <Button variant="outline" className="shrink-0">NGO Programs</Button>
-                <Button variant="outline" className="shrink-0">Training</Button>
-                <Button variant="outline" className="shrink-0">Financial Aid</Button>
+                {filters.map(filter => (
+                    <Button 
+                        key={filter}
+                        variant={activeFilter === filter ? "default" : "outline"} 
+                        className="shrink-0"
+                        onClick={() => setActiveFilter(filter)}
+                    >
+                        {filter}
+                    </Button>
+                ))}
             </div>
         </div>
       </div>
@@ -123,7 +167,7 @@ export default function ResourcesPage() {
                 <h2 className="text-2xl font-bold font-headline">Available Schemes ({schemes.length})</h2>
                 <Button variant="outline"><Filter className="mr-2"/> More Filters</Button>
             </div>
-            {schemes.map((scheme) => (
+            {schemes.length > 0 ? schemes.map((scheme) => (
               <Card key={scheme.name}>
                 <CardContent className="p-6">
                     <div className="flex justify-between items-start gap-4">
@@ -177,7 +221,13 @@ export default function ResourcesPage() {
                     </div>
                 </div>
               </Card>
-            ))}
+            )) : (
+                 <Card>
+                    <CardContent className="p-10 text-center text-muted-foreground">
+                        <p>No schemes found matching your criteria.</p>
+                    </CardContent>
+                </Card>
+            )}
         </div>
 
         <div className="space-y-6 sticky top-4">
