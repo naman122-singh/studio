@@ -52,7 +52,7 @@ export default function ResourcesPage() {
     <div className="flex flex-col gap-8">
       <header>
           <h1 className="text-3xl md:text-4xl font-bold tracking-tight font-headline">
-              Government <span className="text-primary">Schemes</span> & NGO <span className="text-primary">Programs</span>
+              NGOs and <span className="text-primary">Schemes</span>
           </h1>
           <p className="text-muted-foreground mt-1">
               Discover funding opportunities, training programs, and support initiatives for artisans
