@@ -52,7 +52,9 @@ export default function DashboardPage() {
     };
     
     const handleOnboardingComplete = () => {
-        localStorage.setItem("hasCompletedOnboarding", "true");
+        if (typeof window !== 'undefined') {
+            localStorage.setItem("hasCompletedOnboarding", "true");
+        }
         setShowOnboarding(false);
     };
     
@@ -204,3 +206,5 @@ export default function DashboardPage() {
     </div>
   );
 }
+
+    
