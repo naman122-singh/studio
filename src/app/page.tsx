@@ -73,6 +73,9 @@ export default function LandingPage() {
           <h2 className="text-4xl md:text-6xl font-bold font-headline mb-6">
             Your AI Craft Companion
           </h2>
+          <p className="font-hindi font-bold text-3xl text-foreground/80 mb-6">
+            हर कला का घर, यही है कारीगर
+          </p>
           <p className="max-w-3xl mx-auto text-lg md:text-xl text-muted-foreground mb-8">
             Empowering Indian traditional artists and craftsmen with AI-driven
             guidance, market insights, and personalized assistance to preserve and

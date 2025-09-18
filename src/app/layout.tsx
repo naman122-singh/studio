@@ -1,5 +1,4 @@
 
-
 "use client";
 
 import type { ReactNode } from "react";
@@ -64,7 +63,25 @@ export default function RootLayout({
     setIsClient(true);
   }, []);
 
-  const isDashboard = pathname !== '/';
+  const isDashboard = isClient && pathname !== '/';
+
+  if (!isClient) {
+    return (
+        <html lang="en" suppressHydrationWarning>
+            <head>
+                <link rel="preconnect" href="https://fonts.googleapis.com" />
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+                <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet" />
+                <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet" />
+                <link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;700&family=Martel+Sans:wght@400;700&display=swap" rel="stylesheet" />
+                <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@700&display=swap" rel="stylesheet" />
+            </head>
+            <body className="font-body antialiased">
+                {/* Render a static layout on the server */}
+            </body>
+        </html>
+    );
+  }
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -74,6 +91,7 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;700&family=Martel+Sans:wght@400;700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@700&display=swap" rel="stylesheet" />
       </head>
       <body className="font-body antialiased">
         <ThemeProvider
@@ -83,7 +101,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <DevicePreviewProvider>
-            {isClient && isDashboard ? (
+            {isDashboard ? (
                 <LayoutContent>{children}</LayoutContent>
             ) : (
                 <div className="flex flex-col min-h-screen">
