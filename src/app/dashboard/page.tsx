@@ -15,13 +15,7 @@ import { SidebarTrigger } from "@/components/app-sidebar";
 import { TopProducts, type Product } from "@/components/top-products";
 import { Textarea } from "@/components/ui/textarea";
 
-const initialProducts = [
-  { name: "Handwoven Silk Saree", sold: 45, revenue: 225000 },
-  { name: "Brass Oil Lamp", sold: 35, revenue: 43750 },
-  { name: "Wooden Jewelry Box", sold: 30, revenue: 36000 },
-  { name: "Block Print Kurta", sold: 25, revenue: 24375 },
-  { name: "Clay Pottery Set", sold: 20, revenue: 15000 },
-];
+const initialProducts: Product[] = [];
 
 export default function DashboardPage() {
     const [products, setProducts] = useState<Product[]>(initialProducts);
@@ -163,8 +157,8 @@ export default function DashboardPage() {
                 <IndianRupee className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-                <div className="text-2xl font-bold">₹10,50,000.00</div>
-                <p className="text-xs text-muted-foreground">+20.1% from last month</p>
+                <div className="text-2xl font-bold">₹0.00</div>
+                <p className="text-xs text-muted-foreground">+0% from last month</p>
             </CardContent>
             </Card>
             <Card>
@@ -173,8 +167,8 @@ export default function DashboardPage() {
                 <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-                <div className="text-2xl font-bold">+23</div>
-                <p className="text-xs text-muted-foreground">+18.1% from last month</p>
+                <div className="text-2xl font-bold">+0</div>
+                <p className="text-xs text-muted-foreground">+0% from last month</p>
             </CardContent>
             </Card>
             <Card>
@@ -183,8 +177,8 @@ export default function DashboardPage() {
                 <CreditCard className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-                <div className="text-2xl font-bold">+12,234</div>
-                <p className="text-xs text-muted-foreground">+19% from last month</p>
+                <div className="text-2xl font-bold">+0</div>
+                <p className="text-xs text-muted-foreground">+0% from last month</p>
             </CardContent>
             </Card>
             <Card>
@@ -193,8 +187,8 @@ export default function DashboardPage() {
                 <Activity className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-                <div className="text-2xl font-bold">+573</div>
-                <p className="text-xs text-muted-foreground">+201 since last hour</p>
+                <div className="text-2xl font-bold">+0</div>
+                <p className="text-xs text-muted-foreground">+0 since last hour</p>
             </CardContent>
             </Card>
       </div>

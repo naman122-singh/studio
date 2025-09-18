@@ -17,16 +17,18 @@ interface UserProfile {
 }
 
 const defaultProfile: UserProfile = {
-  fullName: "Priya Sharma",
-  phoneNumber: "+91 9876543210",
-  location: "Jaipur, Rajasthan",
-  craft: "Traditional Pottery",
+  fullName: "Artisan Name",
+  phoneNumber: "+91 0000000000",
+  location: "City, State",
+  craft: "Traditional Craft",
 };
 
 export default function ProfilePage() {
   const [profile, setProfile] = useState<UserProfile>(defaultProfile);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    setIsClient(true);
     if (typeof window !== "undefined") {
       const storedProfile = localStorage.getItem('userProfile');
       if (storedProfile) {
@@ -35,9 +37,13 @@ export default function ProfilePage() {
     }
   }, []);
 
-  const story = `My family has been creating beautiful ${profile.craft.toLowerCase()} for four generations. I learned this sacred art from my grandmother, who taught me that every piece of clay holds the potential for beauty. Today, I blend traditional techniques with contemporary designs, creating pieces that tell stories of our rich heritage.`;
+  const story = `My family has been creating beautiful ${profile.craft.toLowerCase()} for generations. I learned this sacred art from my family, who taught me that every piece holds the potential for beauty. Today, I blend traditional techniques with contemporary designs, creating pieces that tell stories of our rich heritage.`;
   const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(story)}`;
   const avatarFallback = profile.fullName.split(' ').map(n => n[0]).join('').slice(0,2).toUpperCase();
+
+  if (!isClient) {
+      return null; // Or a loading skeleton
+  }
 
   return (
     <div className="flex flex-col gap-8">
@@ -71,15 +77,13 @@ export default function ProfilePage() {
               <h2 className="text-3xl font-bold font-headline">{profile.fullName}</h2>
               <p className="text-primary font-medium">{profile.craft}</p>
               <div className="flex flex-wrap gap-2 my-3">
-                <Badge variant="secondary">15 years</Badge>
-                <Badge variant="secondary">Blue Pottery</Badge>
-                <Badge variant="secondary">Terracotta</Badge>
-                <Badge variant="secondary">Clay Sculptures</Badge>
+                <Badge variant="secondary">0 years</Badge>
+                <Badge variant="secondary">Handicraft</Badge>
               </div>
               <div className="grid sm:grid-cols-2 gap-y-2 gap-x-4 text-sm text-muted-foreground mt-4">
                 <div className="flex items-center gap-2">
                   <Mail className="w-4 h-4" />
-                  <span>{profile.fullName.toLowerCase().replace(' ', '.')}@email.com</span>
+                  <span>{profile.fullName.toLowerCase().replace(/\s+/g, '.')}@email.com</span>
                 </div>
                  <div className="flex items-center gap-2">
                   <Phone className="w-4 h-4" />

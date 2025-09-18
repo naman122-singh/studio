@@ -66,7 +66,7 @@ export function GenerateImageForm() {
     defaultValues: {
       productDescription: "",
       stylePreference: "modern",
-      viewPreference: "3D",
+      viewPreference: "front",
     },
   });
 
