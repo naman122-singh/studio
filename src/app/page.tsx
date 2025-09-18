@@ -5,6 +5,7 @@ import { ArrowRight, Eye, Goal, Wand2, TrendingUp, BookText, Award, Users, Heart
 import Image from "next/image";
 import Link from "next/link";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { HeroBackground } from "@/components/hero-background";
 
 const features = [
   {
@@ -62,16 +63,7 @@ export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen">
       <section className="relative flex items-center justify-center text-center bg-background/70 fade-in py-20 md:py-28">
-        <div className="absolute inset-0 w-full h-full">
-          <Image
-            src="https://picsum.photos/seed/artisan-bg/1920/1080"
-            alt="Background of an artisan working"
-            fill
-            className="object-cover opacity-20"
-            data-ai-hint="artisan background"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent"></div>
-        </div>
+        <HeroBackground />
         <div className="relative z-10 container px-4 mx-auto slide-in-up">
           <h1 className="text-5xl md:text-7xl font-bold font-headline mb-4">
             <span className="bg-gradient-to-r from-orange-400 via-yellow-500 to-teal-400 text-transparent bg-clip-text">
