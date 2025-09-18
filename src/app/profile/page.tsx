@@ -1,17 +1,43 @@
 
+"use client";
+
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { SidebarTrigger } from "@/components/app-sidebar";
 import { Settings, Heart, Edit, Share2, Mail, Phone, MapPin, BadgeCheck, Camera, Sparkles, QrCode } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
-export default function ProfilePage() {
+interface UserProfile {
+  fullName: string;
+  phoneNumber: string;
+  location: string;
+  craft: string;
+}
 
-  const story = "My family has been creating beautiful pottery for four generations. I learned this sacred art from my grandmother, who taught me that every piece of clay holds the potential for beauty. Today, I blend traditional Rajasthani techniques with contemporary designs, creating pieces that tell stories of our rich heritage.";
+const defaultProfile: UserProfile = {
+  fullName: "Priya Sharma",
+  phoneNumber: "+91 9876543210",
+  location: "Jaipur, Rajasthan",
+  craft: "Traditional Pottery",
+};
+
+export default function ProfilePage() {
+  const [profile, setProfile] = useState<UserProfile>(defaultProfile);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedProfile = localStorage.getItem('userProfile');
+      if (storedProfile) {
+        setProfile(JSON.parse(storedProfile));
+      }
+    }
+  }, []);
+
+  const story = `My family has been creating beautiful ${profile.craft.toLowerCase()} for four generations. I learned this sacred art from my grandmother, who taught me that every piece of clay holds the potential for beauty. Today, I blend traditional techniques with contemporary designs, creating pieces that tell stories of our rich heritage.`;
   const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(story)}`;
+  const avatarFallback = profile.fullName.split(' ').map(n => n[0]).join('').slice(0,2).toUpperCase();
 
   return (
     <div className="flex flex-col gap-8">
@@ -32,7 +58,7 @@ export default function ProfilePage() {
           <div className="grid md:grid-cols-3 gap-6 items-center">
             <div className="flex flex-col items-center justify-center relative">
               <Avatar className="w-32 h-32 border-4 border-primary">
-                <AvatarFallback className="text-4xl">PS</AvatarFallback>
+                <AvatarFallback className="text-4xl">{avatarFallback}</AvatarFallback>
               </Avatar>
                <Badge className="absolute top-0 left-1/2 -translate-x-1/4 -translate-y-1/2 bg-orange-400 text-white">
                   <Sparkles className="w-3 h-3 mr-1"/> AI Avatar
@@ -42,8 +68,8 @@ export default function ProfilePage() {
                </Button>
             </div>
             <div className="md:col-span-2">
-              <h2 className="text-3xl font-bold font-headline">Priya Sharma</h2>
-              <p className="text-primary font-medium">Traditional Pottery</p>
+              <h2 className="text-3xl font-bold font-headline">{profile.fullName}</h2>
+              <p className="text-primary font-medium">{profile.craft}</p>
               <div className="flex flex-wrap gap-2 my-3">
                 <Badge variant="secondary">15 years</Badge>
                 <Badge variant="secondary">Blue Pottery</Badge>
@@ -53,15 +79,15 @@ export default function ProfilePage() {
               <div className="grid sm:grid-cols-2 gap-y-2 gap-x-4 text-sm text-muted-foreground mt-4">
                 <div className="flex items-center gap-2">
                   <Mail className="w-4 h-4" />
-                  <span>priya.sharma@email.com</span>
+                  <span>{profile.fullName.toLowerCase().replace(' ', '.')}@email.com</span>
                 </div>
                  <div className="flex items-center gap-2">
                   <Phone className="w-4 h-4" />
-                  <span>+91 9876543210</span>
+                  <span>{profile.phoneNumber}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <MapPin className="w-4 h-4" />
-                  <span>Jaipur, Rajasthan</span>
+                  <span>{profile.location}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <BadgeCheck className="w-4 h-4" />

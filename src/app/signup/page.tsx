@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { SignupForm } from "./signup-form";
+import { SignupForm, type FormValues } from "./signup-form";
 import { OtpVerificationForm } from "./otp-verification-form";
 import { Logo } from "@/components/logo";
 import { CheckCircle, Circle, UserPlus } from "lucide-react";
@@ -14,8 +14,18 @@ export default function SignupPage() {
   const [step, setStep] = useState<Step>("signup");
   const [phoneNumber, setPhoneNumber] = useState("");
 
-  const handleSignupSuccess = (phone: string) => {
-    setPhoneNumber(phone);
+  const handleSignupSuccess = (data: FormValues) => {
+    setPhoneNumber(data.phoneNumber);
+    if (typeof window !== "undefined") {
+      const userProfile = {
+        fullName: data.fullName,
+        phoneNumber: data.phoneNumber,
+        location: `${data.city}, ${data.state}`,
+        // In a real app, you'd get craft from onboarding. For now, let's use a placeholder.
+        craft: 'Not Specified', 
+      };
+      localStorage.setItem('userProfile', JSON.stringify(userProfile));
+    }
     setStep("otp");
   };
 

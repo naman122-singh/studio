@@ -52,10 +52,10 @@ const formSchema = z.object({
   city: z.string().min(1, "Please select a city."),
 });
 
-type FormValues = z.infer<typeof formSchema>;
+export type FormValues = z.infer<typeof formSchema>;
 
 interface SignupFormProps {
-  onSuccess: (phoneNumber: string) => void;
+  onSuccess: (data: FormValues) => void;
 }
 
 export function SignupForm({ onSuccess }: SignupFormProps) {
@@ -64,6 +64,14 @@ export function SignupForm({ onSuccess }: SignupFormProps) {
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      fullName: "",
+      phoneNumber: "",
+      language: "en",
+      state: "",
+      district: "",
+      city: "",
+    }
   });
 
   const { watch } = form;
@@ -78,7 +86,7 @@ export function SignupForm({ onSuccess }: SignupFormProps) {
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1500));
     setIsLoading(false);
-    onSuccess(values.phoneNumber);
+    onSuccess(values);
   }
 
   return (
