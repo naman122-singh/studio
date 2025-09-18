@@ -16,11 +16,11 @@ import { TopProducts, type Product } from "@/components/top-products";
 import { Textarea } from "@/components/ui/textarea";
 
 const initialProducts = [
-  { name: "Handwoven Silk Saree", sold: 32, revenue: 12450 },
-  { name: "Brass Oil Lamp", sold: 28, revenue: 8960 },
-  { name: "Wooden Jewelry Box", sold: 24, revenue: 7200 },
-  { name: "Block Print Kurta", sold: 18, revenue: 5940 },
-  { name: "Clay Pottery Set", sold: 12, revenue: 3600 },
+  { name: "Handwoven Silk Saree", sold: 45, revenue: 175500 },
+  { name: "Brass Oil Lamp", sold: 35, revenue: 122500 },
+  { name: "Wooden Jewelry Box", sold: 30, revenue: 105000 },
+  { name: "Block Print Kurta", sold: 25, revenue: 87500 },
+  { name: "Clay Pottery Set", sold: 20, revenue: 70000 },
 ];
 
 export default function DashboardPage() {
@@ -160,7 +160,7 @@ export default function DashboardPage() {
                 <IndianRupee className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-                <div className="text-2xl font-bold">₹4,52,318.90</div>
+                <div className="text-2xl font-bold">₹5,60,500.00</div>
                 <p className="text-xs text-muted-foreground">+20.1% from last month</p>
             </CardContent>
             </Card>
