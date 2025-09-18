@@ -34,7 +34,12 @@ function LayoutContent({ children }: { children: ReactNode }) {
     const isDashboard = pathname !== '/';
 
     if (isDashboard) {
-        const effectiveWidth = isClient && isMobile ? '100%' : width;
+        if (!isClient) {
+            // Render nothing or a loading skeleton on the server to avoid mismatch
+            return null;
+        }
+
+        const effectiveWidth = isMobile ? '100%' : width;
         return (
             <div className="flex h-screen w-full">
                 <div className="flex flex-col flex-1 overflow-hidden">
