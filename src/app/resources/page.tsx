@@ -1,127 +1,175 @@
-import { SidebarTrigger } from "@/components/app-sidebar";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ExternalLink } from "lucide-react";
-
-const ngos = [
-  {
-    name: "Crafts Council of India",
-    focus: "Preservation and promotion of Indian crafts",
-    link: "https://www.craftscouncilofindia.org/",
-    logo: "https://picsum.photos/seed/ngo1/40/40",
-    tags: ["Advocacy", "Exhibitions"],
-  },
-  {
-    name: "Dastkar",
-    focus: "Support for traditional Indian craftspeople",
-    link: "https://www.dastkar.org/",
-    logo: "https://picsum.photos/seed/ngo2/40/40",
-    tags: ["Livelihood", "Bazars"],
-  },
-  {
-    name: "Self-Employed Women's Association (SEWA)",
-    focus: "Empowering women in the informal sector",
-    link: "https://www.sewa.org/",
-    logo: "https://picsum.photos/seed/ngo3/40/40",
-    tags: ["Women Empowerment", "Union"],
-  },
-];
+import { Input } from "@/components/ui/input";
+import { Building, Filter, Search, Bookmark, Lightbulb, TrendingUp, Users } from "lucide-react";
 
 const schemes = [
-    {
-        name: "Pradhan Mantri Mudra Yojana (PMMY)",
-        description: "Provides loans up to ₹10 lakh to non-corporate, non-farm small/micro enterprises.",
-        link: "https://www.mudra.org.in/",
-        tags: ["Finance", "Loan"]
-    },
-    {
-        name: "Stand-Up India Scheme",
-        description: "Facilitates bank loans between ₹10 lakh and ₹1 Crore to at least one Scheduled Caste (SC) or Scheduled Tribe (ST) borrower and at least one woman borrower per bank branch for setting up a greenfield enterprise.",
-        link: "https://www.standupmitra.in/",
-        tags: ["SC/ST", "Women", "Loan"]
-    },
-     {
-        name: "Scheme of Fund for Regeneration of Traditional Industries (SFURTI)",
-        description: "Organizes traditional industries and artisans into clusters to make them competitive and provide support for their long-term sustainability.",
-        link: "https://sfurti.msme.gov.in/",
-        tags: ["Cluster Development", "Sustainability"]
-    }
+  {
+    name: "PM Vishwakarma Scheme",
+    organization: "Ministry of MSME",
+    description: "Financial support and skill development for traditional artisans and craftspeople.",
+    benefits: ["₹1-3 lakh credit", "Skill training", "Digital marketing support"],
+    status: "Active",
+    type: "Government"
+  },
+  {
+    name: "Crafts Council of India Grant",
+    organization: "Crafts Council of India",
+    description: "Grants for artisans to participate in international exhibitions and workshops.",
+    benefits: ["Exhibition funding", "Travel stipend"],
+    status: "Active",
+    type: "NGO"
+  },
+  {
+    name: "Stand-Up India Scheme",
+    organization: "Ministry of Finance",
+    description: "Facilitates bank loans for enterprises led by SC/ST or women entrepreneurs.",
+    benefits: ["₹10 lakh - 1 Cr loan", "Women & SC/ST Focus"],
+    status: "Active",
+    type: "Government"
+  },
+  {
+    name: "Dastkar Livelihood Support",
+    organization: "Dastkar",
+    description: "Provides support to craftspeople for developing new products and reaching new markets.",
+    benefits: ["Design input", "Market linkage"],
+    status: "Ongoing",
+    type: "NGO"
+  },
+  {
+      name: "Scheme of Fund for Regeneration of Traditional Industries (SFURTI)",
+      description: "Organizes traditional industries and artisans into clusters to make them competitive.",
+      benefits: ["Cluster Development", "Sustainability"],
+      status: "Active",
+      type: "Government"
+  }
 ]
 
 export default function ResourcesPage() {
   return (
     <div className="flex flex-col gap-8">
-      <header className="flex items-center gap-4">
-        
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight font-headline">NGOs and Schemes</h1>
-          <p className="text-muted-foreground">
-            Discover organizations and government schemes that can help you grow.
+      <header>
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight font-headline">
+              Government <span className="text-primary">Schemes</span> & NGO <span className="text-primary">Programs</span>
+          </h1>
+          <p className="text-muted-foreground mt-1">
+              Discover funding opportunities, training programs, and support initiatives for artisans
           </p>
-        </div>
       </header>
-      
-      <div className="grid lg:grid-cols-2 gap-8 items-start">
-        <Card>
-          <CardHeader>
-            <CardTitle className="font-headline">Supportive NGOs</CardTitle>
-            <CardDescription>
-              Connect with non-governmental organizations dedicated to supporting artisans.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            {ngos.map((ngo) => (
-              <div key={ngo.name} className="flex items-start gap-4 p-4 border rounded-lg">
-                <img src={ngo.logo} alt={`${ngo.name} logo`} className="w-10 h-10 rounded-full" />
-                <div className="flex-1">
-                  <h3 className="font-semibold">{ngo.name}</h3>
-                  <p className="text-sm text-muted-foreground">{ngo.focus}</p>
-                   <div className="flex flex-wrap gap-1 mt-2">
-                      {ngo.tags.map((tag) => (
-                        <Badge key={tag} variant="secondary" className="text-xs">{tag}</Badge>
-                      ))}
-                    </div>
-                </div>
-                <Button variant="outline" size="sm" asChild>
-                  <a href={ngo.link} target="_blank" rel="noopener noreferrer">
-                    Visit <ExternalLink className="ml-2 h-3 w-3" />
-                  </a>
-                </Button>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle className="font-headline">Government Schemes</CardTitle>
-            <CardDescription>
-              Explore government initiatives designed to benefit artisans and small businesses.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
+      <Card className="bg-primary/10 border-primary/20">
+        <CardContent className="p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+                <div className="bg-primary/20 p-3 rounded-full">
+                    <Building className="w-6 h-6 text-primary" />
+                </div>
+                <div>
+                    <h3 className="font-semibold text-lg">AI-Powered Scheme Recommendations</h3>
+                    <p className="text-sm text-muted-foreground">Get personalized scheme suggestions based on your profile and craft</p>
+                </div>
+            </div>
+            <Button>Get Recommendations</Button>
+        </CardContent>
+      </Card>
+
+      <div>
+        <div className="flex flex-col sm:flex-row gap-4">
+            <div className="relative flex-1">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                <Input placeholder="Search schemes by name, organization, or benefit..." className="pl-10" />
+            </div>
+            <div className="flex items-center gap-2 overflow-x-auto pb-2">
+                <Button variant="default" className="shrink-0">All Schemes</Button>
+                <Button variant="outline" className="shrink-0">Government</Button>
+                <Button variant="outline" className="shrink-0">NGO Programs</Button>
+                <Button variant="outline" className="shrink-0">Training</Button>
+                <Button variant="outline" className="shrink-0">Financial Aid</Button>
+            </div>
+        </div>
+      </div>
+      
+      <div className="grid lg:grid-cols-3 gap-8 items-start">
+        <div className="lg:col-span-2 space-y-6">
+            <div className="flex justify-between items-center">
+                <h2 className="text-2xl font-bold font-headline">Available Schemes ({schemes.length})</h2>
+                <Button variant="outline"><Filter className="mr-2"/> More Filters</Button>
+            </div>
             {schemes.map((scheme) => (
-                <div key={scheme.name} className="p-4 border rounded-lg">
-                    <h3 className="font-semibold">{scheme.name}</h3>
-                    <p className="text-sm text-muted-foreground mt-1 mb-3">{scheme.description}</p>
-                    <div className="flex justify-between items-center">
-                        <div className="flex flex-wrap gap-1">
-                            {scheme.tags.map((tag) => (
-                                <Badge key={tag} variant="outline" className="text-xs">{tag}</Badge>
+              <Card key={scheme.name}>
+                <CardContent className="p-6">
+                    <div className="flex justify-between items-start gap-4">
+                        <h3 className="text-xl font-bold font-headline">{scheme.name}</h3>
+                        <div className="flex items-center gap-2">
+                            <Badge variant={scheme.status === 'Active' ? 'default' : 'secondary'} className="bg-orange-500 hover:bg-orange-600">{scheme.status}</Badge>
+                            <Button variant="ghost" size="icon" className="w-8 h-8">
+                                <Bookmark className="w-5 h-5"/>
+                            </Button>
+                        </div>
+                    </div>
+                    <p className="text-sm text-muted-foreground flex items-center gap-2 mt-1"><Building className="w-4 h-4"/> {scheme.organization}</p>
+                    <p className="text-muted-foreground my-4">{scheme.description}</p>
+                    <div>
+                        <h4 className="text-sm font-semibold mb-2">Key Benefits</h4>
+                        <div className="flex flex-wrap gap-2">
+                            {scheme.benefits.map(benefit => (
+                                <Badge key={benefit} variant="destructive" className="bg-red-700/80 text-white">{benefit}</Badge>
                             ))}
                         </div>
-                        <Button variant="outline" size="sm" asChild>
-                          <a href={scheme.link} target="_blank" rel="noopener noreferrer">
-                            Learn More <ExternalLink className="ml-2 h-3 w-3" />
-                          </a>
-                        </Button>
                     </div>
-                </div>
+                </CardContent>
+              </Card>
             ))}
-          </CardContent>
-        </Card>
+        </div>
+
+        <div className="space-y-6 sticky top-4">
+            <Card>
+                <CardHeader>
+                    <CardTitle className="font-headline">Quick Stats</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                    <div className="bg-orange-500 text-white p-4 rounded-lg text-center">
+                        <p className="text-4xl font-bold">156</p>
+                        <p>Active Schemes</p>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4 text-center">
+                        <div className="bg-muted p-3 rounded-lg">
+                            <p className="text-2xl font-bold">₹2.5L Cr</p>
+                            <p className="text-sm text-muted-foreground">Total Funding</p>
+                        </div>
+                         <div className="bg-muted p-3 rounded-lg">
+                            <p className="text-2xl font-bold">4.8M+</p>
+                            <p className="text-sm text-muted-foreground">Beneficiaries</p>
+                        </div>
+                    </div>
+                </CardContent>
+            </Card>
+             <Card>
+                <CardHeader>
+                    <CardTitle className="font-headline">Trending Topics</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                   <div className="flex items-center gap-3 hover:bg-muted/50 p-2 rounded-lg cursor-pointer">
+                        <Lightbulb className="w-5 h-5 text-primary"/>
+                        <p className="font-medium">New MSME Registration Rules</p>
+                   </div>
+                   <div className="flex items-center gap-3 hover:bg-muted/50 p-2 rounded-lg cursor-pointer">
+                        <TrendingUp className="w-5 h-5 text-primary"/>
+                        <p className="font-medium">Export Opportunities in EU</p>
+                   </div>
+                   <div className="flex items-center gap-3 hover:bg-muted/50 p-2 rounded-lg cursor-pointer">
+                        <Users className="w-5 h-5 text-primary"/>
+                        <p className="font-medium">Forming an Artisan Cooperative</p>
+                   </div>
+                </CardContent>
+            </Card>
+        </div>
+
       </div>
+
     </div>
   );
 }
+
+    
