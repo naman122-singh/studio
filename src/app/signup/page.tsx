@@ -20,8 +20,8 @@ export default function SignupPage() {
   };
 
   const handleOtpSuccess = () => {
-    // Redirect to homepage or dashboard after successful verification
-    window.location.href = "/";
+    // Redirect to dashboard after successful verification
+    window.location.href = "/dashboard";
   };
 
   const handleChangeNumber = () => {
