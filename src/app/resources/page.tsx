@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { Building, Filter, Search, Bookmark, Lightbulb, TrendingUp, Users, CheckCircle, Clock, Calendar, ExternalLink } from "lucide-react";
+import { Building, Filter, Search, Bookmark, Lightbulb, TrendingUp, Users, CheckCircle, Clock, Calendar, ExternalLink, Heart } from "lucide-react";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 const schemes = [
   {
@@ -215,6 +216,22 @@ export default function ResourcesPage() {
                             </div>
                        </div>
                    ))}
+                </CardContent>
+            </Card>
+            <Card>
+                <CardHeader>
+                    <CardTitle className="font-headline flex items-center gap-2"><Heart className="text-primary"/> Success Story</CardTitle>
+                </CardHeader>
+                <CardContent className="text-center">
+                    <Avatar className="w-20 h-20 mx-auto mb-4 border-4 border-primary">
+                        <AvatarImage src="https://picsum.photos/seed/meera-kumari/100/100" data-ai-hint="artisan portrait woman" />
+                        <AvatarFallback>MK</AvatarFallback>
+                    </Avatar>
+                    <h4 className="font-bold">Meera Kumari</h4>
+                    <p className="text-sm text-muted-foreground">Pottery Artisan, Bihar</p>
+                    <blockquote className="mt-4 text-sm text-muted-foreground italic border-l-4 pl-4 text-left">
+                        "Through PM Vishwakarma scheme, I got ₹2 lakh loan and digital training. My pottery sales increased from ₹5,000 to ₹25,000 per month!"
+                    </blockquote>
                 </CardContent>
             </Card>
         </div>
