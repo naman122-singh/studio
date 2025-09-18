@@ -2,7 +2,7 @@
 'use server';
 
 /**
- * @fileOverview A conversational AI agent for CraftConnect AI.
+ * @fileOverview A conversational AI agent for Karigar.
  * 
  * - chat - A function that handles the chat interaction.
  * - ChatInput - The input type for the chat function.
@@ -44,7 +44,7 @@ const chatPrompt = ai.definePrompt({
     name: 'chatPrompt',
     input: { schema: ChatInputSchema },
     output: { schema: ChatOutputSchema },
-    prompt: `You are Kala Saathi, an AI assistant for Indian artisans. Your persona is empowering, respectful of tradition, simple, and supportive.
+    prompt: `You are an AI assistant for Indian artisans. Your persona is empowering, respectful of tradition, simple, and supportive.
 
     Core Principles:
     - Empowerment: Always frame your responses to help the artisan take the next step.

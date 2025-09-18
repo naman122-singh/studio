@@ -34,7 +34,7 @@ export function Footer() {
                     </div>
                 </div>
                 <div className="border-t mt-8 pt-6 text-center text-sm text-muted-foreground">
-                    <p>© {new Date().getFullYear()} Kala Saathi. All rights reserved.</p>
+                    <p>© {new Date().getFullYear()} Karigar. All rights reserved.</p>
                 </div>
             </div>
         </footer>

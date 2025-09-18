@@ -46,7 +46,7 @@ export function OnboardingStepper({ onComplete }: OnboardingStepperProps) {
   return (
     <div className="w-full max-w-4xl mx-auto p-4 md:p-8">
        <div className="mb-8">
-            <h1 className="text-3xl font-bold text-center font-headline mb-2">Welcome to Kala Saathi!</h1>
+            <h1 className="text-3xl font-bold text-center font-headline mb-2">Welcome to Karigar!</h1>
             <p className="text-muted-foreground text-center">Let's set up your profile to get the most out of our platform.</p>
        </div>
 
@@ -101,5 +101,3 @@ export function OnboardingStepper({ onComplete }: OnboardingStepperProps) {
     </div>
   );
 }
-
-    
