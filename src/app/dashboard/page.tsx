@@ -96,7 +96,7 @@ export default function DashboardPage() {
                             </div>
                              <div className="grid grid-cols-4 items-center gap-4">
                                 <Label htmlFor="product-revenue" className="text-right">
-                                    Revenue
+                                    Revenue (₹)
                                 </Label>
                                 <Input id="product-revenue" type="number" value={newProduct.revenue} onChange={(e) => setNewProduct({...newProduct, revenue: e.target.value})} className="col-span-3" />
                             </div>
@@ -123,7 +123,7 @@ export default function DashboardPage() {
                         <div className="grid gap-4 py-4">
                             <div className="grid grid-cols-4 items-center gap-4">
                                 <Label htmlFor="revenue" className="text-right">
-                                    Revenue
+                                    Revenue (₹)
                                 </Label>
                                 <Input id="revenue" type="number" placeholder="e.g., 5000" className="col-span-3" />
                             </div>
@@ -154,7 +154,7 @@ export default function DashboardPage() {
                 <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-                <div className="text-2xl font-bold">$45,231.89</div>
+                <div className="text-2xl font-bold">₹4,52,318.90</div>
                 <p className="text-xs text-muted-foreground">+20.1% from last month</p>
             </CardContent>
             </Card>

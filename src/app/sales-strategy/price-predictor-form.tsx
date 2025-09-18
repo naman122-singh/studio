@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -151,7 +152,7 @@ export function PricePredictorForm() {
                     name="materialCost"
                     render={({ field }) => (
                     <FormItem>
-                        <FormLabel>Material Cost</FormLabel>
+                        <FormLabel>Material Cost (₹)</FormLabel>
                         <FormControl>
                         <Input type="number" placeholder="e.g., 400" {...field} />
                         </FormControl>
@@ -217,15 +218,15 @@ export function PricePredictorForm() {
                     <div>
                         <h3 className="font-semibold mb-2 flex items-center gap-2"><DollarSign className="w-5 h-5 text-primary"/> Suggested Price Range</h3>
                         <p className="text-3xl font-bold font-headline text-center py-2">
-                           ₹{prediction.priceRange.min.toFixed(0)} - ₹{prediction.priceRange.max.toFixed(0)}
+                           ₹{prediction.priceRange.min.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} - ₹{prediction.priceRange.max.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                         </p>
                     </div>
                      <div>
                         <h3 className="font-semibold mb-2">Price Breakdown</h3>
                         <ul className="text-sm space-y-1 text-muted-foreground">
-                            <li className="flex justify-between"><span>Material Cost:</span> <span>₹{prediction.breakdown.materialCost.toFixed(2)}</span></li>
-                            <li className="flex justify-between"><span>Labor Cost:</span> <span>₹{prediction.breakdown.laborCost.toFixed(2)}</span></li>
-                            <li className="flex justify-between"><span>Artistic Premium:</span> <span>₹{prediction.breakdown.artisticPremium.toFixed(2)}</span></li>
+                            <li className="flex justify-between"><span>Material Cost:</span> <span>₹{prediction.breakdown.materialCost.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></li>
+                            <li className="flex justify-between"><span>Labor Cost:</span> <span>₹{prediction.breakdown.laborCost.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></li>
+                            <li className="flex justify-between"><span>Artistic Premium:</span> <span>₹{prediction.breakdown.artisticPremium.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></li>
                         </ul>
                     </div>
                     <div>
