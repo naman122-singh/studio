@@ -11,6 +11,7 @@ import { DashboardCharts } from "@/components/dashboard-charts";
 import Link from "next/link";
 import { SidebarTrigger } from "@/components/app-sidebar";
 import { TopProducts } from "@/components/top-products";
+import { Textarea } from "@/components/ui/textarea";
 
 export default function DashboardPage() {
   return (
@@ -41,11 +42,11 @@ export default function DashboardPage() {
                             </Label>
                             <Input id="revenue" type="number" placeholder="e.g., 5000" className="col-span-3" />
                         </div>
-                        <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="new-artisans" className="text-right">
-                                New Artisans
+                        <div className="grid grid-cols-4 items-start gap-4">
+                            <Label htmlFor="product-sales" className="text-right pt-2">
+                                Today's Sales
                             </Label>
-                            <Input id="new-artisans" type="number" placeholder="e.g., 2" className="col-span-3" />
+                            <Textarea id="product-sales" placeholder="e.g., 2 Silk Sarees, 5 Brass Lamps" className="col-span-3" />
                         </div>
                         <div className="grid grid-cols-4 items-center gap-4">
                             <Label htmlFor="sales" className="text-right">
