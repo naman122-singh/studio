@@ -61,7 +61,7 @@ const features = [
 export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-[calc(100vh-4rem)]">
-      <section className="relative flex-1 flex items-center justify-center text-center bg-background/70 fade-in">
+      <section className="relative flex items-center justify-center text-center bg-background/70 fade-in py-20 md:py-28">
         <div className="absolute inset-0 w-full h-full">
           <Image
             src="https://picsum.photos/seed/artisan-bg/1920/1080"
