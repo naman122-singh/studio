@@ -1,4 +1,5 @@
 
+
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Eye, Goal, Wand2, TrendingUp, BookText, Award, Users, HeartHandshake, Video, DollarSign, Play } from "lucide-react";
 import Image from "next/image";
@@ -102,7 +103,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section className="relative bg-background z-10 py-16 md:py-24 slide-in-up">
+      <section className="bg-background py-16 md:py-24 slide-in-up relative">
         <div className="absolute inset-0 w-full h-full">
             <Image 
                 src="https://picsum.photos/seed/mission-bg/1920/1080"
