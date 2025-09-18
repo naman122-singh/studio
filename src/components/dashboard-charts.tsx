@@ -109,7 +109,7 @@ export function DashboardCharts() {
             <Card>
                 <CardHeader>
                 <CardTitle className="font-headline">Weekly Sales</CardTitle>
-                <CardDescription>Your sales performance over the past four weeks.</CardDescription>
+                <CardDescription>A summary of sales for each week of the month.</CardDescription>
                 </CardHeader>
                 <CardContent>
                 <ChartContainer config={chartConfig} className="mx-auto aspect-square h-[250px] w-full">
