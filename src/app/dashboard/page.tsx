@@ -28,8 +28,10 @@ export default function DashboardPage() {
     const [isAddProductOpen, setIsAddProductOpen] = useState(false);
     const [newProduct, setNewProduct] = useState({ name: '', sold: '', revenue: '' });
     const [showOnboarding, setShowOnboarding] = useState(false);
+    const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
+        setIsClient(true);
         // We assume a new user is one that hasn't completed onboarding.
         // In a real app, this would be determined from user data.
         const isNewUser = !localStorage.getItem("hasCompletedOnboarding");
@@ -54,8 +56,12 @@ export default function DashboardPage() {
         setShowOnboarding(false);
     };
     
-    if (showOnboarding) {
+    if (isClient && showOnboarding) {
         return <OnboardingStepper onComplete={handleOnboardingComplete} />;
+    }
+
+    if (!isClient) {
+        return null; // Or a loading spinner
     }
 
 
