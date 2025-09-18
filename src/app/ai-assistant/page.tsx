@@ -10,10 +10,10 @@ export default function AiAssistantPage() {
         <AiAssistantIcon className="w-12 h-12 text-primary" />
         <div>
             <h1 className="text-3xl font-bold tracking-tight font-headline">
-            AI Assistant
+            AI Voice Assistant
             </h1>
             <p className="text-muted-foreground">
-            Your personal helper for business, marketing, and content.
+            Supports Hindi, English & 10+ Indian languages
             </p>
         </div>
       </header>
@@ -23,3 +23,5 @@ export default function AiAssistantPage() {
     </div>
   );
 }
+
+    

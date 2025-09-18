@@ -38,7 +38,7 @@ export function ChatAssistant() {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "initial-message",
-      content: [{ text: "Hello! I am your AI assistant. How can I help you with your business, marketing, or content creation today?" }],
+      content: [{ text: "Hello! 👋 I’m your AI Voice Assistant. You don’t need to type—just speak in the language you’re most comfortable with. I can understand and reply in Hindi, English, Tamil, Telugu, Bengali, Marathi, Gujarati, Punjabi, Kannada, Malayalam, and more. Tap the mic 🎤 and let’s talk in your language." }],
       role: "model",
     },
   ]);
@@ -294,7 +294,7 @@ export function ChatAssistant() {
             <Input
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Type or speak your message..."
+              placeholder="🎤 Speak in your language"
               className="flex-1"
               aria-label="Chat input"
               disabled={isLoading}
@@ -371,3 +371,5 @@ export function ChatAssistant() {
     </>
   );
 }
+
+    
