@@ -109,10 +109,10 @@ export default function LandingPage() {
                 src="https://picsum.photos/seed/mission-bg/1920/1080"
                 alt="Traditional Indian art pattern"
                 fill
-                className="object-cover opacity-10"
+                className="object-cover opacity-5"
                 data-ai-hint="traditional art pattern"
             />
-            <div className="absolute inset-0 bg-background/80"></div>
+            <div className="absolute inset-0 bg-background/90"></div>
         </div>
         <div className="container mx-auto px-4 relative">
           <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -132,7 +132,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section className="bg-muted relative z-10 py-16 md:py-24 slide-in-up">
+      <section className="bg-muted py-16 md:py-24 slide-in-up">
         <div className="container mx-auto px-4 text-center">
             <h2 className="text-4xl font-bold font-headline mb-4">
                 <span className="bg-gradient-to-r from-[hsl(22_85%_45%)] via-[hsl(22_90%_35%)] to-[hsl(22_95%_25%)] text-transparent bg-clip-text">
@@ -160,7 +160,7 @@ export default function LandingPage() {
         </div>
       </section>
       
-      <section className="bg-background relative z-10 py-12 slide-in-up">
+      <section className="bg-background py-12 slide-in-up">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div className="p-4">
