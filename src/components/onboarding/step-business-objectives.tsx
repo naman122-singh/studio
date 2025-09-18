@@ -95,5 +95,3 @@ export function StepBusinessObjectives() {
     </Form>
   );
 }
-
-    
