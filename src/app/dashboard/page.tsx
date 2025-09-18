@@ -27,7 +27,14 @@ export default function DashboardPage() {
     const [products, setProducts] = useState<Product[]>(initialProducts);
     const [isAddProductOpen, setIsAddProductOpen] = useState(false);
     const [newProduct, setNewProduct] = useState({ name: '', sold: '', revenue: '' });
-    const [showOnboarding, setShowOnboarding] = useState(true);
+    const [showOnboarding, setShowOnboarding] = useState(false);
+
+    useEffect(() => {
+        // We assume a new user is one that hasn't completed onboarding.
+        // In a real app, this would be determined from user data.
+        const isNewUser = !localStorage.getItem("hasCompletedOnboarding");
+        setShowOnboarding(isNewUser);
+    }, []);
 
     const handleAddProduct = () => {
         if (newProduct.name && newProduct.sold && newProduct.revenue) {
@@ -42,8 +49,13 @@ export default function DashboardPage() {
         }
     };
     
+    const handleOnboardingComplete = () => {
+        localStorage.setItem("hasCompletedOnboarding", "true");
+        setShowOnboarding(false);
+    };
+    
     if (showOnboarding) {
-        return <OnboardingStepper onComplete={() => setShowOnboarding(false)} />;
+        return <OnboardingStepper onComplete={handleOnboardingComplete} />;
     }
 
 
