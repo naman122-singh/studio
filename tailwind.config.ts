@@ -1,3 +1,4 @@
+
 import type {Config} from 'tailwindcss';
 
 export default {
@@ -14,6 +15,7 @@ export default {
         headline: ['Playfair Display', 'serif'],
         code: ['monospace'],
         hindi: ['Rajdhani', 'serif'],
+        kalam: ['Kalam', 'cursive'],
       },
       colors: {
         background: 'hsl(var(--background))',
