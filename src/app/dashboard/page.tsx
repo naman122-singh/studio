@@ -15,7 +15,13 @@ import { SidebarTrigger } from "@/components/app-sidebar";
 import { TopProducts, type Product } from "@/components/top-products";
 import { Textarea } from "@/components/ui/textarea";
 
-const initialProducts: Product[] = [];
+const initialProducts: Product[] = [
+    { name: 'Blue Pottery Vase', sold: 45, revenue: 22500 },
+    { name: 'Handwoven Silk Saree', sold: 25, revenue: 75000 },
+    { name: 'Wooden Elephant Statue', sold: 60, revenue: 30000 },
+    { name: 'Pattachitra Painting', sold: 15, revenue: 45000 },
+    { name: 'Meenakari Earrings', sold: 80, revenue: 40000 },
+];
 
 export default function DashboardPage() {
     const [products, setProducts] = useState<Product[]>(initialProducts);
