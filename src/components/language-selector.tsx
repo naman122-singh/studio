@@ -19,10 +19,11 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { indianLanguages } from "@/lib/languages"
+import { useLanguage } from "@/contexts/language-context"
 
 export function LanguageSelector() {
   const [open, setOpen] = React.useState(false)
-  const [value, setValue] = React.useState("en")
+  const { language, setLanguage } = useLanguage();
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -34,7 +35,7 @@ export function LanguageSelector() {
           className="w-auto justify-between"
         >
           <Globe className="mr-2" />
-          {indianLanguages.find((language) => language.code === value)?.name || "Language"}
+          {indianLanguages.find((lang) => lang.code === language)?.name || "Language"}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -43,23 +44,22 @@ export function LanguageSelector() {
           <CommandInput placeholder="Search language..." />
           <CommandEmpty>No language found.</CommandEmpty>
           <CommandGroup className="max-h-60 overflow-y-auto">
-            {indianLanguages.map((language) => (
+            {indianLanguages.map((lang) => (
               <CommandItem
-                key={language.code}
-                value={language.name}
+                key={lang.code}
+                value={lang.name}
                 onSelect={(currentValue) => {
-                  setValue(language.code)
+                  setLanguage(lang.code)
                   setOpen(false)
-                  // Here you would typically trigger the language change logic
                 }}
               >
                 <Check
                   className={cn(
                     "mr-2 h-4 w-4",
-                    value === language.code ? "opacity-100" : "opacity-0"
+                    language === lang.code ? "opacity-100" : "opacity-0"
                   )}
                 />
-                {language.name}
+                {lang.name}
               </CommandItem>
             ))}
           </CommandGroup>

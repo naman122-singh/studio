@@ -18,6 +18,7 @@ import { DevicePreviewControls } from "@/components/device-preview-controls";
 import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { LanguageProvider } from "@/contexts/language-context";
 
 function LayoutContent({ children }: { children: ReactNode }) {
     const { width } = useDevicePreview();
@@ -100,37 +101,39 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <DevicePreviewProvider>
-            {isDashboard ? (
-                <LayoutContent>{children}</LayoutContent>
-            ) : (
-                <div className="flex flex-col min-h-screen">
-                    <Header />
-                    <main className="flex-1">
-                        {children}
-                    </main>
-                    <Footer />
-                </div>
-            )}
-            
-            <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-4">
-              <Sheet>
-                <SheetTrigger asChild>
-                  <Button size="icon" className="rounded-full w-14 h-14 shadow-lg transition-transform duration-300 hover:scale-110">
-                    <MessageCircle className="w-6 h-6" />
-                    <span className="sr-only">Open AI Assistant</span>
-                  </Button>
-                </SheetTrigger>
-                <SheetContent className="w-full sm:max-w-lg p-0">
-                  <SheetHeader className="p-4 border-b">
-                    <SheetTitle className="font-headline">AI Assistant</SheetTitle>
-                  </SheetHeader>
-                  <div className="h-[calc(100svh-4.5rem)]">
-                    <ChatAssistant />
+            <LanguageProvider>
+              {isDashboard ? (
+                  <LayoutContent>{children}</LayoutContent>
+              ) : (
+                  <div className="flex flex-col min-h-screen">
+                      <Header />
+                      <main className="flex-1">
+                          {children}
+                      </main>
+                      <Footer />
                   </div>
-                </SheetContent>
-              </Sheet>
-            </div>
-            <Toaster />
+              )}
+              
+              <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-4">
+                <Sheet>
+                  <SheetTrigger asChild>
+                    <Button size="icon" className="rounded-full w-14 h-14 shadow-lg transition-transform duration-300 hover:scale-110">
+                      <MessageCircle className="w-6 h-6" />
+                      <span className="sr-only">Open AI Assistant</span>
+                    </Button>
+                  </SheetTrigger>
+                  <SheetContent className="w-full sm:max-w-lg p-0">
+                    <SheetHeader className="p-4 border-b">
+                      <SheetTitle className="font-headline">AI Assistant</SheetTitle>
+                    </SheetHeader>
+                    <div className="h-[calc(100svh-4.5rem)]">
+                      <ChatAssistant />
+                    </div>
+                  </SheetContent>
+                </Sheet>
+              </div>
+              <Toaster />
+            </LanguageProvider>
           </DevicePreviewProvider>
         </ThemeProvider>
       </body>
