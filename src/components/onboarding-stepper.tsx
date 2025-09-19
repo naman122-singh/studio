@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { cn } from "@/lib/utils";
 import { StepBusinessDetails } from "./onboarding/step-business-details";
@@ -67,7 +67,7 @@ export function OnboardingStepper({ onComplete }: OnboardingStepperProps) {
 
   const handleBack = () => {
     if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
+      setCurrentStep(currentStep + 1);
     }
   };
   
