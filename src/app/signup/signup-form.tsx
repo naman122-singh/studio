@@ -200,7 +200,7 @@ export function SignupForm({ onSuccess }: SignupFormProps) {
                             <Command>
                                 <CommandInput placeholder="Search language..." />
                                 <CommandEmpty>No language found.</CommandEmpty>
-                                <CommandGroup>
+                                <CommandGroup className="max-h-60 overflow-y-auto">
                                 {indianLanguages.map((language) => (
                                     <CommandItem
                                     value={language.name}
@@ -254,7 +254,7 @@ export function SignupForm({ onSuccess }: SignupFormProps) {
                                 <Command>
                                     <CommandInput placeholder="Search state..." />
                                     <CommandEmpty>No state found.</CommandEmpty>
-                                    <CommandGroup>
+                                    <CommandGroup className="max-h-60 overflow-y-auto">
                                     {locationData.states.map((state) => (
                                         <CommandItem
                                         value={state.name}
@@ -301,7 +301,7 @@ export function SignupForm({ onSuccess }: SignupFormProps) {
                                 <Command>
                                     <CommandInput placeholder="Search district..." />
                                     <CommandEmpty>No district found.</CommandEmpty>
-                                    <CommandGroup>
+                                    <CommandGroup className="max-h-60 overflow-y-auto">
                                     {districts.map((district) => (
                                         <CommandItem
                                             value={district.name}
@@ -347,7 +347,7 @@ export function SignupForm({ onSuccess }: SignupFormProps) {
                                 <Command>
                                     <CommandInput placeholder="Search city..." />
                                     <CommandEmpty>No city found.</CommandEmpty>
-                                    <CommandGroup>
+                                    <CommandGroup className="max-h-60 overflow-y-auto">
                                     {cities.map((city) => (
                                         <CommandItem
                                             value={city}
