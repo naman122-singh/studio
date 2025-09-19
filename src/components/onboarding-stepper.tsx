@@ -67,7 +67,7 @@ export function OnboardingStepper({ onComplete }: OnboardingStepperProps) {
 
   const handleBack = () => {
     if (currentStep > 1) {
-      setCurrentStep(currentStep + 1);
+      setCurrentStep(currentStep - 1);
     }
   };
   
