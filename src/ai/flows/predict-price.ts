@@ -50,20 +50,22 @@ Analyze the provided image, description, and crafting details. Consider the foll
 - Market demand for similar items
 - Uniqueness and artistic value
 
+All currency values should be in Indian Rupees (₹).
+
 Artisan's Inputs:
 - Product Image: {{media url=productImageUri}}
 - Product Description: {{{productDescription}}}
 - Crafting Time: {{{craftingTime}}} hours
-- Material Cost: {{{materialCost}}}
+- Material Cost: ₹{{{materialCost}}}
 - Skill Level: {{{skillLevel}}}
 
 Based on your analysis:
-1.  Calculate a suggested price range (min and max).
-2.  Provide a price breakdown:
+1.  Calculate a suggested price range (min and max) in INR.
+2.  Provide a price breakdown in INR:
     - Material Cost: Use the provided value.
-    - Labor Cost: Estimate a fair hourly wage based on skill level and craft type (e.g., Expert potter might be $25/hr, Beginner weaver $15/hr). Multiply by crafting time.
+    - Labor Cost: Estimate a fair hourly wage based on skill level and craft type (e.g., Expert potter might be ₹800/hr, Beginner weaver ₹300/hr). Multiply by crafting time.
     - Artistic Premium: Add a premium based on the perceived uniqueness, complexity, and artistic merit from the image and description.
-3.  Provide a short market comparison summary (e.g., "This price is competitive with similar hand-thrown ceramic mugs on platforms like Etsy, which average around $XX.").
+3.  Provide a short market comparison summary (e.g., "This price is competitive with similar hand-thrown ceramic mugs on platforms like Etsy, which average around ₹XX.").
 
 Return the result in the specified JSON format.
 `,
