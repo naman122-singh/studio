@@ -21,7 +21,7 @@ export function StepDataCollection() {
         <FormField
           control={form.control}
           name="productImages"
-          render={({ field }) => (
+          render={({ field: { onChange, onBlur, name, ref } }) => (
             <FormItem>
               <FormLabel className="text-lg font-semibold">Upload product images/videos</FormLabel>
               <FormControl>
@@ -32,7 +32,16 @@ export function StepDataCollection() {
                             <p className="mb-2 text-sm text-muted-foreground"><span className="font-semibold">Click to upload</span> or drag and drop</p>
                             <p className="text-xs text-muted-foreground">SVG, PNG, JPG, GIF, MP4, MOV</p>
                         </div>
-                        <Input id="dropzone-file" type="file" multiple className="hidden" {...field} />
+                        <Input 
+                            id="dropzone-file" 
+                            type="file" 
+                            multiple 
+                            className="hidden" 
+                            onChange={(e) => onChange(e.target.files)}
+                            onBlur={onBlur}
+                            name={name}
+                            ref={ref}
+                        />
                     </label>
                 </div> 
               </FormControl>
