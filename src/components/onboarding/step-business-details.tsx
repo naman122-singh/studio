@@ -79,34 +79,34 @@ export function StepBusinessDetails() {
                   <FormItem>
                     <FormControl>
                         <RadioGroupItem value="individual" id="individual" className="peer sr-only"/>
-                        <label htmlFor="individual" className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer">
-                            Individual
-                        </label>
                     </FormControl>
+                    <label htmlFor="individual" className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer">
+                        Individual
+                    </label>
                   </FormItem>
                   <FormItem>
                     <FormControl>
                          <RadioGroupItem value="family-run" id="family-run" className="peer sr-only"/>
-                         <label htmlFor="family-run" className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer">
-                            Family-run
-                        </label>
                     </FormControl>
+                     <label htmlFor="family-run" className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer">
+                        Family-run
+                    </label>
                   </FormItem>
                    <FormItem>
                     <FormControl>
                         <RadioGroupItem value="cooperative" id="cooperative" className="peer sr-only"/>
-                         <label htmlFor="cooperative" className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer">
-                           Cooperative
-                        </label>
                     </FormControl>
+                     <label htmlFor="cooperative" className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer">
+                       Cooperative
+                    </label>
                   </FormItem>
                    <FormItem>
                     <FormControl>
                         <RadioGroupItem value="small-enterprise" id="small-enterprise" className="peer sr-only"/>
-                        <label htmlFor="small-enterprise" className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer">
-                             Small Enterprise
-                        </label>
                     </FormControl>
+                    <label htmlFor="small-enterprise" className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer">
+                         Small Enterprise
+                    </label>
                   </FormItem>
                 </RadioGroup>
               </FormControl>
