@@ -8,11 +8,13 @@ import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Line, LineChart, Pie, PieCh
 import { TrendingUp, FileText } from 'lucide-react';
 import { YearlyProgressChart } from "./yearly-progress-chart";
 
+const chartColors = ['#9b59b6', '#e91e63', '#3498db', '#2980b9', '#1abc9c', '#f1c40f', '#e74c3c'];
+
 const weeklySalesData = [
-  { week: "Week 1", sales: 150, fill: "var(--color-chart-1)" },
-  { week: "Week 2", sales: 180, fill: "var(--color-chart-2)" },
-  { week: "Week 3", sales: 220, fill: "var(--color-chart-3)" },
-  { week: "Week 4", sales: 200, fill: "var(--color-chart-4)" },
+  { week: "Week 1", sales: 150, fill: chartColors[0] },
+  { week: "Week 2", sales: 180, fill: chartColors[1] },
+  { week: "Week 3", sales: 220, fill: chartColors[2] },
+  { week: "Week 4", sales: 200, fill: chartColors[3] },
 ]
 
 const chartConfig = {
@@ -21,50 +23,50 @@ const chartConfig = {
     },
     "chart-1": {
         label: "Chart 1",
-        color: "hsl(var(--chart-1))",
+        color: chartColors[0],
     },
     "chart-2": {
         label: "Chart 2",
-        color: "hsl(var(--chart-2))",
+        color: chartColors[1],
     },
     "chart-3": {
         label: "Chart 3",
-        color: "hsl(var(--chart-3))",
+        color: chartColors[2],
     },
     "chart-4": {
         label: "Chart 4",
-        color: "hsl(var(--chart-4))",
+        color: chartColors[3],
     },
     "chart-5": {
         label: "Chart 5",
-        color: "hsl(var(--chart-5))",
+        color: chartColors[4],
     },
     "Week 1": {
         label: "Week 1",
-        color: "hsl(var(--chart-1))",
+        color: chartColors[0],
     },
     "Week 2": {
         label: "Week 2",
-        color: "hsl(var(--chart-2))",
+        color: chartColors[1],
     },
     "Week 3": {
         label: "Week 3",
-        color: "hsl(var(--chart-3))",
+        color: chartColors[2],
     },
     "Week 4": {
         label: "Week 4",
-        color: "hsl(var(--chart-4))",
+        color: chartColors[3],
     },
 } satisfies ChartConfig
 
 const dailySalesData = [
-    { day: "Sun", sales: 90, fill: "var(--color-chart-1)" },
-    { day: "Mon", sales: 140, fill: "var(--color-chart-2)" },
-    { day: "Tue", sales: 160, fill: "var(--color-chart-3)" },
-    { day: "Wed", sales: 150, fill: "var(--color-chart-4)" },
-    { day: "Thu", sales: 180, fill: "var(--color-chart-5)" },
-    { day: "Fri", sales: 210, fill: "var(--color-chart-1)" },
-    { day: "Sat", sales: 190, fill: "var(--color-chart-2)" },
+    { day: "Sun", sales: 90, fill: chartColors[0] },
+    { day: "Mon", sales: 140, fill: chartColors[1] },
+    { day: "Tue", sales: 160, fill: chartColors[2] },
+    { day: "Wed", sales: 150, fill: chartColors[3] },
+    { day: "Thu", sales: 180, fill: chartColors[4] },
+    { day: "Fri", sales: 210, fill: chartColors[5] },
+    { day: "Sat", sales: 190, fill: chartColors[6] },
 ]
 
 export function DashboardCharts() {

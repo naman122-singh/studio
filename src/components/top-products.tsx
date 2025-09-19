@@ -21,11 +21,11 @@ interface TopProductsProps {
 }
 
 const productColors = [
-    "bg-[hsl(var(--chart-1))]",
-    "bg-[hsl(var(--chart-2))]",
-    "bg-[hsl(var(--chart-3))]",
-    "bg-[hsl(var(--chart-4))]",
-    "bg-[hsl(var(--chart-5))]",
+    "bg-[#9b59b6]",
+    "bg-[#e91e63]",
+    "bg-[#3498db]",
+    "bg-[#2980b9]",
+    "bg-[#1abc9c]",
 ]
 
 export function TopProducts({ products }: TopProductsProps) {
