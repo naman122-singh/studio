@@ -58,8 +58,8 @@ const chatPrompt = ai.definePrompt({
     
     Conversation History:
     {{#each history}}
-        {{#if (eq this.role 'user')}}From user: {{/if}}
-        {{#if (eq this.role 'model')}}From you: {{/if}}
+        {{#if this.isUser}}From user: {{/if}}
+        {{#if this.isModel}}From you: {{/if}}
         {{#each this.content}}
             {{#if text}}{{text}}{{/if}}
             {{#if media}}User has uploaded a file.{{/if}}
@@ -78,8 +78,12 @@ const chatFlow = ai.defineFlow(
         outputSchema: ChatOutputSchema,
     },
     async (input) => {
-        const { output } = await chatPrompt(input);
+        const history = input.history.map(m => ({
+          ...m,
+          isUser: m.role === 'user',
+          isModel: m.role === 'model',
+        }));
+        const { output } = await chatPrompt({ ...input, history });
         return { message: output!.message };
     }
 );
-
