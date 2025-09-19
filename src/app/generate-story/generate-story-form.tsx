@@ -11,7 +11,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Mic, Rocket, Square, Languages, QrCode, Check, ChevronsUpDown, Upload, Camera, Video, AlertTriangle } from "lucide-react";
+import { Loader2, Mic, Rocket, Square, Languages, QrCode, Check, ChevronsUpDown, Upload, Camera, Video, AlertTriangle, Download } from "lucide-react";
 import Image from "next/image";
 import { Textarea } from "@/components/ui/textarea";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -56,11 +56,19 @@ type FormValues = z.infer<typeof formSchema>;
 type StoryOutput = {
   originalTranscription: string;
   translatedStories: Record<string, string>;
+  craftStory?: {
+    craftDescription: string;
+    makingTechniques: string;
+    historyOfCraft: string;
+    culturalReferences: string;
+    aboutCraftsperson: string;
+  };
+  qrCodeUrl?: string;
 };
 
 export function GenerateStoryForm() {
   const [isRecording, setIsRecording] = useState(false);
-  const [audioDataUri, setAudioDataUri] = useState<string | null>(null);
+  const [mediaDataUri, setMediaDataUri] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [storyOutput, setStoryOutput] = useState<StoryOutput | null>(null);
   const [qrCodes, setQrCodes] = useState<Record<string, string>>({});
@@ -68,10 +76,10 @@ export function GenerateStoryForm() {
   const audioChunksRef = useRef<Blob[]>([]);
   const { toast } = useToast();
 
-  // For camera
   const [isCameraOpen, setIsCameraOpen] = useState(false);
   const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(null);
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [mediaPreview, setMediaPreview] = useState<string | null>(null);
+  const [mediaType, setMediaType] = useState<'audio' | 'video' | 'image' | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -133,14 +141,18 @@ export function GenerateStoryForm() {
         const reader = new FileReader();
         reader.readAsDataURL(audioBlob);
         reader.onloadend = () => {
-          setAudioDataUri(reader.result as string);
+          setMediaDataUri(reader.result as string);
+          setMediaPreview(reader.result as string);
+          setMediaType('audio');
         };
         stream.getTracks().forEach(track => track.stop());
       };
 
       mediaRecorderRef.current.start();
       setIsRecording(true);
-      setAudioDataUri(null);
+      setMediaDataUri(null);
+      setMediaPreview(null);
+      setMediaType(null);
     } catch (err) {
       console.error("Error accessing microphone:", err);
       toast({
@@ -163,12 +175,18 @@ export function GenerateStoryForm() {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
+        const dataUrl = reader.result as string;
+        setMediaDataUri(dataUrl);
+        setMediaPreview(dataUrl);
+
         if (file.type.startsWith('audio/')) {
-            setAudioDataUri(reader.result as string);
+            setMediaType('audio');
+        } else if (file.type.startsWith('video/')) {
+            setMediaType('video');
         } else if (file.type.startsWith('image/')) {
-            setImagePreview(reader.result as string);
+            setMediaType('image');
         } else {
-            toast({ title: "Unsupported file type", description: "Please upload an audio or image file.", variant: "destructive" });
+            toast({ title: "Unsupported file type", description: "Please upload an audio, video or image file.", variant: "destructive" });
         }
       };
       reader.readAsDataURL(file);
@@ -185,15 +203,27 @@ export function GenerateStoryForm() {
       if (context) {
         context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
         const dataUrl = canvas.toDataURL('image/webp');
-        setImagePreview(dataUrl);
+        setMediaDataUri(dataUrl);
+        setMediaPreview(dataUrl);
+        setMediaType('image');
       }
       setIsCameraOpen(false);
     }
   };
+
+  const handleDownloadQr = () => {
+    if (!storyOutput?.qrCodeUrl) return;
+    const link = document.createElement('a');
+    link.href = storyOutput.qrCodeUrl;
+    link.download = 'craft-story-qr-code.png';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
   
   async function onSubmit(values: FormValues) {
-    if (!audioDataUri) {
-        toast({ title: "No Audio", description: "Please record your story first.", variant: "destructive" });
+    if (!mediaDataUri) {
+        toast({ title: "No Media", description: "Please record or upload your story first.", variant: "destructive" });
         return;
     }
     setIsLoading(true);
@@ -203,7 +233,7 @@ export function GenerateStoryForm() {
     try {
       const result = await generateProductStories({
         ...values,
-        voiceRecordingDataUri: audioDataUri,
+        mediaDataUri: mediaDataUri,
       });
       setStoryOutput(result);
     } catch (error) {
@@ -222,11 +252,11 @@ export function GenerateStoryForm() {
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <CardHeader>
               <CardTitle className="font-headline">Tell Your Story</CardTitle>
-              <CardDescription>Record a description of your product, select languages, and let AI do the rest.</CardDescription>
+              <CardDescription>Record audio or upload a video of your product's story, select languages, and let AI do the rest.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <FormItem>
-                <FormLabel>1. Provide Your Story</FormLabel>
+                <FormLabel>1. Provide Your Story (Audio or Video)</FormLabel>
                 <div className="p-4 bg-muted rounded-lg space-y-4">
                     <div className="flex items-center gap-4">
                         <Button type="button" size="icon" variant={isRecording ? "destructive" : "outline"} onClick={isRecording ? handleStopRecording : handleStartRecording}>
@@ -236,14 +266,13 @@ export function GenerateStoryForm() {
                             <p className="text-sm font-medium">{isRecording ? "Recording..." : "Record Audio"}</p>
                             <p className="text-xs text-muted-foreground">{isRecording ? "Click to stop." : "Click microphone to start."}</p>
                         </div>
-                        {audioDataUri && !isRecording && (
-                            <audio src={audioDataUri} controls className="h-10" />
-                        )}
                     </div>
-                    {imagePreview && (
+                    {mediaPreview && (
                         <div className="relative w-fit mx-auto">
-                            <Image src={imagePreview} alt="Preview" width={150} height={150} className="object-cover rounded-md"/>
-                            <Button variant="destructive" size="sm" className="absolute top-1 right-1 h-auto py-1 px-2 text-xs" onClick={() => setImagePreview(null)}>Remove</Button>
+                            {mediaType === 'audio' && <audio src={mediaPreview} controls className="h-10" />}
+                            {mediaType === 'video' && <video src={mediaPreview} controls className="max-h-40 rounded-md" />}
+                            {mediaType === 'image' && <Image src={mediaPreview} alt="Preview" width={150} height={150} className="object-cover rounded-md"/>}
+                            <Button variant="destructive" size="sm" className="absolute top-1 right-1 h-auto py-1 px-2 text-xs" onClick={() => { setMediaPreview(null); setMediaDataUri(null); setMediaType(null); }}>Remove</Button>
                         </div>
                     )}
                     <div className="flex items-center gap-4">
@@ -278,7 +307,7 @@ export function GenerateStoryForm() {
                 name="targetLanguages"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>3. Select Languages</FormLabel>
+                    <FormLabel>3. Select Translation Languages</FormLabel>
                     <Popover>
                       <PopoverTrigger asChild>
                         <FormControl>
@@ -334,7 +363,7 @@ export function GenerateStoryForm() {
               />
             </CardContent>
             <CardFooter>
-              <Button type="submit" disabled={isLoading || !audioDataUri}>
+              <Button type="submit" disabled={isLoading || !mediaDataUri}>
                 {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Rocket className="mr-2 h-4 w-4" />}
                 Generate Stories
               </Button>
@@ -346,7 +375,7 @@ export function GenerateStoryForm() {
       <Card>
         <CardHeader>
           <CardTitle className="font-headline">Generated Content</CardTitle>
-          <CardDescription>Your original transcription and translated stories will appear here.</CardDescription>
+          <CardDescription>Your original transcription, craft story, and translated stories will appear here.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           {isLoading && <div className="space-y-4">
@@ -355,6 +384,31 @@ export function GenerateStoryForm() {
             </div>}
           {storyOutput && (
             <>
+             {storyOutput.qrCodeUrl && storyOutput.craftStory && (
+                <div className="p-4 border rounded-lg bg-muted/50">
+                    <h3 className="font-semibold mb-2">Your Craft Story QR Code</h3>
+                    <div className="flex flex-col md:flex-row gap-4 items-center">
+                        <Image
+                            src={storyOutput.qrCodeUrl}
+                            alt="QR code for craft story"
+                            width={150}
+                            height={150}
+                            className="rounded-md border bg-white p-1"
+                        />
+                        <div className="flex-1 space-y-3">
+                            <p className="text-sm text-muted-foreground">Scan this QR code to view and share the unique story of your craft, created from your video.</p>
+                            <Button onClick={handleDownloadQr} size="sm">
+                                <Download className="mr-2"/> Download QR Code
+                            </Button>
+                        </div>
+                    </div>
+                     <div className="mt-4 space-y-2">
+                        <h4 className="font-medium">Craft Story Details:</h4>
+                        <p className="text-sm text-muted-foreground"><strong>Description:</strong> {storyOutput.craftStory.craftDescription}</p>
+                        <p className="text-sm text-muted-foreground"><strong>Techniques:</strong> {storyOutput.craftStory.makingTechniques}</p>
+                    </div>
+                </div>
+              )}
               <div>
                 <h3 className="font-semibold mb-2">Original Transcription</h3>
                 <Textarea readOnly value={storyOutput.originalTranscription} className="bg-muted" rows={4}/>
