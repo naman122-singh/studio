@@ -101,10 +101,10 @@ export default function LandingPage() {
       <section className="bg-background py-16 md:py-24 slide-in-up relative">
         <div className="absolute inset-0 w-full h-full">
             <Image 
-                src="https://picsum.photos/seed/mission-bg/1920/1080"
+                src="https://media.craftmaestros.com/media/magefan_blog/The_culture_of_Indian_craft.png"
                 alt="Traditional Indian art pattern"
                 fill
-                className="object-cover opacity-20"
+                className="object-cover opacity-20 blur-md"
                 data-ai-hint="traditional art pattern"
             />
             <div className="absolute inset-0 bg-black/60"></div>
