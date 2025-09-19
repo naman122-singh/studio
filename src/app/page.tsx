@@ -73,7 +73,7 @@ export default function LandingPage() {
           <h2 className="text-4xl md:text-6xl font-bold font-headline mb-6">
             Your AI Craft Companion
           </h2>
-          <p className="font-hindi font-bold text-3xl md:text-4xl text-foreground/80 mb-6">
+          <p className="font-hindi font-headline text-3xl md:text-4xl text-foreground/80 mb-6">
             हर कला का घर, यही है कारीगर
           </p>
           <p className="max-w-3xl mx-auto text-lg md:text-xl text-muted-foreground mb-8">
