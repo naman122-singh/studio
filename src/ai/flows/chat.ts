@@ -2,7 +2,7 @@
 'use server';
 
 /**
- * @fileOverview A conversational AI agent for Karigar.
+ * @fileOverview A conversational AI agent for कारीगर.
  * 
  * - chat - A function that handles the chat interaction.
  * - ChatInput - The input type for the chat function.
@@ -58,8 +58,8 @@ const chatPrompt = ai.definePrompt({
     
     Conversation History:
     {{#each history}}
-        {{#if this.isUser}}From user: {{/if}}
-        {{#if this.isModel}}From you: {{/if}}
+        {{#if (eq this.role 'user')}}From user: {{/if}}
+        {{#if (eq this.role 'model')}}From you: {{/if}}
         {{#each this.content}}
             {{#if text}}{{text}}{{/if}}
             {{#if media}}User has uploaded a file.{{/if}}
@@ -78,12 +78,7 @@ const chatFlow = ai.defineFlow(
         outputSchema: ChatOutputSchema,
     },
     async (input) => {
-        const history = input.history.map(m => ({
-          ...m,
-          isUser: m.role === 'user',
-          isModel: m.role === 'model',
-        }));
-        const { output } = await chatPrompt({ ...input, history });
+        const { output } = await chatPrompt(input);
         return { message: output!.message };
     }
 );

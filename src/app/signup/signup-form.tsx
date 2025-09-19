@@ -93,7 +93,7 @@ export function SignupForm({ onSuccess }: SignupFormProps) {
     <Card className="w-full">
          <CardHeader>
             <CardTitle className="font-headline text-2xl">Create Your Account</CardTitle>
-            <CardDescription>Fill in your details to get started with Karigar.</CardDescription>
+            <CardDescription>Fill in your details to get started with कारीगर.</CardDescription>
         </CardHeader>
         <CardContent>
             <Form {...form}>

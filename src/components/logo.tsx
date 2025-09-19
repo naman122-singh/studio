@@ -23,7 +23,7 @@ export function Logo({ className }: { className?: string }) {
         />
       </svg>
       <span className="font-headline text-xl font-semibold tracking-wide flex items-center gap-2">
-        <span className="font-headline text-2xl font-normal">Karigar</span>
+        <span className="font-hindi text-2xl font-normal">कारीगर</span>
       </span>
     </Link>
   );
