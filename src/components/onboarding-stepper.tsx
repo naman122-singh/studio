@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { cn } from "@/lib/utils";
 import { StepBusinessDetails } from "./onboarding/step-business-details";
@@ -132,6 +132,7 @@ export function OnboardingStepper({ onComplete }: OnboardingStepperProps) {
                 {currentStep === steps.length ? "Finish" : "Next"}
                 </Button>
             </div>
+        </div>
         </div>
     </FormProvider>
   );
